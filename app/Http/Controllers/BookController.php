@@ -31,7 +31,6 @@ class BookController extends Controller
             'description' => 'required',
             'image' => 'required',
             'price' => 'required',
-            'category_id' => 'required',
         ]);
 
         $book['image'] = request()->image->store('images', 'public');

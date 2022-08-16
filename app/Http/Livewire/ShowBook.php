@@ -12,7 +12,7 @@ class ShowBook extends Component
     public $item;
     public $show = false;
     public $selectedBook;
-    public $category = null;
+
 
     use \Livewire\WithPagination;
     public $searchTerm;
@@ -33,12 +33,7 @@ class ShowBook extends Component
         $this->show = false;
     }
 
-    public function selectCategory($category)
-    {
-        $this->category = $category;
 
-        ddd($category);
-    }
 
 
 

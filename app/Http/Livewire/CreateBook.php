@@ -10,9 +10,7 @@ class CreateBook extends Component
 {
     public $categories;
 
-    public function mount(){
-        $this->categories = Category::all();
-    }
+
 
     public function render()
     {
@@ -20,7 +18,7 @@ class CreateBook extends Component
     }
 
 
-   
+
 
 
 }

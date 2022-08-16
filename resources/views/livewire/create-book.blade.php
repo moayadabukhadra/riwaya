@@ -28,14 +28,6 @@
                         @error('image') <span class="text-danger error">{{ $message }}</span>@enderror
                     </header>
                 </section>
-                <!-- category select-->
-                <select class="form-control" name="category_id">
-                    <option value="" selected>Choose category</option>
-                    @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-                @error('category') <span class="text-danger error">{{ $message }}</span>@enderror
 
                 <div class="relative pt-4">
                     <label for="name" class="text-base leading-7 text-blueGray-500">Book Title</label>
