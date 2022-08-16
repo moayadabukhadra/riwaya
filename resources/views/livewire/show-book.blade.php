@@ -49,7 +49,7 @@
                         @else
                         @livewire('login-modal')
                         @endif
-                      <x-session-message/>
+                        <x-session-message />
                     </div>
                 </div>
 
