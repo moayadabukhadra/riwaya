@@ -24,7 +24,7 @@ Route::get('/', function () {
 
 
 // admin
-Route::view('create-book','livewire.create-book',['categories' => Category::all()])->middleware('admin');
+Route::view('create-book','livewire.create-book')->middleware('admin');
 Route::post('create-book',[BookController::class,'store'])->middleware('admin');
 Route::patch('orders',[OrderController::class,'update'])->middleware('admin');
 Route::view('orders','components.admin')->middleware('admin');

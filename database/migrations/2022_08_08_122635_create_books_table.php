@@ -22,7 +22,6 @@ class CreateBooksTable extends Migration
             $table->string('price')->nullable();
             $table->float('rating', 0, 5)->nullable();
             $table->string('language')->nullable();
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

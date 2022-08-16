@@ -20,10 +20,7 @@ class Book extends Model
         'language',
     ];
 
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class);
-    }
+
 
     public function cart()
     {
