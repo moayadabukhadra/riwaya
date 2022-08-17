@@ -24,6 +24,7 @@ class Nav extends Component
     {
         Auth::logout();
         $this->emit('logout');
+        return redirect('/login-register');
     }
 
     public function language($language)
