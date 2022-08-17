@@ -40,5 +40,14 @@ Route::post('check-out',[OrderController::class,'store'])->middleware('auth');
 Route::get('logout',[LoginRegister::class,'logout'])->middleware('auth');
 
 
-Route::view('home','livewire.home');
+
 Route::view('dashboard','livewire.dashboard');
+
+
+
+
+
+
+
+
+
