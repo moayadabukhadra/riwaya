@@ -47,6 +47,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         @if(auth()->check())
                         <div class="flex mt-4">
                             <span class="text-2xl font-medium text-gray-900 title-font">{{ $selectedBook->price }}jd</span>
@@ -61,7 +62,7 @@
                         @livewire('login-modal')
                         @endif
                         <x-session-message />
-                        @endif
+
 
 
                     </div>

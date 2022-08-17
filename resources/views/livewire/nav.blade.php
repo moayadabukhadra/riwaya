@@ -29,6 +29,13 @@
             <li class="nav-item">
                 <a class="nav-link " wire:click.prevent="logout">Logout</a>
             </li>
+            <a href="/shopping-cart">
+            <li class="flex text-red-500 nav-item justify-selfcol-end-1 text-end" >
+
+            <img src="https://img.icons8.com/ios-glyphs/30/FA5252/shopping-cart--v1.png"/>{{ \Cart::getTotalQuantity() }}
+
+            </li>
+            </a>
         </ul>
         <form class="my-2 form-inline my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" wire:model="searchTerm">
@@ -54,10 +61,10 @@
 
 
             <li class="nav-item">
-                <a class="nav-link " href="login-register">Register</a>
+                <a class="nav-link " href="/login-register">Register</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="login-register">Login</a>
+                <a class="nav-link" href="/login-register">Login</a>
             </li>
 
         </ul>
