@@ -3,6 +3,7 @@
     @if(!$show)
 
 
+
     <div tabindex="0" class="focus:outline-none">
 
         <div class="container py-8 mx-auto">
@@ -10,13 +11,12 @@
 
 
                 @foreach($books as $book)
-                <x-cards.sm-book-card :book="$book" wire="show({{ $book->id}})" />
+                <x-cards.sm-book-card :book="$book" wire="show({{ $book->id}})" :lang=$language />
                 @endforeach
 
             </div>
         </div>
         <div class="flex justify-center mb-4">
-            {{ $books->links() }}
         </div>
 
 
@@ -26,8 +26,9 @@
         <section class="overflow-hidden text-gray-700 bg-white body-font">
             <div class="container px-5 py-24 mx-auto">
                 <div class="flex flex-wrap mx-auto lg:w-4/5">
-                    <img alt="ecommerce" class="object-cover object-center w-full border border-gray-200 rounded lg:w-1/2" src="{{ asset('storage/'.$selectedBook->image) }}">
+                    <img class="object-cover object-center w-full border border-gray-200 rounded lg:w-1/2" src="{{ asset('storage/'.$selectedBook->image) }}">
                     <div class="w-full mt-6 lg:w-1/2 lg:pl-10 lg:py-6 lg:mt-0">
+                        @if($language == 'en')
                         <h2 class="text-sm tracking-widest text-gray-500 title-font">{{ $selectedBook->author }}</h2>
                         <h1 class="mb-1 text-3xl font-medium text-gray-900 title-font">{{ $selectedBook->title }}</h1>
                         <div class="flex mb-4">
@@ -35,7 +36,17 @@
 
                         </div>
                         <p class="leading-relaxed">{{ $selectedBook->description}}</p>
+                        @else
+                        <h2 class="text-sm tracking-widest text-gray-500 title-font">{{ $selectedBook->translate('ar')->author }}</h2>
+                        <h1 class="mb-1 text-3xl font-medium text-gray-900 title-font">{{ $selectedBook->translate('ar')->title }}</h1>
+                        <div class="flex mb-4">
+                            <div class="flex items-center">
+                                <div class="flex items-center">
 
+                                    <p class="text-sm leading-relaxed">{{ $selectedBook->translate('ar')->description }}</p>
+                                </div>
+                            </div>
+                        </div>
                         @if(auth()->check())
                         <div class="flex mt-4">
                             <span class="text-2xl font-medium text-gray-900 title-font">{{ $selectedBook->price }}jd</span>
@@ -50,6 +61,9 @@
                         @livewire('login-modal')
                         @endif
                         <x-session-message />
+                        @endif
+
+
                     </div>
                 </div>
 
@@ -65,14 +79,13 @@
 
 
                 @foreach($books as $book)
-                <x-cards.sm-book-card :book="$book" wire="show({{ $book->id}})" />
+                <x-cards.sm-book-card :book="$book" wire="show({{ $book->id}})" :lang=$language />
                 @endforeach
 
             </div>
 
         </div>
         <div class="flex justify-center mb-4">
-            {{ $books->links() }}
         </div>
 
     </div>

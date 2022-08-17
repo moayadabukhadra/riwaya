@@ -23,25 +23,30 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
+
     {
-        $book = request()->validate([
-            'title' => 'required',
-            'author' => 'required',
-            'description' => 'required',
-            'image' => 'required',
-            'price' => 'required',
-        ]);
+        $bookdata=[
+            'en'=>[
+                'title'=>$request->input('en_title'),
+                'author'=>$request->input('en_author'),
+                'description'=>$request->input('en_description'),
+            ],
+            'ar'=>[
+                'title'=>$request->input('ar_title'),
+                'author'=>$request->input('ar_author'),
+                'description'=>$request->input('ar_description'),
+            ],
+            'image' =>$request->image,
+            'price' =>$request->price,
 
-        $book['image'] = request()->image->store('images', 'public');
-
-        Book::create($book);
 
 
+        ];
+        $bookdata['image'] = $request->image->store('images', 'public');
 
-        session()->flash('message', 'Book created successfully.');
-
-        return redirect('/create-book');
+        $book=Book::create($bookdata);
+        return redirect('/dashboard');
     }
 
     /**

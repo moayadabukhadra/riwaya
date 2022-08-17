@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class Nav extends Component
 {
+    public $language;
     public $searchTerm;
     public function render()
     {
@@ -23,5 +24,13 @@ class Nav extends Component
     {
         Auth::logout();
         $this->emit('logout');
+    }
+
+    public function language($language)
+    {
+
+        $this->emit('language', $language);
+
+
     }
 }

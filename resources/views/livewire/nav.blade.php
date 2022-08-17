@@ -17,11 +17,11 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Books Language
+                Language
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Arabic Books</a>
-                    <a class="dropdown-item" href="#">English Books</a>
+                    <button class="dropdown-item"  wire:click="language('ar')">Arabic </button>
+                    <button class="dropdown-item"  wire:click="language('en')">English </button>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
@@ -52,7 +52,7 @@
                 <a class="nav-link" href="/dashboard">Home <span class="sr-only">(current)</span></a>
             </li>
 
-           
+
             <li class="nav-item">
                 <a class="nav-link " href="#">Register</a>
             </li>
