@@ -23,6 +23,10 @@ class CreateBooksTable extends Migration
             $table->float('rating', 0, 5)->nullable();
             $table->string('language')->nullable();
             $table->timestamps();
+
+            $table->dropColumn('title');
+            $table->dropColumn('author');
+            $table->dropColumn('description');
         });
     }
 

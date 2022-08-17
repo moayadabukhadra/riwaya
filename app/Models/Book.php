@@ -1,24 +1,19 @@
 <?php
 
 namespace App\Models;
-
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Book extends Model implements TranslatableContract
 {
     use HasFactory;
+    use Translatable;
 
-    protected $fillable = [
-        'title',
-        'author',
-        'description',
-        'image',
-        'price',
-        'rating',
-        'category_id',
-        'language',
-    ];
+    protected $fillable = ['image', 'price'];
+
+    public $translatedAttributes = ['title', 'author', 'description'];
 
 
 

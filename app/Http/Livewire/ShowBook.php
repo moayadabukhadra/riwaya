@@ -12,6 +12,7 @@ class ShowBook extends Component
     public $item;
     public $show = false;
     public $selectedBook;
+    public $language="ar";
 
 
     use \Livewire\WithPagination;
@@ -19,8 +20,13 @@ class ShowBook extends Component
 
 
 
+    public function mount() {
+        $this->language= "ar";
+    }
+
     protected $listeners = [
-        'search' => 'search'
+        'search' => 'search',
+        'language' => 'language',
     ];
 
     public function search($searchTerm)
@@ -37,14 +43,12 @@ class ShowBook extends Component
 
 
 
-    public function mount()
-    {
-    }
+
     public function render()
     {
         $searchTerm = '%' . $this->searchTerm . '%';
         return view('livewire.show-book', [
-            'books' => Book::where('title', 'like', $searchTerm)->orWhere('author', 'like', $searchTerm)->paginate(12),
+            'books' => Book::all(),
         ]);
     }
 
@@ -68,5 +72,10 @@ class ShowBook extends Component
         ]);
         session()->flash('success', 'Product is Added to Cart Successfully !');
         $this->emit('alert_remove');
+    }
+
+    public function language($language)
+    {
+        $this->language = $language;
     }
 }
