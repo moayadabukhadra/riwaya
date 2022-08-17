@@ -27,7 +27,7 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <a class="nav-link " wire:click.prevent="logout">Logout</a>
             </li>
         </ul>
         <form class="my-2 form-inline my-lg-0">
@@ -54,11 +54,12 @@
 
 
             <li class="nav-item">
-                <a class="nav-link " href="#">Register</a>
+                <a class="nav-link " href="login-register">Register</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
+                <a class="nav-link" href="login-register">Login</a>
             </li>
+
         </ul>
         <form class="my-2 form-inline my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" wire:model="searchTerm">
