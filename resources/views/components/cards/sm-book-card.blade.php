@@ -11,7 +11,7 @@
             </div>
             <div class="px-6 bg-yellow-200 rounded-full">
                 <button wire:click.prevent="{{ $wire }}">
-                    <p tabindex="0" class="text-xs text-yellow-700 focus:outline-none">Read more</p>
+                    <p tabindex="0" class="text-xs text-yellow-700 focus:outline-none">Read more </p>
                 </button>
             </div>
             <div class="flex items-center">
