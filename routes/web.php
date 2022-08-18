@@ -38,6 +38,7 @@ Route::view('shopping-cart','components.cart')->middleware('auth');
 Route::view('check-out','components.checkout')->middleware('auth');
 Route::post('check-out',[OrderController::class,'store'])->middleware('auth');
 Route::get('logout',[LoginRegister::class,'logout'])->middleware('auth');
+Route::view('track-order','components.user-orders')->middleware('auth');
 
 
 Route::view('home','livewire.home');
