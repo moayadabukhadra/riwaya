@@ -30,7 +30,7 @@
 
 <div class="mb-12 card bg-light lg:w-60 ">
     <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
-    <h6 class="absolute px-4 py-1 mt-64 mr-24 bg-red-500 rounded-r-xl sm:mt-1/2">{{ $book->price }}jd</h6>
+    <h6 class="absolute px-4 py-1 mt-48 mr-24 bg-red-500 rounded-r-xl sm:mt-1/2">{{ $book->price }}jd</h6>
         <img src="{{$book->image}}" />
         <a href="#!">
 
