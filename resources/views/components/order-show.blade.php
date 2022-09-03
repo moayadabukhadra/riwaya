@@ -47,7 +47,6 @@
                         <img src="https://i.ibb.co/5TSg7f6/Rectangle-18.png" alt="avatar" />
                         <div class="flex flex-col items-start justify-start space-y-2">
                             <p class="text-base font-semibold leading-4 text-left text-gray-800 dark:text-white">{{ $selectedOrder['name']}}</p>
-                            <p class="text-sm leading-5 text-gray-600 dark:text-gray-300">10 Previous Orders</p>
                         </div>
                     </div>
 

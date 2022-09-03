@@ -1,4 +1,4 @@
-<div class="grid h-screen grid-cols-3">
+<div class="grid h-screen grid-cols-3 mb-48">
     <div class="col-span-3 px-12 mt-20 space-y-8 bg-white lg:col-span-2">
         <div class="relative flex flex-col p-4 mt-8 bg-white rounded-md shadow sm:flex-row sm:items-center">
             <div class="flex flex-row items-center w-full pb-4 border-b sm:border-b-0 sm:w-auto sm:pb-0">
@@ -48,7 +48,7 @@
 
                     </fieldset>
                 </section>
-                <button class="w-full px-4 py-3 text-xl font-semibold text-white transition-colors bg-pink-400 rounded-full submit-button focus:ring focus:outline-none" type="submit">
+                <button class="w-full px-4 py-3 text-xl font-semibold text-white transition-colors bg-blue-400 rounded-full submit-button focus:ring focus:outline-none hover:bg-blue-700" type="submit">
             Order
         </button>
             </form>

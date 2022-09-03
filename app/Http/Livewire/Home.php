@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Order;
 use Livewire\Component;
+
 
 class Home extends Component
 {
@@ -11,5 +13,5 @@ class Home extends Component
         return view('livewire.home');
     }
 
-    
+
 }

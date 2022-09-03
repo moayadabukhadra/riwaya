@@ -1,5 +1,5 @@
 <x-layout>
-
+@livewire('nav')
     <div class="p-5 text-center card-body shadow-5">
         <div class="row">
             <div class="col-md-12">
@@ -24,7 +24,7 @@
                         <p class="flex flex-wrap justify-center mb-3 text-base leading-7 text-blueGray-500">
                             <span>Drag and drop your</span> <span>files anywhere or</span>
                         </p>
-                        <input class="w-auto px-2 py-1 my-2 mr-2 transition duration-500 ease-in-out transform border rounded-md text-blueGray-500 hover:text-blueGray-600 text-md focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 hover:bg-gray-100" type="file" name="image" />
+                        <input class="w-auto px-2 py-1 my-2 mr-2 transition duration-500 ease-in-out transform border rounded-md text-blueGray-500 hover:text-blueGray-600 text-md focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2 hover:bg-gray-100" type="text" name="image" />
                         @error('image') <span class="text-danger error">{{ $message }}</span>@enderror
                     </header>
                 </section>

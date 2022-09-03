@@ -43,8 +43,7 @@ class BookController extends Controller
 
 
         ];
-        $bookdata['image'] = $request->image->store('images', 'public');
-
+        
         $book=Book::create($bookdata);
         return redirect('/dashboard');
     }
@@ -82,18 +81,13 @@ class BookController extends Controller
         return $book;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $book = Book::findOrFail($id);
         $book->delete();
         return '';
     }
+
 
     public function search($name)
     {

@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <img src="{{ asset('storage/'.$item['attributes']['image']) }} " class="img-fluid" alt="Phone">
+                                        <img src="{{ $item['attributes']['image'] }} " class="img-fluid" alt="Phone">
                                     </div>
                                     <div class="text-center col-md-2 d-flex justify-content-center align-items-center">
                                         <p class="mb-0 text-muted"> {{ $item['name']}}</p>

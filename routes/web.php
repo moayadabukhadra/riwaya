@@ -18,9 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
 // admin
@@ -41,5 +38,5 @@ Route::get('logout',[LoginRegister::class,'logout'])->middleware('auth');
 Route::view('track-order','components.user-orders')->middleware('auth');
 
 
-Route::view('home','livewire.home');
+Route::view('/','livewire.home');
 Route::view('dashboard','livewire.dashboard');

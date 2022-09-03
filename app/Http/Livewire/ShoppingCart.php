@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class ShoppingCart extends Component
 {
-    public $shipping =2;
+
 
     protected $listeners = [
         'cartUpdated' => '$refresh',

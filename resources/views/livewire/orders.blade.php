@@ -16,7 +16,7 @@
             </div>
             <div class="ml-10 space-x-8 lg:ml-40">
                 <button class="px-4 py-2 font-semibold tracking-wide text-white bg-indigo-600 rounded-md cursor-pointer">New Report</button>
-                <button class="px-4 py-2 font-semibold tracking-wide text-white bg-indigo-600 rounded-md cursor-pointer">Create</button>
+                <a href="/create-book" class="px-4 py-2 font-semibold tracking-wide text-white bg-indigo-600 rounded-md cursor-pointer">Create</a>
             </div>
         </div>
     </div>

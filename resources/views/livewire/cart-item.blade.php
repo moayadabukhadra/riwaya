@@ -1,30 +1,43 @@
-<div class="flex items-center px-6 py-5 -mx-8 hover:bg-gray-100">
-    <div class="flex w-2/5">
-        <!-- product -->
-        <div class="w-20">
-            <img class="w-24 h-24" src="{{ asset('storage/'.$item['attributes']['image'])}}" alt="">
-        </div>
-        <div class="flex flex-col justify-between flex-grow ml-4">
-            <span class="mt-10 text-sm font-bold ">{{ $item['name']}} </span>
-        </div>
+<div class="ibox-content">
+    <div class="table-responsive">
+        <table class="table shoping-cart-table">
+            <tbody>
+                <tr>
+
+                    <td width="90">
+                        <div class="cart-product-imitation">
+                            <img src="{{$item['attributes']['image']}}"
+                        </div>
+                    </td>
+                    <td class="desc">
+                        <h3>
+                            <a href="#" class="text-navy">
+                                {{ $item['name']}}
+                            </a>
+                        </h3>
+                        
+
+                        <div class="m-t-sm">
+
+                            <a href="#" class="text-muted" wire:click.prevent="removeCart('{{$item['id']}}')"><i class="fa fa-trash"></i> Remove item</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        {{ $item['price']}}jd
+                        <s class="small text-muted"> </s>
+                    </td>
+                    <td width="65">
+                        <input type="number" class="w-12 " wire:model="quantity" type="number" min="1" max="100" wire:change="updateCart" value="{{ $item['quantity']}}" placeholder="{{ $item['quantity']}}">
+                    </td>
+                    <td>
+                        <h4>
+                        {{ $item['price'] * $item['quantity']}}jd
+                        </h4>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
-    <span class="w-1/5 text-sm font-semibold text-center">{{ $item['price']}} Jd</span>
-    <div class="flex justify-center w-1/5">
-        <svg class="w-3 text-gray-600 fill-current" viewBox="0 0 448 512">
-            <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-        </svg>
-
-        <input class="w-12 mx-2 text-center border" wire:model="quantity" type="number" min="1" max="100" wire:change="updateCart" value="{{ $item['quantity']}}">
-
-        <svg class="w-3 text-gray-600 fill-current" viewBox="0 0 448 512">
-            <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-        </svg>
-    </div>
-
-    <div >
-        <button  class="px-6 py-2 text-red-800 bg-red-300" wire:click.prevent="removeCart('{{$item['id']}}')">Remove Cart</button>
-    </div>
-
 
 </div>
