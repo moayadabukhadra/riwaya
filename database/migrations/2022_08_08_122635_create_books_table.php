@@ -18,7 +18,7 @@ class CreateBooksTable extends Migration
             $table->string('title');
             $table->string('author');
             $table->text('description');
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
             $table->string('price')->nullable();
             $table->float('rating', 0, 5)->nullable();
             $table->string('language')->nullable();
