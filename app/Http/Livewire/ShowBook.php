@@ -42,11 +42,9 @@ class ShowBook extends Component
 
 
 
-
-
     public function render()
     {
-        $searchTerm = '%' . $this->searchTerm . '%';
+
         return view('livewire.show-book', [
             'books' => Book::all(),
         ]);

@@ -1,6 +1,4 @@
 <header>
-
-
     <div class="w-full bg-center bg-cover" style="height:32rem; background-image: url({{ asset('images/riwaya2.jpg') }} ); height: 100vh;">
         <div class="flex items-center justify-center w-full h-full bg-gray-900 bg-opacity-50">
             <div class="text-center">

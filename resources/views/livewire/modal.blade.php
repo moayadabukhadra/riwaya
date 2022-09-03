@@ -1,7 +1,8 @@
 <div>
 
     <a data-toggle="modal" data-target="#emptyCartModal">
-        <div class="py-3 text-sm font-semibold text-center text-white uppercase bg-indigo-500 xl:w-full hover:bg-indigo-600">Checkout</div>
+    <div  class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</div>
+
     </a>
     <div wire:ignore.self class="modal fade" id="emptyCartModal" tabindex="-1" role="dialog" aria-labelledby="emptyCartModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
