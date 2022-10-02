@@ -1,10 +1,10 @@
 <div class="position-relative" id="container">
     <div class="flex flex-column justify-content-center align-items-center">
-        <a href="#nav" class="position-fixed bottom-0 left-0 z-50" >
-            <i class="fa fa-arrow-up p-6 rounded-full bg-gray-300 m-8 "></i>
+        <a href="#nav" class="position-fixed bottom-20 left-0 z-50" >
+            <i class="bi bi-arrow-up p-6 rounded-full bg-gray-300 m-8 "></i>
         </a>
-        <a  class="position-fixed bottom-0 right-0 z-50" id="search-icon">
-            <i class="fa fa-search p-6 rounded-full bg-gray-300 m-8 " aria-hidden="true"></i>
+        <a  class="position-fixed bottom-20 right-0 z-50" id="search-icon">
+            <i class="bi bi-search p-6 rounded-full bg-gray-300 m-8 " aria-hidden="true"></i>
 
         </a>
 

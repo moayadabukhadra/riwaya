@@ -9,8 +9,7 @@
         style="background-color: #3b5998;"
         href="https://web.facebook.com/riwaya.jo/"
         role="button"
-        ><i class="fa fa-facebook"></i></i
-      ></a>
+        ><i class="bi bi-facebook"></i></a>
 
       <!-- Twitter -->
       <a
@@ -18,7 +17,7 @@
         style="background-color: #55acee;"
         href="#!"
         role="button"
-        ><i class="fa fa-twitter"></i
+        ><i class="bi bi-twitter"></i
       ></a>
 
       <!-- Google -->
@@ -27,7 +26,7 @@
         style="background-color: #dd4b39;"
         href="#!"
         role="button"
-        ><i class="fa fa-google"></i
+        ><i class="bi bi-google"></i
       ></a>
 
       <!-- Instagram -->
@@ -36,7 +35,7 @@
         style="background-color: #ac2bac;"
         href="https://www.instagram.com/riwaya.jo/"
         role="button"
-        ><i class="fa fa-instagram"></i></a>
+        ><i class="bi bi-instagram"></i></a>
 
       <!-- Linkedin -->
       <a
@@ -44,15 +43,14 @@
         style="background-color: #0082ca;"
         href="https://www.linkedin.com/in/moayad-abukhadra-8b5b10232/"
         role="button"
-        ><i class="fa fa-linkedin"></i></i
-      ></a>
+        ><i class="bi bi-linkedin"></i></a>
       <!-- Github -->
       <a
         class="m-1 text-white btn btn-floating"
         style="background-color: #333333;"
         href="https://github.com/moayadabukhadra"
         role="button"
-        ><i class="fa fa-github"></i
+        ><i class="bi bi-github"></i
       ></a>
     </section>
     <!-- Section: Social media -->
