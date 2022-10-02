@@ -21,23 +21,13 @@
 
         <div class="focus:outline-none">
 
-            <div class="container py-8">
-                <div class="flex items-center justify-center">
-
-                    <div class="container py-8 mx-auto">
-                        <div class="flex flex-wrap items-center justify-center lg:justify-around">
-
-
-                            @foreach($books as $book)
-                                <x-cards.sm-book-card :book="$book" wire="show({{ $book->book_id}})" :lang=$language/>
-                            @endforeach
-
-                        </div>
-
-                    </div>
-
-                </div>
+            <div class="gap-5 m-3 card-columns ">
+                @foreach($books as $book)
+                    <x-cards.sm-book-card :book="$book" wire="show({{ $book->book_id}})" :lang="$language"/>
+                @endforeach
             </div>
+
+
 
             @else
 
