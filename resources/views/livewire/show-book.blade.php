@@ -1,12 +1,23 @@
-<div class="d-flex flex-column">
+<div class="">
+    <div class="flex flex-column justify-content-center align-items-center">
+        <a href="#nav" class="position-fixed bottom-0 left-0" >
+            <i class="fa fa-arrow-up p-6 rounded-full bg-gray-300 m-8 "></i>
+        </a>
+
+            <input class="form-control form-control-solid form-control-lg mt-5 text-right w-75"
+                   placeholder="أدخل نص البحث .." aria-label=".form-control-lg example" wire:model="searchTerm">
+
+
+
+
+    </div>
+
     @if(!$show)
 
 
-        <div class="position-relative align-self-end">
-            <input class="form-control form-control-solid form-control-lg mt-5 text-right w-75"
-                   placeholder="أدخل نص البحث .." aria-label=".form-control-lg example" wire:model="searchTerm">
-            <i class="fa-solid pe-3 fa-magnifying-glass absolute-center-y end-0 text-navy-blue fa-lg"></i>
-        </div>
+
+
+
 
         <div class="focus:outline-none">
 
@@ -27,10 +38,6 @@
 
                 </div>
             </div>
-            <a href="#nav">
-                <i class="fa fa-arrow-up p-6 rounded-full bg-secondary m-8 "></i>
-            </a>
-
 
             @else
 
@@ -102,9 +109,7 @@
                     </div>
 
                 </div>
-                <a href="#selected_book">
-                    <i class="fa fa-arrow-up p-6 rounded-full bg-secondary m-8 "></i>
-                </a>
+
 
         </div>
 
