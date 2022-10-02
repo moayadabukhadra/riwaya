@@ -6,7 +6,7 @@
 
                     <td width="90">
                         <div class="cart-product-imitation">
-                            <img src="{{$item['attributes']['image']}}"
+                            <img src="{{$item['attributes']['image']}}"/>
                         </div>
                     </td>
                     <td class="desc">
@@ -15,7 +15,7 @@
                                 {{ $item['name']}}
                             </a>
                         </h3>
-                        
+
 
                         <div class="m-t-sm">
 

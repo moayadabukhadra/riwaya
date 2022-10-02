@@ -9,7 +9,7 @@
 @endif
 <script>
     $(document).ready(function() {
-        window.livewire.on('alert_remove', () => {
+        window.livewire.on('', () => {
             setTimeout(function() {
                 $(".alert-success").fadeOut('fast');
             }, 3000);

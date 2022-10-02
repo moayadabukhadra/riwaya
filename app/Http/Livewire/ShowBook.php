@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Book;
+use App\Models\BookTranslation;
 use App\Models\Category;
 use Livewire\Component;
 
@@ -13,10 +14,10 @@ class ShowBook extends Component
     public $show = false;
     public $selectedBook;
     public $language="ar";
-
+    public $searchTerm;
 
     use \Livewire\WithPagination;
-    public $searchTerm;
+
 
 
 
@@ -29,10 +30,6 @@ class ShowBook extends Component
         'language' => 'language',
     ];
 
-    public function search($searchTerm)
-    {
-        $this->searchTerm = $searchTerm;
-    }
 
     public function allBooks()
     {
@@ -44,9 +41,13 @@ class ShowBook extends Component
 
     public function render()
     {
+        $search='%'.$this->searchTerm.'%';
+
+        $books = BookTranslation::where('locale' , 'like' ,$this->language)
+            ->where('title' , 'like' ,$search)->get();
 
         return view('livewire.show-book', [
-            'books' => Book::all(),
+        'books' => $books,
         ]);
     }
 
