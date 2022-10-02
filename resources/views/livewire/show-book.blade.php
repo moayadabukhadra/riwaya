@@ -4,7 +4,7 @@
             <i class="fa fa-arrow-up p-6 rounded-full bg-gray-300 m-8 "></i>
         </a>
 
-            <input class="form-control form-control-solid form-control-lg mt-5 text-right w-75"
+            <input class="form-control form-control-solid form-control-lg mt-5 text-right w-75 mb-6"
                    placeholder="أدخل نص البحث .." aria-label=".form-control-lg example" wire:model="searchTerm">
 
 
@@ -93,11 +93,6 @@
 
                 </section>
 
-                <div class="position-relative align-self-end">
-                    <input class="form-control form-control-solid form-control-lg mt-5 text-right w-75"
-                           placeholder="أدخل نص البحث .." aria-label=".form-control-lg example" wire:model="searchTerm">
-                    <i class="fa-solid pe-3 fa-magnifying-glass absolute-center-y end-0 text-navy-blue fa-lg"></i>
-                </div>
 
                 <div class="container py-8 mx-auto">
                     <div class="flex flex-wrap items-center justify-center lg:justify-between">
