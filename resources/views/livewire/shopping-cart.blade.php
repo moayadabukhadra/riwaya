@@ -1,4 +1,4 @@
-<div class="container mt-24 mb-24">
+<div class="container mt-24 mb-24 h-screen">
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-md-9">

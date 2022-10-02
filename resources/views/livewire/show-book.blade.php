@@ -1,12 +1,15 @@
-<div class="">
+<div class="position-relative" id="container">
     <div class="flex flex-column justify-content-center align-items-center">
-        <a href="#nav" class="position-fixed bottom-0 left-0" >
+        <a href="#nav" class="position-fixed bottom-0 left-0 z-50" >
             <i class="fa fa-arrow-up p-6 rounded-full bg-gray-300 m-8 "></i>
         </a>
+        <a  class="position-fixed bottom-0 right-0 z-50" id="search-icon">
+            <i class="fa fa-search p-6 rounded-full bg-gray-300 m-8 " aria-hidden="true"></i>
 
-            <input class="form-control form-control-solid form-control-lg mt-5 text-right w-75 mb-6"
+        </a>
+
+            <input class="form-control form-control-solid form-control-lg mt-5 text-right w-75 mb-6 z-40" id="search"
                    placeholder="أدخل نص البحث .." aria-label=".form-control-lg example" wire:model="searchTerm">
-
 
 
 
@@ -104,4 +107,12 @@
 
 
 </div>
+
+<script>
+    document.getElementById('search-icon').addEventListener('click',function (){
+        document.getElementById('search').style.position='fixed'
+
+    })
+
+</script>
 

@@ -13,7 +13,7 @@
                         <span aria-hidden="true close-btn">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-right">
                     اضف اكتر من صنف
                 </div>
                 <div class="modal-footer">
