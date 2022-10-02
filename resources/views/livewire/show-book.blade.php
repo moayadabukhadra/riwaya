@@ -24,7 +24,7 @@
 
         <div class="focus:outline-none">
 
-            <div class="gap-5 m-3 card-columns ">
+            <div class="row row-cols-5 g-4 m-2">
                 @foreach($books as $book)
                     <x-cards.sm-book-card :book="$book" wire="show({{ $book->book_id}})" :lang="$language"/>
                 @endforeach
@@ -87,15 +87,10 @@
                 </section>
 
 
-                <div class="container py-8 mx-auto">
-                    <div class="flex flex-wrap items-center justify-center lg:justify-between">
-
-                        @foreach($books as $book)
-                            <x-cards.sm-book-card :book="$book" wire="show({{  $book->book_id}})" :lang=$language/>
-                        @endforeach
-
-                    </div>
-
+                <div class="row row-cols-5 g-4 m-2">
+                    @foreach($books as $book)
+                        <x-cards.sm-book-card :book="$book" wire="show({{ $book->book_id}})" :lang="$language"/>
+                    @endforeach
                 </div>
 
 
