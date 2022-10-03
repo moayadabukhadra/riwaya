@@ -2,7 +2,7 @@
 @props(['book','wire','lang'])
 <div class="col">
 <div class="card">
-    <img src="{{$book->book->image}}" class="card-img-top" alt="book image">
+    <img src="{{$book->book->image}}" class=" d-block img-fluid" alt="book image" style="width: 100%;height: 400px;object-fit: cover">
     <h6 class="absolute px-5 py-1 bottom-48 mb-5  bg-red-500 rounded-r-xl">{{ $book->book->price }}jd</h6>
     <div class="card-body">
         <h5 class="card-title">{{ $book->title }}</h5>

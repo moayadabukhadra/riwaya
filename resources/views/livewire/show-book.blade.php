@@ -24,7 +24,7 @@
 
         <div class="focus:outline-none">
 
-            <div class="row row-cols-5 g-4 m-2">
+            <div class="row row-cols-lg-5 row-cols-md-2 row-cols-sm-1 g-4 m-2">
                 @foreach($books as $book)
                     <x-cards.sm-book-card :book="$book" wire="show({{ $book->book_id}})" :lang="$language"/>
                 @endforeach
@@ -87,7 +87,7 @@
                 </section>
 
 
-                <div class="row row-cols-5 g-4 m-2">
+                <div class="row row-cols-lg-5 row-cols-md-1 g-4 m-2 ">
                     @foreach($books as $book)
                         <x-cards.sm-book-card :book="$book" wire="show({{ $book->book_id}})" :lang="$language"/>
                     @endforeach
