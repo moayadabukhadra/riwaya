@@ -31,11 +31,13 @@
                     <button class="dropdown-item" wire:click="language('en')">English</button>
                 </div>
             </li>
-                @if(auth()->user()->email === 'moayadabukhadra54@gmail.com')
-                    <li>
-                        <a class="font-bold nav-link text-white " href="/orders">Orders</a>
-                    </li>
-                @endif
+                @auth()
+                    @if(auth()->user()->email === 'moayadabukhadra54@gmail.com')
+                        <li>
+                            <a class="font-bold nav-link text-white " href="/orders">Orders</a>
+                        </li>
+                    @endif
+                @endauth
             @auth
                 <li>
                     <a href="/shopping-cart" class="text-2xl"><i
