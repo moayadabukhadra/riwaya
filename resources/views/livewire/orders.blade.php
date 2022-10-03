@@ -15,7 +15,7 @@
                 <input class="block ml-1 outline-none bg-gray-50 " type="search" name="" id="" placeholder="search..."  wire:model="searchTerm">
             </div>
             <div class="ml-10 space-x-8 lg:ml-40">
-                <button class="px-4 py-2 font-semibold tracking-wide text-white bg-indigo-600 rounded-md cursor-pointer">New Report</button>
+                <a href="/dashboard" class="px-4 py-2 font-semibold tracking-wide text-white bg-indigo-600 rounded-md cursor-pointer">Books</a>
                 <a href="/create-book" class="px-4 py-2 font-semibold tracking-wide text-white bg-indigo-600 rounded-md cursor-pointer">Create</a>
             </div>
         </div>

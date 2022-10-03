@@ -7,7 +7,7 @@
                     <div class="px-4 py-5 card-header">
                         <h5 class="mb-0 text-muted">Thanks for your Order, <span style="color: #a8729a;">{{ auth()->user()->name }}</span>!</h5>
                         <button wire:click.prevent="{{$wire}}" class="mt-3 btn btn-outline-primary btn-sm">
-                            <i class="fas fa-arrow-left"></i>
+                            <i class="bi bi-arrow-left"></i>
                             Go Back
                         </button>
                     </div>

@@ -1,18 +1,15 @@
-<div class="position-relative" id="container">
+<div class="position-relative bg-light" id="container">
     <div class="flex flex-column justify-content-center align-items-center">
-        <a href="#nav" class="position-fixed bottom-20 left-0 z-50" >
+        <a href="#nav" class="position-fixed bottom-20 left-0 z-50">
             <i class="bi bi-arrow-up p-6 rounded-full bg-gray-300 m-8 "></i>
         </a>
-        <a  class="position-fixed bottom-20 right-0 z-50" id="search-icon">
+        <a class="position-fixed bottom-20 right-0 z-50" id="search-icon">
             <i class="bi bi-search p-6 rounded-full bg-gray-300 m-8 " aria-hidden="true"></i>
 
         </a>
 
-            <input class="form-control form-control-solid form-control-lg mt-5 text-right w-75 mb-6 z-40" id="search"
-                   placeholder="أدخل نص البحث .." aria-label=".form-control-lg example" wire:model="searchTerm">
-
-
-
+        <input class="form-control form-control-solid form-control-lg mt-5 text-right w-75 mb-6 z-40" id="search"
+               placeholder="أدخل نص البحث .." aria-label=".form-control-lg example" wire:model="searchTerm">
     </div>
 
     @if(!$show)
@@ -22,20 +19,19 @@
 
 
 
-        <div class="focus:outline-none">
+        <div class="container">
 
-            <div class="row row-cols-lg-5 row-cols-md-2 row-cols-sm-1 g-4 m-2">
+            <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 g-4 m-2">
                 @foreach($books as $book)
                     <x-cards.sm-book-card :book="$book" wire="show({{ $book->book_id}})" :lang="$language"/>
                 @endforeach
             </div>
 
 
-
             @else
 
 
-                <section class="text-gray-700 bg-white border border-b" id="selected_book">
+                <section class="text-gray-700 bg-white border border-b container" id="selected_book">
                     <div class="container px-5 py-24 mx-auto">
                         <div class="flex flex-wrap mx-auto ">
                             <img class="object-cover object-center w-full border-gray-200 rounded-lg lg:w-1/2"
@@ -62,7 +58,7 @@
                                         <span class="text-2xl font-medium text-gray-900 title-font">{{ $selectedBook->price }}jd</span>
                                         <button
                                             class="flex px-6 py-2 ml-auto text-white bg-red-500 border-0 rounded focus:outline-none hover:bg-red-600"
-                                            wire:click="addToCart({{ $selectedBook }})">Add To Cart
+                                            wire:click="addToCart({{ $selectedBook }})">{{ $language==='ar' ? "أضف الى السلة" : "Add To Cart" }}
                                         </button>
                                         <button
                                             class="inline-flex items-center justify-center w-10 h-10 p-0 ml-4 text-gray-500 bg-gray-200 border-0 rounded-full">
@@ -83,16 +79,16 @@
                         </div>
 
                     </div>
-
                 </section>
 
 
-                <div class="row row-cols-lg-5 row-cols-md-1 g-4 m-2 ">
-                    @foreach($books as $book)
-                        <x-cards.sm-book-card :book="$book" wire="show({{ $book->book_id}})" :lang="$language"/>
-                    @endforeach
+                <div class="container">
+                    <div class="row row-cols-lg-4 row-cols-md-1 g-4 m-2 ">
+                        @foreach($books as $book)
+                            <x-cards.sm-book-card :book="$book" wire="show({{ $book->book_id}})" :lang="$language"/>
+                        @endforeach
+                    </div>
                 </div>
-
 
         </div>
 
@@ -104,10 +100,9 @@
 </div>
 
 <script>
-    document.getElementById('search-icon').addEventListener('click',function (){
-        document.getElementById('search').style.position='fixed'
+    document.getElementById('search-icon').addEventListener('click', function () {
+        document.getElementById('search').style.position = 'fixed'
 
     })
-
 </script>
 

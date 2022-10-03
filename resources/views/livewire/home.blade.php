@@ -30,7 +30,7 @@ use App\Models\Order;
         <div class="container d-flex align-items-center justify-content-between">
 
 
-            <h1 class="logo"><a href="index.html"><img src="{{ asset('images/riwaya.jpg') }}" width="50" class="rounded-full ">Riwaya<span>.</span></a></h1>
+            <h1 class="logo"><a href="/"><img src="{{ asset('images/riwaya.jpg') }}" width="50" class="rounded-full ">Riwaya<span>.</span></a></h1>
 
 
 

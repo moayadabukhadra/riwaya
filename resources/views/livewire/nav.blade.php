@@ -37,7 +37,7 @@
                             class="bi bi-cart3"></i> {{ \Cart::getTotalQuantity() }}</a>
                 </li>
                 <li>
-                    <a class="font-bold nav-link text-white" wire:click.prevent="logout" href="#">Logout</a>
+                    <a class="font-bold nav-link text-white " wire:click.prevent="logout" href="#">Logout</a>
 
                 </li>
             @endauth
