@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\OrderController;
-use App\Http\Livewire\CheckOut;
 use App\Http\Livewire\LoginRegister;
-use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +34,9 @@ Route::view('check-out','components.checkout')->middleware('auth');
 Route::post('check-out',[OrderController::class,'store'])->middleware('auth');
 Route::get('logout',[LoginRegister::class,'logout'])->middleware('auth');
 Route::view('track-order','components.user-orders')->middleware('auth');
+
+// Orders
+Route::post('/edit-order',[OrderController::class,'edit']);
 
 
 Route::view('/','livewire.home');

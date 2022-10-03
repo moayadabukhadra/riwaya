@@ -34,18 +34,19 @@ public function login(){
         if(Auth::attempt(array('email' => $this->email, 'password' => $this->password))){
 
                 Auth::login(User::where('email', $this->email)->first());
-                return redirect('/dashboard');
-                session()->flash('message', "You are Login successful.");
+
+                if($this->email ==='moayadabukhadra54@gmail.com'){
+                    return redirect('/orders');
+
+                }else{
+                    return redirect('/dashboard');
+                }
+
         }else{
             session()->flash('error', 'email and password are wrong.');
             $this->emit('alert_remove');
         }
     }
-
-
-
-
-
 
 }
 
