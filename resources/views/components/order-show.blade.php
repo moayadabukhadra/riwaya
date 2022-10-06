@@ -1,43 +1,46 @@
 @props(['selectedOrder', 'selectedOrderItems'])
 
 <div class="px-4 py-14 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
-    <form>
-        @csrf
-        <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Edit Order Details</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+
+    <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true" wire:ignore.self>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Edit Order Details</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/edit-order/{{ $selectedOrder }}" method="POST">
+                    @csrf
                     <div class="modal-body mx-3">
                         <div class="md-form mb-5">
-                            <input type="text" wire:model="" id="orangeForm-name" name="address" class="form-control validate">
-                            <label data-error="wrong"  data-success="right" for="orangeForm-name">address</label>
+                            <input type="text" id="orangeForm-name" name="address" class="form-control validate" wire:model="address">
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">address</label>
                         </div>
                         <div class="md-form mb-5">
-                            <input type="text" name="phone" id="orangeForm-email" class="form-control validate">
+                            <input type="text" name="phone" id="orangeForm-email" class="form-control validate" wire:model="phone">
                             <label data-error="wrong" data-success="right" for="orangeForm-email">phone</label>
                         </div>
 
                         <div class="md-form mb-4">
-                            <input type="text" name="customer_note" id="orangeForm-pass" class="form-control validate">
+                            <input type="text" name="customer_note" id="orangeForm-pass" class="form-control validate" wire:model="customer_note">
                             <label data-error="wrong" data-success="right" for="orangeForm-pass">Notes</label>
                         </div>
 
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal" wire:click.prevent="edit()">Edit</button>
                     </div>
-                </div>
+                </form>
+
             </div>
-
-
         </div>
-    </form>
+
+
+    </div>
+
 
     <div class="flex flex-col justify-start space-y-2 item-start">
 

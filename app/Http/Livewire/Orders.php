@@ -10,12 +10,15 @@ class Orders extends Component
     public $show = false;
     public $selectedOrder;
     public $selectedOrderItems=[];
+    public $address;
+    public $customer_note;
+    public $phone;
 
     use \Livewire\WithPagination;
     public $searchTerm;
 
 
-    
+
 
     public function show($id){
 
@@ -46,6 +49,16 @@ class Orders extends Component
         $order->save();
         $this->show = false;
         session()->flash('message', 'Order updated successfully.');
+
+    }
+
+    public function edit(){
+
+        $this->selectedOrder->update([
+            'phone'=>$this->phone,
+            'customer_note'=>$this->customer_note,
+            'address'=>$this->address
+        ]);
 
     }
 }

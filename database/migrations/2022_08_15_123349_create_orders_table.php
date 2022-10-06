@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('email');
             $table->string('name');
             $table->string('status')->default('pending');
-            $table->string('coustomer_note')->nullable();
+            $table->string('customer_note')->nullable();
             $table->float('total');
             $table->text('items');
             $table->timestamps();

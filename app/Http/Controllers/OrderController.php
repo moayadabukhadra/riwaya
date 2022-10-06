@@ -32,18 +32,7 @@ class OrderController extends Controller
 
     }
 
-    public function edit(Request $request, Order $order){
 
-        $request->validate([
-            'notes'=>'required',
-            'address'=>'required',
-            'phone'=>'required|max:20'
-        ]);
-
-        dd($request);
-
-
-    }
 
 
 }

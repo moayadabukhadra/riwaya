@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Book;
 use App\Models\BookTranslation;
 use App\Models\Category;
+use App\Models\CategoryTranslation;
 use Livewire\Component;
 
 class ShowBook extends Component
@@ -42,6 +43,8 @@ class ShowBook extends Component
     public function render()
     {
         $search='%'.$this->searchTerm.'%';
+
+
 
         $books = BookTranslation::where('locale' , 'like' ,$this->language)
             ->where('title' , 'like' ,$search)->get();

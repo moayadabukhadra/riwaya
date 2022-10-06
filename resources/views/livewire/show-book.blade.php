@@ -29,8 +29,6 @@
 
 
             @else
-
-
                 <section class="text-gray-700 bg-white border border-b container" id="selected_book">
                     <div class="container px-5 py-24 mx-auto">
                         <div class="flex flex-wrap mx-auto ">

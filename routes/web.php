@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Livewire\LoginRegister;
 use Illuminate\Support\Facades\Route;
@@ -16,13 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 // admin
-Route::view('create-book','livewire.create-book')->middleware('admin');
+Route::get('create-book',[BookController::class, 'createBook'])->middleware('admin');
 Route::post('create-book',[BookController::class,'store'])->middleware('admin');
 Route::patch('orders',[OrderController::class,'update'])->middleware('admin');
-Route::view('orders','components.admin')->middleware('admin');
+Route::view('orders','components.admin')->name('orders')->middleware('admin');
+Route::name('category.')->group(function (){
+
+    Route::get('categories',[CategoryController::class,'index'])->name('index')->middleware('admin');
+
+});
+
 
 //guest
 Route::view('login-register','components.login-register')->middleware('guest');
@@ -36,8 +41,12 @@ Route::get('logout',[LoginRegister::class,'logout'])->middleware('auth');
 Route::view('track-order','components.user-orders')->middleware('auth');
 
 // Orders
-Route::post('/edit-order',[OrderController::class,'edit']);
+Route::post('/edit-order/{order}',[OrderController::class,'edit'])->name('edit.order');
 
 
 Route::view('/','livewire.home');
 Route::view('dashboard','livewire.dashboard');
+
+
+
+

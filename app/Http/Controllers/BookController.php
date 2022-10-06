@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -26,6 +27,7 @@ class BookController extends Controller
     public function store(Request $request)
 
     {
+
         $bookdata=[
             'en'=>[
                 'title'=>$request->input('en_title'),
@@ -39,12 +41,17 @@ class BookController extends Controller
             ],
             'image' =>$request->image,
             'price' =>$request->price,
-
-
-
         ];
-        
+
         $book=Book::create($bookdata);
+
+        foreach ($request->categories as $category_id){
+
+            $category = Category::find($category_id);
+
+            $book->categories()->attach($category);
+        }
+
         return redirect('/dashboard');
     }
 
@@ -77,7 +84,9 @@ class BookController extends Controller
             'rating' => 'nullable',
         ]);
         $book = Book::findOrFail($id);
+
         $book->update($request->all());
+
         return $book;
     }
 
@@ -92,6 +101,10 @@ class BookController extends Controller
     public function search($name)
     {
         return Book::where('title', 'like', '%' . $name . '%')->get();
+    }
+
+    public function createBook(){
+        return view('create-book-form');
     }
 
 }
