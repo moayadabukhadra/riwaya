@@ -3,12 +3,13 @@
 namespace App\Traits;
 
 use App\Models\Image;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
 trait HasImage
 {
-    public function image()
+    public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
     }
@@ -17,7 +18,6 @@ trait HasImage
     {
             $img_name = Str::random(10) . '.' . $image->getClientOriginalExtension();
             $image->storeAs('images', $img_name, 'public');
-
             $this->image()->create(
                 [
                     'name' => $image->getClientOriginalName(),

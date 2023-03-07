@@ -10,9 +10,25 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Category::all(),200,[],JSON_PRETTY_PRINT);
+        $paginate = $request->get('paginate') ?? false;
+        if($paginate){
+            $with = $request->get('with') ? explode(',', $request->query('with')) : null ;
+            $query_string = $request->get('query') ?? null;
+            $selected_parent = $request->get('parent_id') ?? null;
+
+            $categories = Category::when($with, function ($query) use ($with) {
+                $query->with($with);
+            })->when($selected_parent, function ($query) use ($selected_parent) {
+                $query->where('parent_id', $selected_parent);
+            })->when($query_string, function ($query) use ($query_string) {
+                $query->where('name', 'like', '%' . $query_string . '%');
+            })->paginate($paginate);
+        }else{
+            $categories = Category::all();
+        }
+        return response()->json($categories,200,[],JSON_PRETTY_PRINT);
     }
 
     /**
@@ -36,6 +52,10 @@ class CategoryController extends Controller
 
         $category = Category::create($request->all('name', 'description', 'parent_id'));
 
+        if($request->hasFile('image')) {
+            $category->saveImage($request->file('image'));
+        }
+
         return response()->json($category, 201, [], JSON_PRETTY_PRINT);
     }
 
@@ -44,7 +64,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return response()->json($category,200,[],JSON_PRETTY_PRINT);
+        return response()->json($category->load(['image','parent']),200,[],JSON_PRETTY_PRINT);
     }
 
     /**
@@ -58,7 +78,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update( Category $category,Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -67,6 +87,13 @@ class CategoryController extends Controller
         ]);
 
         $category->update($request->all('name', 'description', 'parent_id'));
+
+        if($request->has('remove_image')){
+            $category->image()->delete();
+        }
+        if($request->hasFile('image')) {
+            $category->saveImage($request->file('image'));
+        }
 
         return response()->json($category, 200, [], JSON_PRETTY_PRINT);
     }
