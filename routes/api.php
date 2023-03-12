@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\api\AuthorController;
+use App\Http\Controllers\api\BookController;
+use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,4 +53,11 @@ Route::group(['name' => 'category'], function () {
         Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
         Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
+});
+
+Route::post('login', [UserController::class, 'login']);
+Route::post('register', [UserController::class, 'register']);
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::post('user-role', [UserController::class, 'userRole']);
 });
