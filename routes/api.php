@@ -27,7 +27,7 @@ Route::group(['name' => 'book'], function () {
     Route::prefix('book')->group(function () {
         Route::post('/', [BookController::class, 'store'])->name('store');
         Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
-        Route::post('/update/{book}', [BookController::class, 'update'])->name('update');
+        Route::put('/update/{book}', [BookController::class, 'update'])->name('update');
         Route::delete('/delete/{book}', [BookController::class, 'destroy'])->name('destroy');
     });
 });
@@ -38,7 +38,7 @@ Route::group(['name' => 'author'], function () {
     Route::prefix('author')->group(function () {
         Route::post('/', [AuthorController::class, 'store'])->name('store');
         Route::get('/{author}', [AuthorController::class, 'show'])->name('show');
-        Route::post('/{author}', [AuthorController::class, 'update'])->name('update');
+        Route::put('/{author}', [AuthorController::class, 'update'])->name('update');
         Route::delete('/{author}', [AuthorController::class, 'destroy'])->name('destroy');
     });
 });
@@ -49,7 +49,7 @@ Route::group(['name' => 'category'], function () {
     Route::prefix('category')->group(function () {
         Route::post('/', [CategoryController::class, 'store'])->name('store');
         Route::get('/{category}', [CategoryController::class, 'show'])->name('show');
-        Route::post('/{category}', [CategoryController::class, 'update'])->name('update');
+        Route::put('/{category}', [CategoryController::class, 'update'])->name('update');
         Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('destroy');
     });
 });

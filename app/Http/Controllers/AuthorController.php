@@ -10,21 +10,9 @@ class AuthorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $paginate = $request->get('paginate') ?? false;
-        if($paginate){
-            $with = $request->get('with') ? explode(',', $request->query('with')) : null ;
-            $query_string = $request->get('query') ?? null;
-            $authors = Author::when($with, function ($query) use ($with) {
-                $query->with($with);
-            })->when($query_string, function ($query) use ($query_string) {
-                $query->where('name', 'like', '%' . $query_string . '%');
-            })->paginate($paginate);
-        }else{
-            $authors = Author::all();
-        }
-        return response()->json($authors, 200, [], JSON_PRETTY_PRINT);
+        return response()->json(Author::all(), 200, [], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -47,10 +35,6 @@ class AuthorController extends Controller
 
         $author = Author::create($request->all('name', 'bio'));
 
-        if($request->hasFile('image')) {
-            $author->saveImage($request->file('image'));
-        }
-
         return response()->json($author, 201, [], JSON_PRETTY_PRINT);
     }
 
@@ -59,7 +43,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        return response()->json($author->load('image'),200,[],JSON_PRETTY_PRINT);
+        return response()->json($author,200,[],JSON_PRETTY_PRINT);
     }
 
     /**
@@ -81,13 +65,6 @@ class AuthorController extends Controller
         ]);
 
         $author->update($request->all('name', 'bio'));
-
-        if($request->get('remove_image')) {
-            $author->image()->delete();
-        }
-        if($request->hasFile('image')) {
-            $author->saveImage($request->file('image'));
-        }
 
         return response()->json($author, 200, [], JSON_PRETTY_PRINT);
     }
