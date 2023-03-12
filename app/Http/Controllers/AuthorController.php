@@ -7,98 +7,39 @@ use Illuminate\Http\Request;
 
 class AuthorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
+    public function index()
     {
-        $paginate = $request->get('paginate') ?? false;
-        if($paginate){
-            $with = $request->get('with') ? explode(',', $request->query('with')) : null ;
-            $query_string = $request->get('query') ?? null;
-            $authors = Author::when($with, function ($query) use ($with) {
-                $query->with($with);
-            })->when($query_string, function ($query) use ($query_string) {
-                $query->where('name', 'like', '%' . $query_string . '%');
-            })->paginate($paginate);
-        }else{
-            $authors = Author::all();
-        }
-        return response()->json($authors, 200, [], JSON_PRETTY_PRINT);
+        return view('author.author-table');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show(Author $author = null)
     {
-        //
+        return view('author.author-form',compact('author'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(Request $request, Author $author)
     {
         $request->validate([
             'name' => 'required',
-            'bio' => 'nullable',
+            'bio' => 'required',
         ]);
 
-        $author = Author::create($request->all('name', 'bio'));
-
-        if($request->hasFile('image')) {
-            $author->saveImage($request->file('image'));
-        }
-
-        return response()->json($author, 201, [], JSON_PRETTY_PRINT);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Author $author)
-    {
-        return response()->json($author->load('image'),200,[],JSON_PRETTY_PRINT);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Author $author)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Author $author)
-    {
-        $request->validate([
-            'name' => 'required',
-            'bio' => 'nullable',
+        $author->updateOrCreate([
+            'id' => $author->id
+        ],[
+            $request->all('name','bio')
         ]);
 
-        $author->update($request->all('name', 'bio'));
-
-        if($request->get('remove_image')) {
+        if($request->get('remove_image')){
             $author->image()->delete();
         }
-        if($request->hasFile('image')) {
+        if($request->hasFile('image')){
+            $author->image()->delete();
             $author->saveImage($request->file('image'));
         }
 
-        return response()->json($author, 200, [], JSON_PRETTY_PRINT);
+
+        return redirect()->route('author.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Author $author)
-    {
-        $author->delete();
-
-        return response()->json(null, 204);
-    }
 }

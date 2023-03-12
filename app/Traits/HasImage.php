@@ -25,4 +25,9 @@ trait HasImage
                 ]
             );
     }
+
+    public function ImageUrl(): \Attribute
+    {
+        return  $this->image?->path;
+    }
 }
