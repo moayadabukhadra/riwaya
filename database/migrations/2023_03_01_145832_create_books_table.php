@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('page_count')->nullable();
             $table->string('price')->nullable();
+            $table->string('file')->nullable();
+            $table->integer('sell_count')->default(0);
             $table->timestamps();
         });
     }

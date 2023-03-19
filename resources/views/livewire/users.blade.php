@@ -1,14 +1,14 @@
 <div>
     <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
         <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-            <h3 class="text-white fw-bolder fs-2qx me-5">المؤلفين</h3>
+            <h3 class="text-white fw-bolder fs-2qx me-5">المستخدمين</h3>
             <div class="d-flex align-items-center flex-wrap py-2">
                 <div id="kt_header_search" class="d-flex align-items-center w-200px w-lg-250px my-2 me-4 me-lg-6"
                      data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter"
                      data-kt-search-layout="menu" data-kt-menu-trigger="auto" data-kt-menu-permanent="true"
                      data-kt-menu-placement="bottom-end">
                     <form data-kt-search-element="form" class="search w-100 position-relative" autocomplete="off">
-                        <input type="hidden" />
+                        <input type="hidden"/>
                         <span
                             class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-white position-absolute start-0 top-50 translate-middle-y">
 											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -20,13 +20,15 @@
                                                     fill="black"/>
 											</svg>
 										</span>
-                        <input type="text" class="form-control ps-15" name="search" value="" placeholder="البحث في المؤلفين..."  wire:model="query"
+                        <input type="text" class="form-control ps-15" name="search" value=""
+                               placeholder="البحث في المستخدمين..." wire:model="query"
                         />
                     </form>
                 </div>
-                <a href="{{ route('author.show') }}" class="btn btn-primary my-2 me-2">
+                <a href="{{ route('user.show') }}" class="btn btn-primary my-2 me-2">
                     <i class="fa fa-plus-circle"></i>
-                    إضافة مؤلف
+                    إضافة مستخدم
+
                 </a>
             </div>
         </div>
@@ -43,31 +45,41 @@
                                 <table class="table align-middle table-row-bordered table-row-dashed gy-5"
                                        id="kt_table_widget_1">
                                     <thead>
-                                    <tr class="text-gray-400 fw-boldest fs-7">
-                                        <th>الاسم</th>
-                                        <th>الخيارات</th>
+                                    <tr class="text-gray-400 fw-boldest fs-7" >
+                                        <th >الاسم</th>
+                                        <th>البريد الالكتروني</th>
+                                        <th colspan="2" class="text-center">الخيارات</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($authors as $author)
+                                    @foreach($users as $user)
                                         <tr>
                                             <td class="p-0">
                                                 <div class="d-flex align-items-center">
                                                     <img alt="" class="w-50px"
-                                                         src="{{ "storage/images/" . $author->image?->path }}"/>
+                                                         src="{{ "storage/images/" . $user->image?->path }}"/>
                                                     <div class="ps-3 fw-bold me-1">
-                                                        {{ $author->name }}
+                                                        {{ $user->name }}
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="d-flex align-items-center gap-1">
-                                                <a href="{{ route('author.show',['author'=>$author->id]) }}" class="btn btn-success d-flex align-items-center justify-content-center gap-1">
+                                            <td class="p-0">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="ps-3 fw-bold me-1">
+                                                        {{ $user->email }}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="d-flex align-items-center justify-content-center gap-1">
+                                                <a href="{{ route('user.show',['user'=>$user->id]) }}"
+                                                   class="btn btn-success d-flex align-items-center justify-content-center gap-1">
                                                     <i class="fa fa-edit p-0"></i>
                                                     <span class="d-none d-md-block">تعديل</span>
                                                 </a>
-                                                <button class="btn btn-danger d-flex align-items-center  justify-content-center gap-1">
+                                                <button class="btn btn-danger d-flex align-items-center justify-content-center gap-1">
                                                     <i class="fa fa-trash p-0"></i>
-                                                   <span class="d-none d-md-block">حذف</span>
+                                                    <span class="d-none d-md-block">حذف</span>
                                                 </button>
                                             </td>
                                         </tr>
@@ -76,7 +88,7 @@
                                 </table>
                             </div>
                         </div>
-                        {{ $authors->links() }}
+                        {{ $users->links() }}
                     </div>
                 </div>
             </div>

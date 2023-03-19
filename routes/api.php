@@ -26,6 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['name' => 'book'], function () {
     Route::get('books', [BookController::class, 'index'])->name('index');
     Route::prefix('book')->group(function () {
+        Route::get('/latest', [BookController::class, 'latest'])->name('latest');
         Route::post('/', [BookController::class, 'store'])->name('store');
         Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
         Route::put('/update/{book}', [BookController::class, 'update'])->name('update');
@@ -41,6 +42,7 @@ Route::group(['name' => 'author'], function () {
         Route::get('/{author}', [AuthorController::class, 'show'])->name('show');
         Route::put('/{author}', [AuthorController::class, 'update'])->name('update');
         Route::delete('/{author}', [AuthorController::class, 'destroy'])->name('destroy');
+        Route::get('/{author}/books', [AuthorController::class, 'books'])->name('books');
     });
 });
 
@@ -58,6 +60,7 @@ Route::group(['name' => 'category'], function () {
 Route::post('login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);
 
-Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('user-role', [UserController::class, 'userRole']);
+Route::group(['middleware' => 'auth:api','name' => 'user.'], function(){
+    Route::post('add-book-favorite', [UserController::class, 'addToFavoriteBooks'])->name('add-book-favorite');
+    Route::get('/favorite-books', [UserController::class, 'favoriteBooks'])->name('favorite-books');
 });

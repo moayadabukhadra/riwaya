@@ -9,14 +9,12 @@
              data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto"
              data-kt-scroll-dependencies="#kt_header, #kt_toolbar, #kt_aside_footer, #kt_footer"
              data-kt-scroll-wrappers="#kt_aside, #kt_aside_menu" data-kt-scroll-offset="0px">
-            <!--begin::Menu-->
             <div
                 class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
                 id="#kt_aside_menu" data-kt-menu="true">
                 <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion mb-1">
 											<span class="menu-link">
 												<span class="menu-icon">
-													<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
 													<span class="svg-icon svg-icon-2">
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                              viewBox="0 0 24 24" fill="none">
@@ -29,7 +27,6 @@
                                                                   fill="black"/>
 														</svg>
 													</span>
-                                                    <!--end::Svg Icon-->
 												</span>
 												<span class="menu-title">Dashboards</span>
 												<span class="menu-arrow"></span>

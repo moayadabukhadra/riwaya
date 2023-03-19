@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -13,25 +14,26 @@ use Validator;
 class UserController extends Controller
 {
     public int $successStatus = 200;
+
     /**
      * login api
      *
      * @return JsonResponse
      */
-    public function login(){
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+    public function login()
+    {
+        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyLaravelApp')-> accessToken;
+            $success['token'] = $user->createToken('MyLaravelApp')->accessToken;
             $success['user'] = [
                 'name' => $user->name,
                 'email' => $user->email,
                 'image' => $user->image,
-                'role' => $user->roles()->first()->name,
+                'role' => $user->roles()->first()?->name,
             ];
-            return response()->json(['success' => $success], $this-> successStatus);
-        }
-        else{
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['success' => $success], $this->successStatus);
+        } else {
+            return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
 
@@ -49,14 +51,15 @@ class UserController extends Controller
             'c_password' => 'required|same:password',
         ]);
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json(['error' => $validator->errors()], 401);
         }
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyLaravelApp')-> accessToken;
-        $success['user'] =  $user->load(['image','permissions']);
-        return response()->json(['success'=>$success], $this-> successStatus);
+        $user->assignRole('user');
+        $success['token'] = $user->createToken('Riwaya')->accessToken;
+        $success['user'] = $user->load(['image', 'permissions']);
+        return response()->json(['success' => $success], $this->successStatus);
     }
 
     /**
@@ -67,7 +70,21 @@ class UserController extends Controller
     public function userRole()
     {
         $user = Auth::user();
-        return response()->json(['success' => $user->roles()->first()->name], $this-> successStatus);
+        return response()->json(['success' => $user->roles()->first()->name], $this->successStatus);
 
+    }
+
+    function favoriteBooks()
+    {
+        $user = Auth::user();
+        return response()->json(['success' => $user->favoriteBooks()->with(['image','author','category'])->get()], $this->successStatus);
+    }
+
+    function addToFavoriteBooks(Request $request)
+    {
+
+        $user = Auth::user();
+        $user->favoriteBooks()->attach($request->get('book'));
+        return response()->json(['success' => 'تم الاضافة الى المفضلة'], $this->successStatus);
     }
 }

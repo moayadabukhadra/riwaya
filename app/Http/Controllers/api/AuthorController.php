@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Author;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -61,6 +62,12 @@ class AuthorController extends Controller
     public function show(Author $author)
     {
         return response()->json($author->load('image'),200,[],JSON_PRETTY_PRINT);
+    }
+
+    function books($author_id){
+        $books = Book::where('author_id', $author_id)->with(['image', 'author', 'category'])->get();
+
+        return response()->json($books, 200, [], JSON_PRETTY_PRINT);
     }
 
     /**

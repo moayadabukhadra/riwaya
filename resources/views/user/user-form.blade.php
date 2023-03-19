@@ -2,7 +2,7 @@
 @section('content')
     <div class="toolbar py-5 py-lg-15" id="kt_toolbar">
         <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-            <h3 class="text-white fw-bolder fs-2qx me-5">{{ $author ? 'تعديل' : 'اضافة' }} مؤلف</h3>
+            <h3 class="text-white fw-bolder fs-2qx me-5">{{ $user ? 'تعديل' : 'اضافة' }} مستخدم</h3>
             <div class="d-flex align-items-center flex-wrap py-2">
                 <div id="kt_header_search" class="d-flex align-items-center w-200px w-lg-250px my-2 me-4 me-lg-6"
                      data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter"
@@ -18,7 +18,7 @@
                 <div class="col-xxl-6">
                     <div class="card card-xxl-stretch">
                         <div class="card-body py-0">
-                            <form method="POST" action="{{ route('author.store',['author'=>$author?->id]) }}"  enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('user.store',['user'=>$user?->id]) }}"  enctype="multipart/form-data">
                                 @csrf
                                 <div class="image-input">
                                     <label class=" image-input-edit">
@@ -26,7 +26,7 @@
                                         <input type="file" hidden name="image" class="input-image">
                                     </label>
                                     <div class="image-input-preview"
-                                         style="background-image:url({{ $author?->image ? "storage/images/" . $author->image->path : '/assets/images/placeholder.jpg' }})">
+                                         style="background-image:url({{ $user?->image ? "storage/images/" . $user->image->path : '/assets/images/placeholder.jpg' }})">
                                     </div>
                                     <label class="image-input-delete">
                                         <i class="fa fa-times text-white"></i>
@@ -36,21 +36,35 @@
 
                                 <div class="form-group mb-5">
                                     <input name="name" type="text" class="form-control form-control-solid"
-                                           value="{{ $author?->name ?? old('name') }}"
+                                           value="{{ $user?->name ?? old('name') }}"
                                            placeholder="الاسم">
                                 </div>
                                 <div class="form-group mb-5">
-                                    <input name="country" type="text" class="form-control form-control-solid"
-                                           value="{{ $author?->country ?? old('country') }}"
-                                           placeholder="الدولة">
+                                    <input name="email" type="email" class="form-control form-control-solid"
+                                           value="{{ $user?->email ?? old('email') }}"
+                                           placeholder="البريد الالكتروني">
                                 </div>
                                 <div class="form-group mb-5">
-                                    <textarea class="editor" name="bio">
-                                        {{ $author?->bio ?? old('bio')}}
-                                    </textarea>
+                                    <input name="password" type="password" class="form-control form-control-solid"
+                                           placeholder="كلمة المرور">
+                                </div>
+                                <div class="form-group mb-5">
+                                    <input name="password_confirmation" type="password" class="form-control form-control-solid"
+                                           placeholder="كلمة المرور">
+                                </div>
+                                <div class="mb-5">
+                                    <select class="form-select fw-bold" data-control="select2" name="role_id"
+                                            data-placeholder="الصلاحيات" data-hide-search="false">
+                                        <option value="{{ null }}">حميع الصلاحيات</option>
+                                        @foreach($roles as $role)
+                                            <option
+                                                @if($user?->hasRole($role->name)) selected @endif
+                                            value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <button class="btn btn-primary float-start mb-4">
-                                    {{ $author ? 'تعديل' : 'حفظ' }}
+                                    {{ $user ? 'تعديل' : 'حفظ' }}
                                 </button>
                             </form>
                         </div>
@@ -60,23 +74,3 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-    <script>
-        ClassicEditor
-            .create(document.querySelector('.editor'), {
-                language: '{{ app()->getLocale() }}'
-            })
-
-        $('input[name="image"]').on('change', function () {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('.image-input-preview').css('background-image', 'url(' + e.target.result + ')');
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
-        $('input[name="remove_image"]').on('change', function () {
-            $('.image-input-preview').css('background-image', 'url(assets/images/placeholder.jpg)');
-        });
-
-    </script>
-@endpush

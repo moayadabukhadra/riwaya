@@ -26,13 +26,25 @@ class Books extends Component
 
     public function render()
     {
-        $books = Book::with(['image','category','author'])->when($this->query, function ($query) {
-            $query->where('title', 'like', '%' . $this->query . '%');
-        })->when($this->selected_author, function ($query) {
-            $query->where('author_id', $this->selected_author);
-        })->when($this->selected_category, function ($query) {
-            $query->where('category_id', $this->selected_category);
-        })->paginate(10);
+        if(mb_strlen($this->query) < 3) {
+            $books = Book::with(['image','author','category'])  ->when($this->selected_author, function ($query) {
+                return $query->where('author_id', $this->selected_author);
+            })
+                ->when($this->selected_category, function ($query) {
+                    return $query->where('category_id', $this->selected_category);
+                })
+                ->paginate(10);
+        }else{
+            $books = Book::search($this->query)
+                ->when($this->selected_author, function ($query) {
+                    return $query->where('author_id', $this->selected_author);
+                })
+                ->when($this->selected_category, function ($query) {
+                    return $query->where('category_id', $this->selected_category);
+                })
+                ->paginate(10);
+        }
+
         return view('livewire.books',compact('books'));
     }
 

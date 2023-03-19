@@ -4,6 +4,7 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,5 +46,14 @@ Route::name('category.')->group(function (){
     Route::prefix('category')->group(function (){
         Route::get('/show/{category?}',[CategoryController::class,'show'])->name('show');
         Route::post('/store/{category?}',[CategoryController::class,'store'])->name('store');
+    });
+});
+
+/* Users */
+Route::name('user.')->group(function (){
+    Route::get('/users',[UserController::class,'index'])->name('index');
+    Route::prefix('user')->group(function (){
+        Route::get('/show/{user?}',[UserController::class,'show'])->name('show');
+        Route::post('/store/{user?}',[UserController::class,'store'])->name('store');
     });
 });

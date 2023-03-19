@@ -29,10 +29,12 @@ class AuthorController extends Controller
             'bio' => 'nullable',
         ]);
 
-        $author->updateOrCreate([
+        $author= Author::updateOrCreate([
             'id' => $author->id
         ],[
-            $request->all('name','bio')
+            'name' => $request->name,
+            'bio' => $request->bio,
+            'country' => $request->country
         ]);
 
         if($request->get('remove_image')){

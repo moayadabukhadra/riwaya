@@ -18,7 +18,7 @@
                 <div class="col-xxl-6">
                     <div class="card card-xxl-stretch">
                         <div class="card-body py-0">
-                            <form method="POST" action="{{ route('category.store',['category'=>$category?->id]) }}">
+                            <form method="POST" action="{{ route('category.store',['category'=>$category?->id]) }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="image-input">
                                     <label class=" image-input-edit">
@@ -35,9 +35,20 @@
                                 </div>
 
                                 <div class="form-group mb-5">
-                                    <input name="title" type="text" class="form-control form-control-solid"
+                                    <input name="name" type="text" class="form-control form-control-solid"
                                            value="{{ $category?->name ?? old('name') }}"
                                            placeholder="الاسم">
+                                </div>
+                                <div class="mb-5">
+                                    <select class="form-select fw-bold" data-control="select2" name="parent_id"
+                                            data-placeholder="التصنيف الاب" data-hide-search="false">
+                                        <option value="{{ null }}">حميع التصنيفات</option>
+                                        @foreach($categories as $parent)
+                                            <option
+                                                @if($category?->parent_id == $parent->id) selected @endif
+                                                value="{{ $parent->id }}">{{ $parent->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group mb-5">
                                     <textarea class="editor" name="description">

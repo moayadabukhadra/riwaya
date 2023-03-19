@@ -15,10 +15,11 @@ class CategoryController extends Controller
 
     public function show(Category $category = null)
     {
-        return view('category.category-form', compact('category'));
+        $categories = Category::all();
+        return view('category.category-form', compact('category', 'categories'));
     }
 
-    public function update(Request $request, Category $category)
+    public function store(Request $request, Category $category = null)
     {
         $request->validate([
             'name' => 'required',
@@ -26,10 +27,12 @@ class CategoryController extends Controller
             'parent_id' => 'nullable|exists:categories,id',
         ]);
 
-        $category->updateOrCreate([
-            'id' => $category->id
+        $category= Category::updateOrCreate([
+            'id' => $category?->id
         ], [
-            $request->all('name', 'description')
+            'name' => $request->get('name'),
+            'description' => $request->get('description'),
+            'parent_id' => $request->get('parent_id'),
         ]);
 
         if ($request->get('remove_image')) {
