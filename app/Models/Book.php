@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasComments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Traits\HasImage;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 
 class Book extends Model
@@ -14,6 +16,7 @@ class Book extends Model
     use HasFactory;
     use HasImage;
     use Searchable;
+    use HasComments;
 
     protected $guarded = ['id'];
 
@@ -71,5 +74,10 @@ class Book extends Model
     public function UsersFavorite(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_book_favorite');
+    }
+
+    public function quotes(): HasMany
+    {
+        return $this->hasMany(Quote::class, 'book_id', 'id');
     }
 }

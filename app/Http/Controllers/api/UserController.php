@@ -4,7 +4,6 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Book;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -26,10 +25,12 @@ class UserController extends Controller
             $user = Auth::user();
             $success['token'] = $user->createToken('MyLaravelApp')->accessToken;
             $success['user'] = [
+                'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
                 'image' => $user->image,
                 'role' => $user->roles()->first()?->name,
+                'token' => $success['token'],
             ];
             return response()->json(['success' => $success], $this->successStatus);
         } else {
@@ -87,4 +88,6 @@ class UserController extends Controller
         $user->favoriteBooks()->attach($request->get('book'));
         return response()->json(['success' => 'تم الاضافة الى المفضلة'], $this->successStatus);
     }
+
+
 }

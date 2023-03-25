@@ -39,7 +39,7 @@
                 <div class="card card-xxl-stretch">
                     <div class="card-header border-0 pt-5 pb-3">
                         <div class="card-toolbar d-flex align-items-center gap-5">
-                            <div class="my-1">
+                            <div class="my-1" wire:ignore>
                                 <select class="form-select fw-bold" data-control="select2" wire:model="selected_author"
                                         data-placeholder="اختر المؤلف" data-hide-search="false">
                                     <option value="{{ null }}">جميع المؤلفين</option>
@@ -48,7 +48,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="my-1">
+                            <div class="my-1" wire:ignore>
                                 <select class="form-select fw-bold" data-control="select2" wire:model="selected_category"
                                         data-placeholder="اختر التصنيف" data-hide-search="false">
                                     <option value="{{ null }}">جميع التصنيفات</option>

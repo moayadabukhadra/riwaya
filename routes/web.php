@@ -4,6 +4,7 @@
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,5 +56,14 @@ Route::name('user.')->group(function (){
     Route::prefix('user')->group(function (){
         Route::get('/show/{user?}',[UserController::class,'show'])->name('show');
         Route::post('/store/{user?}',[UserController::class,'store'])->name('store');
+    });
+});
+
+/* Quotes */
+Route::name('quote.')->group(function (){
+    Route::get('/quotes',[QuoteController::class,'index'])->name('index');
+    Route::prefix('quote')->group(function (){
+        Route::get('/show/{quote?}',[QuoteController::class,'show'])->name('show');
+        Route::post('/store/{quote?}',[QuoteController::class,'store'])->name('store');
     });
 });

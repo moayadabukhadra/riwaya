@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewComment;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -12,7 +14,8 @@ class BookController extends Controller
 {
     public function index()
     {
-
+        $comment = Comment::latest()->first();
+        broadcast(new NewComment($comment->load(['user','replies'])));
         return view('book.book-table');
     }
 

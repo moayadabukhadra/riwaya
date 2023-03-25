@@ -37,7 +37,13 @@
 													<span class="menu-arrow d-lg-none"></span>
 												</span>
                         </a>
-                        <a href="{{ route('category.index') }}"  class="menu-item menu-lg-down-accordion me-lg-1">
+                        <a href="{{ route('quote.index') }}"  class="menu-item menu-lg-down-accordion me-lg-1">
+												<span class="menu-link py-3">
+													<span class="menu-title">الاقتباسات</span>
+													<span class="menu-arrow d-lg-none"></span>
+												</span>
+                        </a>
+                        <a href="{{ route('user.index') }}"  class="menu-item menu-lg-down-accordion me-lg-1">
 												<span class="menu-link py-3">
 													<span class="menu-title">المستخدمين</span>
 													<span class="menu-arrow d-lg-none"></span>
