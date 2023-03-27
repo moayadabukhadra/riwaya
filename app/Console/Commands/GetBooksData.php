@@ -41,7 +41,7 @@ class GetBooksData extends Command
         $book_img = [];
         for ($i = 1; $i < $number_of_pages; $i++) {
             $link = 'https://foulabook.com/ar/books?page=' . $i;
-
+            try {
                 $crawler = $client->request('GET', $link);
                 $books = $crawler->filter('.related-items');
                 $books->filter('li')->each(function ($node) use ($client, $book_img) {
@@ -153,7 +153,9 @@ class GetBooksData extends Command
                 });
                 $this->book = [];
                 $this->author = [];
-
+            } catch (\Exception $exception) {
+                continue;
+            }
         }
 
     }
