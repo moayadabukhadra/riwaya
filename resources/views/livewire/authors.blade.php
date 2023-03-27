@@ -54,7 +54,7 @@
                                             <td class="p-0">
                                                 <div class="d-flex align-items-center">
                                                     <img alt="" class="w-50px"
-                                                         src="{{ "storage/images/" . $author->image?->path }}"/>
+                                                         src="{{ "riwaya/storage/app/public/images/" . $author->image?->path }}"/>
                                                     <div class="ps-3 fw-bold me-1">
                                                         {{ $author->name }}
                                                     </div>
