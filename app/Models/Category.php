@@ -12,34 +12,34 @@ class Category extends Model
 {
     use HasFactory;
     use HasImage;
-    use Searchable;
+//    use Searchable;
 
-    protected array $mapping = [
-        'properties' => [
-            'name' => [
-                'type' => 'text',
-                'analyzer' => 'arabic',
-                'boost' => 2,
-            ],
-            'description' => [
-                'type' => 'text',
-                'analyzer' => 'arabic',
-                'boost' => 1.5,
-            ],
-        ]
-    ];
+//    protected array $mapping = [
+//        'properties' => [
+//            'name' => [
+//                'type' => 'text',
+//                'analyzer' => 'arabic',
+//                'boost' => 2,
+//            ],
+//            'description' => [
+//                'type' => 'text',
+//                'analyzer' => 'arabic',
+//                'boost' => 1.5,
+//            ],
+//        ]
+//    ];
 
     protected $guarded = ['id'];
 
-    public function toSearchableArray(): array
-    {
-        $with = [
-            'image',
-        ];
-
-        $this->loadMissing($with);
-        return $this->toArray();
-    }
+//    public function toSearchableArray(): array
+//    {
+//        $with = [
+//            'image',
+//        ];
+//
+//        $this->loadMissing($with);
+//        return $this->toArray();
+//    }
 
     public function books(): HasMany
     {

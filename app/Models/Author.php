@@ -13,35 +13,35 @@ class Author extends Model
 {
     use HasFactory;
     use HasImage;
-    use Searchable;
+//    use Searchable;
     use HasComments;
 
     protected $guarded = ['id'];
 
-    protected array $mapping = [
-        'properties' => [
-            'name' => [
-                'type' => 'text',
-                'analyzer' => 'arabic',
-                'boost' => 2,
-            ],
-            'description' => [
-                'type' => 'text',
-                'analyzer' => 'arabic',
-                'boost' => 1.5,
-            ],
-        ]
-    ];
+//    protected array $mapping = [
+//        'properties' => [
+//            'name' => [
+//                'type' => 'text',
+//                'analyzer' => 'arabic',
+//                'boost' => 2,
+//            ],
+//            'description' => [
+//                'type' => 'text',
+//                'analyzer' => 'arabic',
+//                'boost' => 1.5,
+//            ],
+//        ]
+//    ];
 
-    public function toSearchableArray(): array
-    {
-        $with = [
-            'image',
-        ];
-
-        $this->loadMissing($with);
-        return $this->toArray();
-    }
+//    public function toSearchableArray(): array
+//    {
+//        $with = [
+//            'image',
+//        ];
+//
+//        $this->loadMissing($with);
+//        return $this->toArray();
+//    }
 
     protected static function booted()
     {
