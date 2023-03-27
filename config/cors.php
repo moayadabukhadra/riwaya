@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000'],
+    'allowed_origins' => ['https://riwaya-i0ud5nrgo-moayadabukhadra.vercel.app'],
 
     'allowed_origins_patterns' => ['Access-Control-Allow-Origin'],
 
