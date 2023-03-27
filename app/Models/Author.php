@@ -43,6 +43,7 @@ class Author extends Model
 //        return $this->toArray();
 //    }
 
+
     protected static function booted()
     {
         static::addGlobalScope('image', function ($query) {
