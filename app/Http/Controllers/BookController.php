@@ -14,8 +14,6 @@ class BookController extends Controller
 {
     public function index()
     {
-        $comment = Comment::latest()->first();
-        broadcast(new NewComment($comment->load(['user','replies'])));
         return view('book.book-table');
     }
 
