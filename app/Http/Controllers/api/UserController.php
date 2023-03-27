@@ -59,7 +59,7 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole('user');
         $success['token'] = $user->createToken('Riwaya')->accessToken;
-        $success['user'] = $user->load(['image', 'permissions']);
+        $success['user'] = $user->load(['image', 'roles']);
         return response()->json(['success' => $success], $this->successStatus);
     }
 

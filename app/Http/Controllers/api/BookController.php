@@ -19,23 +19,18 @@ class BookController extends Controller
         $selected_book = $request->get('selected_book') ?? null;
 
 
-
-        if ($query_string) {
-            $books = Book::search($query_string)
-                ->when($selected_category, function ($query) use ($selected_category) {
-                    $query->where('category_id', $selected_category);
-                })->when($selected_author, function ($query) use ($selected_author) {
-                    $query->where('author_id', $selected_author);
-                })->paginate($paginate);
-        }else{
-            $books = Book::when($with, function ($query) use ($with) {
-                $query->with($with);
+        $books = Book::when($with, function ($query) use ($with) {
+            $query->with($with);
+        })->where('title', 'like', '%' . $query_string . '%')
+            ->orWhere('description', 'like', '%' . $query_string . '%')
+            ->orWhereHas('author', function ($query) use ($query_string) {
+                $query->where('name', 'like', '%' . $query_string . '%');
             })->when($selected_category, function ($query) use ($selected_category) {
                 $query->where('category_id', $selected_category);
             })->when($selected_author, function ($query) use ($selected_author) {
                 $query->where('author_id', $selected_author);
             })->paginate($paginate);
-        }
+
         if ($selected_book) {
             $selected_book = Book::find($selected_book);
             $related_books = Book::with($with)->where('author_id', $selected_book->author_id)->where('id', '!=', $selected_book->id)->get();
@@ -51,7 +46,7 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
-        return response()->json($book->load(['image', 'category', 'author','comments']), 200, [], JSON_PRETTY_PRINT);
+        return response()->json($book->load(['image', 'category', 'author', 'comments']), 200, [], JSON_PRETTY_PRINT);
     }
 
 
