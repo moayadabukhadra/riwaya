@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://riwaya.vercel.app'],
+    'allowed_origins' => ['https://riwaya.vercel.app','http://localhost:3000'],
 
     'allowed_origins_patterns' => ['Access-Control-Allow-Origin'],
 
