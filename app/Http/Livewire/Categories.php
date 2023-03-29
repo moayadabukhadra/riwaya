@@ -14,12 +14,14 @@ class Categories extends Component
 
     public function render()
     {
-        if(mb_strlen(escapeElasticReservedChars($this->query)) < 3){
-            $categories = Category::with('image')->paginate(10);
-        }else{
-            $categories = Category::search(escapeElasticReservedChars($this->query))->paginate(10);
-        }
-        return view('livewire.categories',compact('categories'));
+
+        $categories = Category::with('image')
+            ->when($this->query, function ($query) {
+                $query->where('name', 'like', '%' . $this->query . '%');
+            })
+            ->paginate(10);
+
+        return view('livewire.categories', compact('categories'));
     }
 
     public function updatedQuery()

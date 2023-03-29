@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 /* admin permissions */
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::name('book.')->group(function () {

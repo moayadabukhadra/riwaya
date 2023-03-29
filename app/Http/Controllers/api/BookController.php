@@ -22,18 +22,14 @@ class BookController extends Controller
 
         $books = Book::when($with, function ($query) use ($with) {
             $query->with($with);
-        })->where('title', 'like', '%' . $query_string . '%')
-            ->orWhere('description', 'like', '%' . $query_string . '%')
-            ->orWhereHas('author', function ($query) use ($query_string) {
-                $query->where('name', 'like', '%' . $query_string . '%');
-            })->when($selected_category, function ($query) use ($selected_category) {
+        })->when($selected_category, function ($query) use ($selected_category) {
                 $query->where('category_id', $selected_category);
             })->when($selected_author, function ($query) use ($selected_author) {
                 $query->where('author_id', $selected_author);
             })->paginate($paginate);
 
         if ($selected_book) {
-            $selected_book = Book::find($selected_book);
+            $selected_book = Book::findOrFail($selected_book);
             $related_books = Book::with($with)->where('author_id', $selected_book->author_id)->where('id', '!=', $selected_book->id)->get();
         }
 
