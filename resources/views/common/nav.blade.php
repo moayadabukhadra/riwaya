@@ -17,36 +17,31 @@
         </div>
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
             <div class="d-flex align-items-stretch" id="kt_header_nav">
-                <div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
+                <div class="header-menu align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_header_menu_mobile_toggle" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_body', lg: '#kt_header_nav'}">
                     <div class="menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-gray-700 menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch" id="#kt_header_menu" data-kt-menu="true">
                         <a href="{{ route('book.index') }}"  class="menu-item menu-lg-down-accordion me-lg-1">
 												<span class="menu-link py-3">
 													<span class="menu-title">الكتب</span>
-													<span class="menu-arrow d-lg-none"></span>
 												</span>
                         </a>
                         <a href="{{ route('author.index') }}"  class="menu-item menu-lg-down-accordion me-lg-1">
 												<span class="menu-link py-3">
 													<span class="menu-title">المؤلفين</span>
-													<span class="menu-arrow d-lg-none"></span>
 												</span>
                         </a>
                         <a href="{{ route('category.index') }}"  class="menu-item menu-lg-down-accordion me-lg-1">
 												<span class="menu-link py-3">
 													<span class="menu-title">التصنيفات</span>
-													<span class="menu-arrow d-lg-none"></span>
 												</span>
                         </a>
                         <a href="{{ route('quote.index') }}"  class="menu-item menu-lg-down-accordion me-lg-1">
 												<span class="menu-link py-3">
 													<span class="menu-title">الاقتباسات</span>
-													<span class="menu-arrow d-lg-none"></span>
 												</span>
                         </a>
                         <a href="{{ route('user.index') }}"  class="menu-item menu-lg-down-accordion me-lg-1">
 												<span class="menu-link py-3">
 													<span class="menu-title">المستخدمين</span>
-													<span class="menu-arrow d-lg-none"></span>
 												</span>
                         </a>
                     </div>
@@ -168,23 +163,20 @@
 {{--                    </div>--}}
 
                     <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-                        <!--begin::Menu wrapper-->
                         <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                            <img alt="Pic" src="assets/media/avatars/150-26.jpg" />
+                            <img alt="Pic" src="{{ Auth::user()->image  ?"riwaya/storage/app/public/images/" . Auth::user()->image?->path :  "assets/media/avatars/150-26.jpg"}}" />
                         </div>
-                        <!--begin::Menu-->
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
-                            <!--begin::Menu item-->
-                            <div class="menu-item px-3">
-                                <div class="menu-content d-flex align-items-center px-3">
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-200px" data-kt-menu="true">
+                            <div class="menu-item">
+                                <div class="menu-content d-flex align-items-center">
                                     <div class="symbol symbol-50px me-5">
-                                        <img alt="Logo" src="assets/media/avatars/150-26.jpg" />
+                                        <img alt="Logo" src="{{ Auth::user()->image  ?"riwaya/storage/app/public/images/" . Auth::user()->image?->path :  "assets/media/avatars/150-26.jpg"}}" />
                                     </div>
                                     <div class="d-flex flex-column">
                                         <div class="fw-bolder d-flex align-items-center fs-5">
                                             {{ Auth::user()->name }}
                                         </div>
-                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-7">
+                                        <a href="#" class="fw-bold text-muted text-hover-primary fs-10">
                                             {{ Auth::user()->email }}
                                         </a>
                                     </div>
@@ -201,8 +193,8 @@
                             <form method="POST" action="{{ route('auth.logout') }}"  class="menu-item px-5">
                                 @csrf
                                 <a onclick="$(this).closest('form').submit()"
-                                   class="menu-link px-5">
-                                    <i class="menu-icon fas fa-sign-out-alt me-1"></i>
+                                   class="menu-link px-5 text-danger">
+                                    <i class="menu-icon fas fa-sign-out-alt me-1 text-danger"></i>
                                     تسجيل الخروج
                                 </a>
                             </form>
