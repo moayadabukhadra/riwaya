@@ -15,51 +15,51 @@ class Book extends Model
 {
     use HasFactory;
     use HasImage;
-//    use Searchable;
+    use Searchable;
     use HasComments;
 
     protected $guarded = ['id'];
 
-//    protected array $mapping= [
-//        'properties' => [
-//            'title' => [
-//                'type' => 'text',
-//                'analyzer' => 'arabic',
-//                'boost' => 2,
-//            ],
-//            'description' => [
-//                'type' => 'text',
-//                'analyzer' => 'arabic',
-//                'boost' => 1.5,
-//            ],
-//            'author' => [
-//                'type' => 'text',
-//                'analyzer' => 'arabic',
-//            ],
-//            'category' => [
-//                'type' => 'text',
-//                'analyzer' => 'arabic',
-//            ],
-//        ]
-//    ];
+    protected array $mapping= [
+        'properties' => [
+            'title' => [
+                'type' => 'text',
+                'analyzer' => 'arabic',
+                'boost' => 2,
+            ],
+            'description' => [
+                'type' => 'text',
+                'analyzer' => 'arabic',
+                'boost' => 1.5,
+            ],
+            'author' => [
+                'type' => 'text',
+                'analyzer' => 'arabic',
+            ],
+            'category' => [
+                'type' => 'text',
+                'analyzer' => 'arabic',
+            ],
+        ]
+    ];
 
 
-//    public function toSearchableArray(): array
-//    {
-//        $with = [
-//            'image',
-//            'author',
-//            'category',
-//        ];
-//
-//        $this->loadMissing($with);
-//        $array = $this->toArray();
-//
-//        $array['author'] = $this->author?->name;
-//        $array['category'] = $this->category?->name;
-//
-//        return $array;
-//    }
+    public function toSearchableArray(): array
+    {
+        $with = [
+            'image',
+            'author',
+            'category',
+        ];
+
+        $this->loadMissing($with);
+        $array = $this->toArray();
+
+        $array['author'] = $this->author?->name;
+        $array['category'] = $this->category?->name;
+
+        return $array;
+    }
 
     public function category(): BelongsTo
     {
