@@ -35,7 +35,7 @@ Route::group(['name' => 'book'], function () {
         Route::get('/show/{book}', [BookController::class, 'show'])->name('show');
         Route::put('/update/{book}', [BookController::class, 'update'])->name('update');
         Route::delete('/delete/{book}', [BookController::class, 'destroy'])->name('destroy');
-        Route::get('/download/{book}', [BookController::class, 'download'])->name('download');
+        Route::get('/download/{book}', [BookController::class, 'downloadPdf'])->name('download');
     });
 });
 
