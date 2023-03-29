@@ -26,7 +26,7 @@
                                         <input type="file" hidden name="image" class="input-image">
                                     </label>
                                     <div class="image-input-preview"
-                                         style="background-image:url({{ $user?->image ? "storage/images/" . $user->image->path : '/assets/images/placeholder.jpg' }})">
+                                         style="background-image:url({{ $user->image  ?"riwaya/storage/app/public/images/" . $user->image?->path :  "assets/images/user-placeholder.jpg"}})">
                                     </div>
                                     <label class="image-input-delete">
                                         <i class="fa fa-times text-white"></i>

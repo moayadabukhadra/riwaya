@@ -58,7 +58,7 @@
                                             <td class="p-0">
                                                 <div class="d-flex align-items-center">
                                                     <img alt="" class="w-50px"
-                                                         src="{{ "storage/images/" . $user->image?->path }}"/>
+                                                         src="{{ $user->image  ?"riwaya/storage/app/public/images/" . $user->image?->path :  "assets/images/user-placeholder.jpg"}}"/>
                                                     <div class="ps-3 fw-bold me-1">
                                                         {{ $user->name }}
                                                     </div>
