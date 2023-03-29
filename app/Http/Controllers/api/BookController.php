@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BookController extends Controller
 {
@@ -60,5 +61,21 @@ class BookController extends Controller
     {
         $books = Book::with(['image', 'author', 'category'])->orderBy('sell_count', 'desc')->take(20)->get();
         return response()->json($books, 200, [], JSON_PRETTY_PRINT);
+    }
+
+    public function downloadPdf(Book $book)
+    {
+        $filePath = "riwaya/storage/app/public/books/{$book->file}";
+
+        if (!file_exists($filePath)) {
+            return new Response('File not found', 404);
+        }
+
+        $headers = [
+            'Access-Control-Allow-Origin' => '*',
+            'Content-Type' => 'application/pdf',
+        ];
+
+        return new Response(file_get_contents($filePath), 200, $headers);
     }
 }
