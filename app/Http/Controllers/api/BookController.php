@@ -65,17 +65,6 @@ class BookController extends Controller
 
     public function downloadPdf(Book $book)
     {
-        $filePath = "riwaya/storage/app/public/books/{$book->file}";
-
-        if (!file_exists($filePath)) {
-            return new Response('File not found', 404);
-        }
-
-        $headers = [
-            'Access-Control-Allow-Origin' => '*',
-            'Content-Type' => 'application/pdf',
-        ];
-
-        return new Response(file_get_contents($filePath), 200, $headers);
+      return response()->download("riwaya/storage/app/public/books/{$book->file}");
     }
 }
