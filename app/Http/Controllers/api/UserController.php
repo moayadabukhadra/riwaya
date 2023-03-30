@@ -121,7 +121,14 @@ class UserController extends Controller
             $user->saveImage($request->file('image'));
         }
 
-        return response()->json(['success' => $user->load(['image', 'roles'])], $this->successStatus);
+
+        return response()->json(['success' =>[
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'image' => $user->image,
+            'role' => $user->roles()->first()?->name,
+        ]], $this->successStatus);
     }
 
 }
