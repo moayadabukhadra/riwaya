@@ -75,10 +75,11 @@ class UserController extends Controller
 
     }
 
-    function favoriteBooks()
+    function favoriteBooks(Request $request)
     {
         $user = Auth::user();
-        return response()->json(['success' => $user->favoriteBooks()->with(['image','author','category'])->get()], $this->successStatus);
+        $paginate = $request->get('paginate') ?? 10;
+        return response()->json(['success' => $user->favoriteBooks()->with(['image','author','category'])->paginate($paginate)], $this->successStatus);
     }
 
     function addToFavoriteBooks(Request $request)
