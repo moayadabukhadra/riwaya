@@ -102,6 +102,11 @@ class UserController extends Controller
             'name'=>'required',
             'email'=>'required|email|unique:users,email,'.$user->id,
             'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ],[
+            'name.required'=>'يجب ادخال الاسم',
+            'email.required'=>'يجب ادخال البريد الالكتروني',
+            'email.email'=>'يجب ادخال البريد الالكتروني بشكل صحيح',
+            'email.unique'=>'هذا البريد الالكتروني موجود مسبقا',
         ]);
 
         $user->update([
@@ -109,6 +114,9 @@ class UserController extends Controller
             'email' => $request->get('email'),
         ]);
 
+        if($request->get('remove_image')){
+            $user->image()->delete();
+        }
         if ($request->hasFile('image')) {
             $user->saveImage($request->file('image'));
         }
