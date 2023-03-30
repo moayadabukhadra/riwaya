@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Author;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -61,7 +62,13 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole('user');
         $success['token'] = $user->createToken('Riwaya')->accessToken;
-        $success['user'] = $user->load(['image', 'roles']);
+        $success['user'] = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'image' => $user->image,
+            'role' => $user->roles()->first()?->name,
+        ];
         return response()->json(['success' => $success], $this->successStatus);
     }
 
@@ -92,6 +99,7 @@ class UserController extends Controller
         $user->favoriteBooks()->attach($request->get('book'));
         return response()->json(['success' => 'تم الاضافة الى المفضلة'], $this->successStatus);
     }
+
 
     public function editProfile(Request $request)
     {
