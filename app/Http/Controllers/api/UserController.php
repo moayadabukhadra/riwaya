@@ -95,7 +95,7 @@ class UserController extends Controller
 
     public function editProfile(Request $request)
     {
-        $user = \auth('api')->user();
+        $user = Auth::user();
 
         if (!$user) {
             return response()->json(['error' => 'Unauthorised'], 401);
