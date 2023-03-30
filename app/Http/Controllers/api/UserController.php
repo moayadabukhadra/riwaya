@@ -79,7 +79,7 @@ class UserController extends Controller
 
     function favoriteBooks(Request $request)
     {
-        $user = \auth('api')->user();
+        $user = Auth::user();
         $paginate = $request->get('paginate') ?? 8;
         $favoriteBooks = $user->favoriteBooks()->with(['image', 'author', 'category'])->paginate($paginate);
 
