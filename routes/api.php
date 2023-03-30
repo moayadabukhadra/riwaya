@@ -65,7 +65,7 @@ Route::group(['name' => 'category'], function () {
 Route::post('login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);
 
-Route::group(['name' => 'user.'], function () {
+Route::group(['middleware' => 'auth:api' ,'name' => 'user.'], function () {
     Route::post('add-book-favorite', [UserController::class, 'addToFavoriteBooks'])->name('add-book-favorite');
     Route::get('/favorite-books', [UserController::class, 'favoriteBooks'])->name('favorite-books');
     Route::post('/edit-profile', [UserController::class, 'editProfile'])->name('edit-profile');
