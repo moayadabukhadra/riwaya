@@ -5,13 +5,11 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class BookController extends Controller
 {
     public function index(Request $request)
     {
-
         $paginate = $request->get('paginate') ?? 10;
         $with = $request->get('with') ? explode(',', $request->query('with')) : null;
         $query_string = $request->get('query') ?? null;
@@ -22,7 +20,9 @@ class BookController extends Controller
 
         $books = Book::when($with, function ($query) use ($with) {
             $query->with($with);
-        })->when($selected_category, function ($query) use ($selected_category) {
+        })->when($query_string, function ($query) use ($query_string) {
+                $query->where('title', 'like', "%{$query_string}%");
+            })->when($selected_category, function ($query) use ($selected_category) {
                 $query->where('category_id', $selected_category);
             })->when($selected_author, function ($query) use ($selected_author) {
                 $query->where('author_id', $selected_author);
@@ -61,6 +61,6 @@ class BookController extends Controller
 
     public function downloadPdf(Book $book)
     {
-      return response()->download("riwaya/storage/app/public/books/{$book->file}");
+        return response()->download("riwaya/storage/app/public/books/{$book->file}");
     }
 }
