@@ -79,18 +79,41 @@ class UserController extends Controller
     {
         $user = \auth('api')->user();
         $paginate = $request->get('paginate') ?? 8;
-        $favoriteBooks = $user->favoriteBooks()->with(['image','author','category'])->paginate($paginate);
+        $favoriteBooks = $user->favoriteBooks()->with(['image', 'author', 'category'])->paginate($paginate);
 
         return response()->json(['success' => $favoriteBooks], $this->successStatus);
     }
 
     function addToFavoriteBooks(Request $request)
     {
-
-        $user = Auth::user();
+        $user = \auth('api')->user();
         $user->favoriteBooks()->attach($request->get('book'));
         return response()->json(['success' => 'تم الاضافة الى المفضلة'], $this->successStatus);
     }
 
+    public function editProfile(Request $request)
+    {
+        $user = \auth('api')->user();
+
+        if(!$user){
+            return response()->json(['error' => 'Unauthorised'], 401);
+        }
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required|email|unique:users,email,'.$user->id,
+            'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user->update([
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+        ]);
+
+        if ($request->hasFile('image')) {
+            $user->saveImage($request->file('image'));
+        }
+
+        return response()->json(['success' => $user->load(['image', 'roles'])], $this->successStatus);
+    }
 
 }
