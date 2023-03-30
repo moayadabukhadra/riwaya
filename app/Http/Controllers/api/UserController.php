@@ -70,14 +70,14 @@ class UserController extends Controller
      */
     public function userRole()
     {
-        $user = Auth::user();
+        $user = \auth('api')->user();
         return response()->json(['success' => $user->roles()->first()->name], $this->successStatus);
 
     }
 
     function favoriteBooks()
     {
-        $user = Auth::user();
+        $user = \auth('api')->user();
         return response()->json(['success' => $user->favoriteBooks()->with(['image','author','category'])->get()], $this->successStatus);
     }
 
