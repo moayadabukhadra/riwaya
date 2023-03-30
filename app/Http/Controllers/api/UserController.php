@@ -23,15 +23,17 @@ class UserController extends Controller
     {
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $success['token'] = $user->createToken('MyLaravelApp')->accessToken;
+
+            $success['token'] = $user->createToken('Riwaya')->accessToken;
+
             $success['user'] = [
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
                 'image' => $user->image,
                 'role' => $user->roles()->first()?->name,
-                'token' => $success['token'],
             ];
+
             return response()->json(['success' => $success], $this->successStatus);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
@@ -95,18 +97,18 @@ class UserController extends Controller
     {
         $user = \auth('api')->user();
 
-        if(!$user){
+        if (!$user) {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
         $request->validate([
-            'name'=>'required',
-            'email'=>'required|email|unique:users,email,'.$user->id,
-            'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ],[
-            'name.required'=>'يجب ادخال الاسم',
-            'email.required'=>'يجب ادخال البريد الالكتروني',
-            'email.email'=>'يجب ادخال البريد الالكتروني بشكل صحيح',
-            'email.unique'=>'هذا البريد الالكتروني موجود مسبقا',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'name.required' => 'يجب ادخال الاسم',
+            'email.required' => 'يجب ادخال البريد الالكتروني',
+            'email.email' => 'يجب ادخال البريد الالكتروني بشكل صحيح',
+            'email.unique' => 'هذا البريد الالكتروني موجود مسبقا',
         ]);
 
         $user->update([
@@ -114,21 +116,25 @@ class UserController extends Controller
             'email' => $request->get('email'),
         ]);
 
-        if($request->get('remove_image')){
+        if ($request->get('remove_image')) {
             $user->image()->delete();
         }
         if ($request->hasFile('image')) {
+            $user->image()?->delete();
             $user->saveImage($request->file('image'));
         }
 
-
-        return response()->json(['success' =>[
+        $success['token'] = $user->createToken('Riwaya')->accessToken;
+        $success['user'] = [
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
             'image' => $user->image,
             'role' => $user->roles()->first()?->name,
-        ]], $this->successStatus);
-    }
+        ];
 
+
+        return response()->json(['success' => $success], $this->successStatus);
+
+    }
 }
