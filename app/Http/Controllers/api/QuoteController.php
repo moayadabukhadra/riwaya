@@ -13,7 +13,7 @@ class QuoteController extends Controller
     }
 
     public function show(Quote $quote){
-        return response()->json($quote, 200, [], JSON_PRETTY_PRINT);
+        return response()->json($quote->load('author'), 200, [], JSON_PRETTY_PRINT);
     }
 
     public function getRandomQuote(){
