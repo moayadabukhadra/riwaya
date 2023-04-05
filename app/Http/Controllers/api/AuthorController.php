@@ -22,7 +22,7 @@ class AuthorController extends Controller
             $query->with($with);
         })->when($query_string, function ($query) use ($query_string) {
             $query->where('name', 'like', '%' . $query_string . '%');
-        })->simplePaginate($paginate ?? 10);
+        })->paginate($paginate ?? 10);
 
         return response()->json($authors, 200, [], JSON_PRETTY_PRINT);
     }
