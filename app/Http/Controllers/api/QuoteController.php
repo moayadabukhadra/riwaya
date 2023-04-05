@@ -18,7 +18,7 @@ class QuoteController extends Controller
 
     public function getRandomQuote(){
         $quote = Quote::with('author')->inRandomOrder()->first();
-        return response()->json($quote, 200, [], JSON_PRETTY_PRINT);
+        return response()->json($quote->load('author'), 200, [], JSON_PRETTY_PRINT);
     }
 
 
