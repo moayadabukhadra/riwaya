@@ -8,7 +8,7 @@ use App\Models\Quote;
 class QuoteController extends Controller
 {
     public function index(){
-        $quotes = Quote::all();
+        $quotes = Quote::with(['author'])->get();
         return response()->json($quotes, 200, [], JSON_PRETTY_PRINT);
     }
 
