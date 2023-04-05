@@ -15,17 +15,15 @@ class AuthorController extends Controller
     public function index(Request $request)
     {
         $paginate = $request->get('paginate') ?? false;
-        if($paginate){
-            $with = $request->get('with') ? explode(',', $request->query('with')) : null ;
-            $query_string = $request->get('query') ?? null;
-            $authors = Author::when($with, function ($query) use ($with) {
-                $query->with($with);
-            })->when($query_string, function ($query) use ($query_string) {
-                $query->where('name', 'like', '%' . $query_string . '%');
-            })->simplePaginate($paginate);
-        }else{
-            $authors = Author::all();
-        }
+
+        $with = $request->get('with') ? explode(',', $request->query('with')) : null;
+        $query_string = $request->get('query') ?? null;
+        $authors = Author::when($with, function ($query) use ($with) {
+            $query->with($with);
+        })->when($query_string, function ($query) use ($query_string) {
+            $query->where('name', 'like', '%' . $query_string . '%');
+        })->simplePaginate($paginate ?? 10);
+
         return response()->json($authors, 200, [], JSON_PRETTY_PRINT);
     }
 
@@ -49,7 +47,7 @@ class AuthorController extends Controller
 
         $author = Author::create($request->all('name', 'bio'));
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $author->saveImage($request->file('image'));
         }
 
@@ -61,10 +59,11 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        return response()->json($author->load('image'),200,[],JSON_PRETTY_PRINT);
+        return response()->json($author->load('image'), 200, [], JSON_PRETTY_PRINT);
     }
 
-    function books($author_id){
+    function books($author_id)
+    {
         $books = Book::where('author_id', $author_id)->with(['image', 'author', 'category'])->get();
 
         return response()->json($books, 200, [], JSON_PRETTY_PRINT);
@@ -90,10 +89,10 @@ class AuthorController extends Controller
 
         $author->update($request->all('name', 'bio'));
 
-        if($request->get('remove_image')) {
+        if ($request->get('remove_image')) {
             $author->image()->delete();
         }
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $author->saveImage($request->file('image'));
         }
 
