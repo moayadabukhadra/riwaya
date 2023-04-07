@@ -36,10 +36,10 @@ class GetBooksData extends Command
      */
     public function handle(): void
     {
-        $number_of_pages = 2065;;
+        $number_of_pages = 2071;;
         $client = new Client();
         $book_img = [];
-        for ($i = 1; $i < $number_of_pages; $i++) {
+        for ($i = 281; $i < $number_of_pages; $i++) {
             $link = 'https://foulabook.com/ar/books?page=' . $i;
             try {
                 $crawler = $client->request('GET', $link);
@@ -123,31 +123,33 @@ class GetBooksData extends Command
                         } else {
                             $category = Category::where('name', $this->book['category'])->first();
                         }
-                        $book = Book::create([
-                            'title' => $this->book['title'],
-                            'page_count' => $this->book['page_count'],
-                            'description' => $this->book['description'],
-                            'category_id' => $category->id,
-                            'author_id' => $author->id,
-                            'file' => $this->book['file'],
-                        ]);
-                        $book_img['image'] = Image::make($book_img['image']);
-                        $book_img['image']->crop($book_img['image']->width(), $book_img['image']->height() - 32, 0, 0)
-                            ->insert(public_path('/assets/images/water-mark.png'), 'bottom-right', 10, 10);
-                        if ($book_img['image']->mime() === 'image/png') {
-                            $book_img['extension'] = 'png';
-                        } else {
-                            $book_img['extension'] = 'jpg';
-                        }
-                        $book_img['name'] = Str::random(10) . '.' . $book_img['extension'];
-                        $book_img['image']->save(storage_path('app/public/images/' . $book_img['name']));
-                        $book->image()->create(
-                            [
-                                'name' => $book_img['name'],
-                                'path' => $book_img['name'],
-                            ]
-                        );
+                        if (!Book::where('title', 'like', '%' . $this->book['title'] . '%')->exists()) {
+                            $book = Book::create([
+                                'title' => $this->book['title'],
+                                'page_count' => $this->book['page_count'],
+                                'description' => $this->book['description'],
+                                'category_id' => $category->id,
+                                'author_id' => $author->id,
+                                'file' => $this->book['file'],
+                            ]);
 
+                            $book_img['image'] = Image::make($book_img['image']);
+                            $book_img['image']->crop($book_img['image']->width(), $book_img['image']->height() - 32, 0, 0)
+                                ->insert(public_path('/assets/images/water-mark.png'), 'bottom-right', 10, 10);
+                            if ($book_img['image']->mime() === 'image/png') {
+                                $book_img['extension'] = 'png';
+                            } else {
+                                $book_img['extension'] = 'jpg';
+                            }
+                            $book_img['name'] = Str::random(10) . '.' . $book_img['extension'];
+                            $book_img['image']->save(storage_path('app/public/images/' . $book_img['name']));
+                            $book->image()->create(
+                                [
+                                    'name' => $book_img['name'],
+                                    'path' => $book_img['name'],
+                                ]
+                            );
+                        }
                     }
 
                 });
