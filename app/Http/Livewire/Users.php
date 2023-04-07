@@ -26,8 +26,13 @@ class Users extends Component
         $this->resetPage();
     }
 
+    public function deleteUser(User $user)
+    {
+        $user->delete();
+    }
+
     public function paginationView(): string
     {
-       return 'vendor.livewire.bootstrap';
+        return 'vendor.livewire.bootstrap';
     }
 }

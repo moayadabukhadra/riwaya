@@ -48,6 +48,10 @@ class Books extends Component
         $this->resetPage();
     }
 
+    public function deleteBook(Book $book){
+        $book->delete();
+    }
+
     public function paginationView(): string
     {
         return 'vendor.livewire.bootstrap';

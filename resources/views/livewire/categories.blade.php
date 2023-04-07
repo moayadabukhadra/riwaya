@@ -68,7 +68,7 @@
                                                     <i class="fa fa-edit p-0"></i>
                                                    <span class="d-none d-md-block">تعديل</span>
                                                 </a>
-                                                <button class="btn btn-danger d-flex align-items-center justify-content-center gap-1">
+                                                <button wire:click="deleteCategory({{$category->id}})" class="btn btn-danger d-flex align-items-center justify-content-center gap-1">
                                                     <i class="fa fa-trash p-0"></i>
                                                    <span class="d-none d-md-block">حذف</span>
                                                 </button>

@@ -29,6 +29,9 @@ class Categories extends Component
         $this->resetPage();
     }
 
+    public function deleteCategory(Category $category){
+        $category->delete();
+    }
     public function paginationView(): string
     {
         return 'vendor.livewire.bootstrap';

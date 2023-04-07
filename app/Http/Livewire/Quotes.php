@@ -34,6 +34,9 @@ class Quotes extends Component
         $this->resetPage();
     }
 
+    public function deleteQuote(Quote $quote){
+        $quote->delete();
+    }
 
     public function  paginationView()
     {

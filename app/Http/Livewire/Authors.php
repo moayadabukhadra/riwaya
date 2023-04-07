@@ -27,6 +27,11 @@ class Authors extends Component
         $this->resetPage();
     }
 
+    public function deleteAuthor(Author $author)
+    {
+        $author->delete();
+    }
+
     public function paginationView(): string
     {
         return 'vendor.livewire.bootstrap';
