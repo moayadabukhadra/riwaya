@@ -14,6 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasImage, HasRoles;
+
     protected string $guard_name = 'api';
     /**
      * The attributes that are mass assignable.
@@ -52,13 +53,28 @@ class User extends Authenticatable
 //        'profile_photo_url',
 //    ];
 
-    public function favoriteBooks(): BelongsToMany
-    {
-        return $this->belongsToMany(Book::class, 'user_book_favorite');
-    }
-
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class, 'user_id', 'id');
+    }
+
+    public function bookmarkedBooks(): HasMany
+    {
+        return $this->hasMany(BookMark::class, 'user_id');
+    }
+
+    public function favoriteBooks(): HasMany
+    {
+        return $this->hasMany(BookMark::class, 'user_id')->where('bookmark_type_id', BookMarkType::TYPES['favorite']);
+    }
+
+    public function toReadLater(): HasMany
+    {
+        return $this->hasMany(BookMark::class, 'user_id')->where('bookmark_type_id', BookMarkType::TYPES['to_read_later']);
+    }
+
+    public function doneReading(): HasMany
+    {
+        return $this->hasMany(BookMark::class, 'user_id')->where('bookmark_type_id', BookMarkType::TYPES['done_reading']);
     }
 }
