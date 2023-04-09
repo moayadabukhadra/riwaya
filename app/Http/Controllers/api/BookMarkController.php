@@ -62,11 +62,12 @@ class BookMarkController extends Controller
 
     public function addToFavorite(Book $book)
     {
-        if ($this->user->favoriteBooks()->where('book_id', $book->id)->exists()) {
-            $this->user->favoriteBooks()->where('book_id', $book->id)->delete();
+        $user = Auth::user();
+        if ($user->favoriteBooks()->where('book_id', $book->id)->exists()) {
+            $user->favoriteBooks()->where('book_id', $book->id)->delete();
             $response_message = 'تم الحذف من المفضلة';
         } else {
-            $this->user->favoriteBooks()->create([
+            $user->favoriteBooks()->create([
                 'book_id' => $book->id,
                 'bookmark_type_id' => BookMarkType::TYPES['favorite'],
             ]);
