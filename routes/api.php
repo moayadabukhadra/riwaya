@@ -102,8 +102,8 @@ Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
         Route::get('to-read-later', [BookMarkController::class, 'toReadLaterBooks'])->name('to-read-later');
         Route::get('done-reading', [BookMarkController::class, 'doneReadingBooks'])->name('done-reading');
 
-        Route::post('favorite/{book}', [BookMarkController::class, 'addToFavorite'])->name('add-to-favorite');
-        Route::post('to-read-later/{book}', [BookMarkController::class, 'addToReadLater'])->name('add-to-read-later');
-        Route::post('done-reading/{book}', [BookMarkController::class, 'addToDoneReading'])->name('add-to-done-reading');
+        Route::post('favorite/{book}', [BookMarkController::class, 'updateBookFavorite'])->name('update-favorite');
+        Route::post('to-read-later/{book}', [BookMarkController::class, 'updateReadLater'])->name('update-read-later');
+        Route::post('done-reading/{book}', [BookMarkController::class, 'updateDoneReading'])->name('update-done-reading');
     });
 });
