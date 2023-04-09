@@ -10,6 +10,7 @@ class BookMark extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
     public function books(): HasMany
     {
         return $this->hasMany(Book::class, 'book_id');

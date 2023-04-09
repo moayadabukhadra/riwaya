@@ -10,6 +10,7 @@ class BookMarkType extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
     const TYPES = [
         'favorite' => 1,
         'to_read_later' => 2,
