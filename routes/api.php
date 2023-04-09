@@ -95,7 +95,7 @@ Route::group(['name' => 'quote'], function () {
 
 /*Bookmarks*/
 
-Route::group(['name' => 'bookmark'], function () {
+Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
     Route::get('bookmarks', [BookMarkController::class, 'index'])->name('index');
     Route::prefix('bookmark')->group(function () {
         Route::get('favorite', [BookMarkController::class, 'favoriteBooks'])->name('favorite');
