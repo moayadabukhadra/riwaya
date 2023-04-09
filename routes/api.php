@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\AuthorController;
 use App\Http\Controllers\api\BookController;
+use App\Http\Controllers\api\BookMarkController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\QuoteController;
@@ -65,7 +66,7 @@ Route::group(['name' => 'category'], function () {
 Route::post('login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);
 
-Route::group(['middleware' => 'auth:api' ,'name' => 'user.'], function () {
+Route::group(['middleware' => 'auth:api', 'name' => 'user.'], function () {
     Route::post('add-book-favorite', [UserController::class, 'addToFavoriteBooks'])->name('add-book-favorite');
     Route::get('/favorite-books', [UserController::class, 'favoriteBooks'])->name('favorite-books');
     Route::post('/edit-profile', [UserController::class, 'editProfile'])->name('edit-profile');
@@ -89,5 +90,20 @@ Route::group(['name' => 'quote'], function () {
     Route::prefix('quote')->group(function () {
         Route::get('/random', [QuoteController::class, 'getRandomQuote'])->name('random');
         Route::get('/{quote}', [QuoteController::class, 'show'])->name('show');
+    });
+});
+
+/*Bookmarks*/
+
+Route::group(['name' => 'bookmark'], function () {
+    Route::get('bookmarks', [BookMarkController::class, 'index'])->name('index');
+    Route::prefix('bookmark')->group(function () {
+        Route::get('favorite', [BookMarkController::class, 'favoriteBooks'])->name('favorite');
+        Route::get('to-read-later', [BookMarkController::class, 'toReadLaterBooks'])->name('to-read-later');
+        Route::get('done-reading', [BookMarkController::class, 'doneReadingBooks'])->name('done-reading');
+
+        Route::post('favorite/{book}', [BookMarkController::class, 'addToFavorite'])->name('add-to-favorite');
+        Route::post('to-read-later/{book}', [BookMarkController::class, 'addToReadLater'])->name('add-to-read-later');
+        Route::post('done-reading/{book}', [BookMarkController::class, 'addToDoneReading'])->name('add-to-done-reading');
     });
 });
