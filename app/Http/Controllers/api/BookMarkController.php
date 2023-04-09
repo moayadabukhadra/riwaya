@@ -109,7 +109,18 @@ class BookMarkController extends Controller
             ]);
             $response_message = 'تم الإضافة الى تمت قراءته';
         }
-        
         return response()->json(['success' => $response_message]);
+    }
+
+    public function checkBookmarkStatus(Book $book)
+    {
+        $status = [];
+        $user = Auth::user();
+
+        $user->favoriteBooks()->where('book_id', $book->id)->exists() ? $status['favorite'] = true : $status['favorite'] = false;
+        $user->toReadLater()->where('book_id', $book->id)->exists() ? $status['to_read_later'] = true : $status['to_read_later'] = false;
+        $user->doneReading()->where('book_id', $book->id)->exists() ? $status['done_reading'] = true : $status['done_reading'] = false;
+
+        return response()->json(['status' => $status], 201);
     }
 }
