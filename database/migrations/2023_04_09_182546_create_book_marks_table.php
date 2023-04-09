@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('book_marks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bookmark_type_id')->constrained('bookmark_types')->cascadeOnDelete();
+            $table->foreignId('bookmark_type_id')->constrained('book_mark_types')->cascadeOnDelete();
             $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->unique(['user_id','book_id','bookmark_type_id']);
