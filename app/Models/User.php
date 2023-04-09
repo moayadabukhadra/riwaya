@@ -77,4 +77,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(BookMark::class, 'user_id')->where('bookmark_type_id', BookMarkType::TYPES['done_reading']);
     }
+
+
 }

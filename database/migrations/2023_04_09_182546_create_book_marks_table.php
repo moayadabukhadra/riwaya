@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('bookmark_type_id')->constrained('bookmark_types')->cascadeOnDelete();
             $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->unique(['user_id','book_id','bookmark_type_id']);
             $table->timestamps();
         });
 
@@ -27,6 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('book_marks');
         Schema::dropIfExists('book_marks');
     }
 };

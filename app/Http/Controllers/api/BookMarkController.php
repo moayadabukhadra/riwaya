@@ -62,12 +62,20 @@ class BookMarkController extends Controller
 
     public function addToFavorite(Book $book)
     {
-        $this->user->favoriteBooks()->create([
-            'book_id' => $book->id,
-            'bookmark_type_id' => BookMarkType::TYPES['favorite'],
-        ]);
+        if ($this->user->favoriteBooks()->where('book_id', $book->id)->exists()) {
+            $this->user->favoriteBooks()->where('book_id', $book->id)->delete();
+            $response_message = 'تم الحذف من المفضلة';
+        } else {
+            $this->user->favoriteBooks()->create([
+                'book_id' => $book->id,
+                'bookmark_type_id' => BookMarkType::TYPES['favorite'],
+            ]);
 
-        return response()->json(['success' => 'تم الإضافة الى المفضلة بنجاح']);
+            $response_message = 'تم الإضافة الى المفضلة بنجاح';
+        }
+
+
+        return response()->json(['success' => $response_message]);
     }
 
     public function addToReadLater(Book $book)

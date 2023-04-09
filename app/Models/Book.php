@@ -15,6 +15,7 @@ class Book extends Model
 {
     use HasFactory;
     use HasImage;
+
 //    use Searchable;
     use HasComments;
 
@@ -79,5 +80,10 @@ class Book extends Model
     public function quotes(): HasMany
     {
         return $this->hasMany(Quote::class, 'book_id', 'id');
+    }
+
+    public function bookmark(): BelongsToMany
+    {
+        return $this->belongsToMany(BookMark::class, 'book_marks', 'id', 'book_id');
     }
 }
