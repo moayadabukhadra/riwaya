@@ -6,6 +6,7 @@ use App\Traits\HasImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -58,9 +59,9 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
-    public function bookmarkedBooks(): HasMany
+    public function bookmarkedBooks(): HasManyThrough
     {
-        return $this->hasMany(BookMark::class, 'user_id');
+        return $this->hasManyThrough(Book::class,BookMark::class,'id','book_id','user_id');
     }
 
     public function favoriteBooks(): HasMany
