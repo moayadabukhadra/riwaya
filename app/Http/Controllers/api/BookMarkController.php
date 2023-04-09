@@ -77,7 +77,7 @@ class BookMarkController extends Controller
         return response()->json(['success' => $response_message]);
     }
 
-    public function updateToReadLater(Book $book)
+    public function updateReadLater(Book $book)
     {
         $user = Auth::user();
 
@@ -95,7 +95,7 @@ class BookMarkController extends Controller
         return response()->json(['success' => $response_message]);
     }
 
-    public function updateToDoneReading(Book $book)
+    public function updateDoneReading(Book $book)
     {
         $user = Auth::user();
 
