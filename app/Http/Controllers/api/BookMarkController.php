@@ -66,7 +66,7 @@ class BookMarkController extends Controller
             $user->favoriteBooks()->where('book_id', $book->id)->delete();
             $response_message = 'تم الحذف من المفضلة';
         } else {
-            $user->bookmarkedBooks()->create([
+            $user->bookmarks()->create([
                 'book_id' => $book->id,
                 'bookmark_type_id' => BookMarkType::TYPES['favorite'],
             ]);
@@ -84,7 +84,7 @@ class BookMarkController extends Controller
             $user->toReadLater()->where('book_id', $book->id)->delete();
             $response_message = 'تم الحذف من قراءته لاحقا';
         } else {
-            $user->bookmarkedBooks()->create([
+            $user->bookmarks()->create([
                 'book_id' => $book->id,
                 'bookmark_type_id' => BookMarkType::TYPES['to_read_later'],
             ]);
@@ -102,7 +102,7 @@ class BookMarkController extends Controller
             $user->doneReading()->where('book_id', $book->id)->delete();
             $response_message = 'تم الحذف من تمت قراءته';
         } else {
-            $user->bookmarkedBooks()->create([
+            $user->bookmarks()->create([
                 'book_id' => $book->id,
                 'bookmark_type_id' => BookMarkType::TYPES['done_reading'],
             ]);

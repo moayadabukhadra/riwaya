@@ -59,9 +59,14 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
+    public function bookmarks(): HasMany
+    {
+        return $this->hasMany(BookMark::class,'user_id','id');
+}
+
     public function bookmarkedBooks(): HasManyThrough
     {
-        return $this->hasManyThrough(Book::class,BookMark::class,'user_id','id','id','id');
+        return $this->hasManyThrough(Book::class, BookMark::class, 'user_id', 'id', 'id', 'id');
     }
 
     public function favoriteBooks(): HasMany
