@@ -17,17 +17,18 @@ class BookMarkController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
+        $user =Auth::user();
 
         if (!$user) {
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
         $bookmarks = $user->bookmarkedBooks()
+            ->join('book_mark_types', 'book_mark_types.id', '=', 'book_marks.bookmark_type_id')
             ->with(['author', 'category', 'image'])
-            ->select('books.*', 'book_marks.bookmark_type_id')
+            ->select('books.*', 'book_mark_types.name as book_mark_type_name')
             ->get();
 
-        $groupedBookmarks = $bookmarks->groupBy('pivot.bookmark_type_id');
+        $groupedBookmarks = $bookmarks->groupBy('book_mark_type_name');
 
 
 
