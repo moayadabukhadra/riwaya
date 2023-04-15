@@ -21,7 +21,7 @@ class BookMark extends Model
         return $this->hasMany(User::class, 'user_id', 'id');
     }
 
-    public function BookmarkTypes(): HasMany
+    public function bookmarkTypes(): HasMany
     {
         return $this->hasMany(BookMarkType::class, 'id', 'bookmark_type_id');
     }
