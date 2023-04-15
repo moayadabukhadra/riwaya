@@ -66,7 +66,7 @@ class User extends Authenticatable
 
     public function bookmarkedBooks(): belongsToMany
     {
-        return $this->belongsToMany(Book::class, 'book_marks', 'user_id', 'book_id');
+        return $this->belongsToMany(Book::class, 'book_marks', 'user_id', 'book_id')->withPivot('bookmark_type_id');
     }
 
 
