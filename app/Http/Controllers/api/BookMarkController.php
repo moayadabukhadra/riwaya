@@ -23,7 +23,7 @@ class BookMarkController extends Controller
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
         $bookmarks = $user->bookmarkedBooks()
-            ->with(['author', 'category', 'images'])
+            ->with(['author', 'category', 'image'])
             ->select('books.*', 'book_marks.bookmark_type_id')
             ->get();
 
