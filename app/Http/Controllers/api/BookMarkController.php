@@ -41,7 +41,7 @@ class BookMarkController extends Controller
 
 
 
-        return response()->json(['success' => $groupedBooks], 201);
+        return response()->json(['success' => $books], 201);
     }
 
     public function favoriteBooks()
