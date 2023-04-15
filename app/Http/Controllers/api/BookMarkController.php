@@ -64,10 +64,9 @@ class BookMarkController extends Controller
     {
         $user = Auth::user();
         $bookmark_type_id = BookMarkType::TYPES[$bookmark_type];
-        $bookmark = $user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book->id);
-        return response()->json(['success' => $bookmark->get()]);
-        if ($bookmark->existis()) {
-            $bookmark->first()->delete();
+
+        if ($user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book->id)->exists()) {
+            $user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book->id)->first()->delete();
         } else {
             $user->bookmarks()->create([
                 'book_id' => $book->id,
