@@ -63,6 +63,7 @@ class BookMarkController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        return response()->json(['success' => $request->get('bookmark_type')], 201);
         $bookmark_type_id = BookMarkType::TYPES[$request->get('bookmark_type')];
         $book_id = $request->get('book_id');
         $bookmark = $user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book_id);
