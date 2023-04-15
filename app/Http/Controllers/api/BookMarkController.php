@@ -21,8 +21,12 @@ class BookMarkController extends Controller
         if (!$user) {
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
+        /* JOIN authors  and a categories and images tables on books table */
+         $sql = "SELECT  books.title, authors.name as author_name, categories.name as category_name, images.path as image_path FROM books JOIN authors ON books.author_id = authors.id JOIN categories ON books.category_id = categories.id JOIN images ON books.image_id = images.id WHERE books.id IN (SELECT book_id FROM bookmarks WHERE user_id = $user->id)";
 
-        return response()->json(['success' => $user->bookmarkedBooks()->with(['author','category','image'])->get(['title', 'bookmark_type_id','author_id','category_id'])], 201);
+        $bookmarks = \DB::select($sql);
+
+        return response()->json(['success' => $bookmarks], 201);
     }
 
     public function favoriteBooks()
