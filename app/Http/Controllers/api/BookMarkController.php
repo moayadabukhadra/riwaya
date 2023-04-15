@@ -22,7 +22,7 @@ class BookMarkController extends Controller
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
         /* JOIN authors  and a categories and images tables on books table */
-        $books = DB::table('books')
+        $books = \DB::table('books')
             ->join('authors', 'books.author_id', '=', 'authors.id')
             ->join('categories', 'books.category_id', '=', 'categories.id')
             ->join('images', 'images.imageable_id', '=', 'books.id')
