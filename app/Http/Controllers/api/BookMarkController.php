@@ -67,14 +67,16 @@ class BookMarkController extends Controller
 
         if ($user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book->id)->exists()) {
             $user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book->id)->first()->delete();
+            $message = 'تم الحذف';
         } else {
             $user->bookmarks()->create([
                 'book_id' => $book->id,
                 'bookmark_type_id' => $bookmark_type_id
             ]);
+            $message = 'تم الاضافة';
         }
 
-        return response()->json(['success' => 'تم الاضافة']);
+        return response()->json(['success' => $message]);
     }
 
     public function checkBookmarkStatus(Book $book)
