@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 class BookMarkController extends Controller
 {
 
-
     public function index()
     {
         $user = Auth::user();
@@ -23,7 +22,7 @@ class BookMarkController extends Controller
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
 
-        return response()->json(['success' => $user->bookmarkedBooks()->with(['author','category','image'])->get(['title', 'bookmark_type_id','image','author'])], 201);
+        return response()->json(['success' => $user->bookmarkedBooks()->with(['author','category','image'])->get(['title', 'bookmark_type_id','author_id','category_id'])], 201);
     }
 
     public function favoriteBooks()

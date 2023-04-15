@@ -70,20 +70,6 @@ class User extends Authenticatable
     }
 
 
-    public function favoriteBooks(): HasMany
-    {
-        return $this->hasMany(BookMark::class, 'user_id')->where('bookmark_type_id', BookMarkType::TYPES['favorite']);
-    }
-
-    public function toReadLater(): HasMany
-    {
-        return $this->hasMany(BookMark::class, 'user_id')->where('bookmark_type_id', BookMarkType::TYPES['to_read_later']);
-    }
-
-    public function doneReading(): HasMany
-    {
-        return $this->hasMany(BookMark::class, 'user_id')->where('bookmark_type_id', BookMarkType::TYPES['done_reading']);
-    }
 
 
 }
