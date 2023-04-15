@@ -17,7 +17,7 @@ class BookMarkController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
+        $user = User::first();
 
         if (!$user) {
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
