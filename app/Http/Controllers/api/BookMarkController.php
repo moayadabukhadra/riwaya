@@ -30,9 +30,9 @@ class BookMarkController extends Controller
             ->join('book_marks', 'book_marks.book_id', '=', 'books.id')
             ->select('books.title', 'authors.name as author_name', 'categories.name as category_name', 'images.path as image_path', 'book_marks.bookmark_type_id as bookmark_type')
             ->where('books.id', 'IN', function($query) use ($user) {
-                $query->select('book_id')
-                    ->from('book_marks')
-                    ->where('user_id', '=', $user->id);
+               $query->select('book_id', 'user_id')
+                        ->from('book_marks')
+                        ->where('user_id', $user->id);
             })
             ->get();
 
