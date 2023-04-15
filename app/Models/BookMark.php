@@ -8,27 +8,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BookMark extends Model
 {
-    use HasFactory;
+
     protected $guarded = ['id'];
 
-    protected static function booted()
-    {
-        static::addGlobalScope('books', function ($query) {
-            $query->with('books');
-        });
-    }
     public function books(): HasMany
     {
-        return $this->hasMany(Book::class, 'book_id');
+        return $this->hasMany(Book::class, 'book_id', 'id');
     }
 
     public function users(): HasMany
     {
-        return $this->hasMany(User::class, 'user_id');
+        return $this->hasMany(User::class, 'user_id', 'id');
     }
 
     public function BookmarkTypes(): HasMany
     {
-        return $this->hasMany(BookMarkType::class, 'bookmark_type_id');
+        return $this->hasMany(BookMarkType::class, 'bookmark_type_id', 'id');
     }
 }

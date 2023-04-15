@@ -66,7 +66,7 @@ class BookMarkController extends Controller
         $bookmark_type_id = BookMarkType::TYPES[$bookmark_type];
 
         if ($user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book->id)->exists()) {
-            $user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book->id)->first()->delete();
+            $user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book->id)->delete();
             $message = 'تم الحذف';
         } else {
             $user->bookmarks()->create([
