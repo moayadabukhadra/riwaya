@@ -25,7 +25,7 @@ class BookMarkController extends Controller
         $bookmarks = $user->bookmarkedBooks()
             ->with(['author', 'category', 'images'])
             ->select('books.*', 'book_marks.bookmark_type_id')
-            ->groupBy('book_marks.bookmark_type_id', 'books.id', 'books.title', 'books.author_id', 'books.category_id', 'books.published_at', 'books.description', 'books.created_at', 'books.updated_at')
+            ->groupBy('book_marks.bookmark_type_id', 'books.id', 'books.title', 'books.author_id', 'books.category_id', 'books.description', 'books.created_at', 'books.updated_at')
             ->get();
 
         $groupedBookmarks = $bookmarks->groupBy('pivot.bookmark_type_id');
