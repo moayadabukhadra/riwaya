@@ -18,11 +18,12 @@ class BookMarkController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         if (!$user) {
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
 
-        return response()->json(['success' => $user->bookmarks()->with(['books','bookmark_types'])->groupBy('bookmark_types.name')->get()], 201);
+        return response()->json(['success' => $user->bookmarks()->with(['book', 'bookmark_type'])->groupBy('bookmark_type_id')->get()], 201);
     }
 
     public function favoriteBooks()
@@ -60,7 +61,7 @@ class BookMarkController extends Controller
     }
 
 
-    public function store(Book $book , $bookmark_type)
+    public function store(Book $book, $bookmark_type)
     {
         $user = Auth::user();
         $bookmark_type_id = BookMarkType::TYPES[$bookmark_type];

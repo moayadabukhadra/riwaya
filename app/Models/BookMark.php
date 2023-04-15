@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class BookMark extends Model
@@ -11,18 +12,18 @@ class BookMark extends Model
 
     protected $guarded = ['id'];
 
-    public function books(): HasMany
+    public function book(): BelongsTo
     {
-        return $this->hasMany(Book::class, 'id', 'book_id');
+        return $this->belongsTo(Book::class, 'book_id', 'id');
     }
 
-    public function users(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function bookmarkTypes(): HasMany
+    public function bookmarkType(): BelongsTo
     {
-        return $this->hasMany(BookMarkType::class, 'id', 'bookmark_type_id');
+        return $this->belongsTo(BookMarkType::class, 'bookmark_type_id', 'id');
     }
 }
