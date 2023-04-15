@@ -19,7 +19,7 @@ class BookMarkType extends Model
 
     public function bookmarks(): HasMany
     {
-        return $this->hasMany(BookMark::class, 'bookmark_type_id', 'id');
+        return $this->hasMany(BookMark::class, 'bookmark_type_id', 'id')->withPivot('bookmark_type_id');
     }
 
 }
