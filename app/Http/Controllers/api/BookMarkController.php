@@ -22,7 +22,7 @@ class BookMarkController extends Controller
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
         /* JOIN authors  and a categories and images tables on books table */
-         $sql = "SELECT  books.title, authors.name as author_name, categories.name as category_name, images.path as image_path FROM books JOIN authors ON books.author_id = authors.id JOIN categories ON books.category_id = categories.id JOIN images ON books.image_id = images.id WHERE books.id IN (SELECT book_id FROM book_marks WHERE user_id = $user->id)";
+         $sql = "SELECT  books.title, authors.name as author_name, categories.name as category_name, images.path as image_path FROM books JOIN authors ON books.author_id = authors.id JOIN categories ON books.category_id = categories.id JOIN images ON images.imageable_id = books.id  WHERE books.id IN (SELECT book_id FROM book_marks WHERE user_id = $user->id)";
 
         $bookmarks = \DB::select($sql);
 
