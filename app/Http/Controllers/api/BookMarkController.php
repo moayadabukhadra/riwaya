@@ -22,11 +22,10 @@ class BookMarkController extends Controller
         if (!$user) {
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
-        /* JOIN authors  and a categories and images tables on books table */
         $bookmarks = $user->bookmarkedBooks()
             ->with(['author', 'category', 'images'])
             ->select('books.*', 'book_marks.bookmark_type_id')
-            ->groupBy('book_marks.bookmark_type_id')
+            ->groupBy('book_marks.bookmark_type_id', 'books.id', 'books.title', 'books.author_id', 'books.category_id', 'books.isbn', 'books.published_at', 'books.description', 'books.created_at', 'books.updated_at')
             ->get();
 
         $groupedBookmarks = $bookmarks->groupBy('pivot.bookmark_type_id');
