@@ -34,12 +34,14 @@ class BookMarkController extends Controller
                     ->from('book_marks')
                     ->where('user_id', '=', $user->id);
             })
-            ->groupBy('bookmark_type', 'books.title', 'authors.name', 'categories.name', 'images.path')
             ->get();
 
+        $groupedBooks = $books->groupBy('bookmark_type');
 
 
-        return response()->json(['success' => $books], 201);
+
+
+        return response()->json(['success' => $groupedBooks], 201);
     }
 
     public function favoriteBooks()
