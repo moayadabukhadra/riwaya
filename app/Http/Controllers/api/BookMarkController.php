@@ -22,7 +22,7 @@ class BookMarkController extends Controller
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
 
-        return response()->json(['success' => $user->bookmarks()->with(['book', 'bookmark_types'])->groupBy('bookmark_types.name')], 201);
+        return response()->json(['success' => $user->bookmarks()->with(['book', 'bookmark_types'])->groupBy('bookmark_types.name')->get()], 201);
     }
 
     public function favoriteBooks()
