@@ -9,8 +9,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class BookMark extends Model
 {
     use HasFactory;
-
     protected $guarded = ['id'];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('books', function ($query) {
+            $query->with('books');
+        });
+    }
     public function books(): HasMany
     {
         return $this->hasMany(Book::class, 'book_id');

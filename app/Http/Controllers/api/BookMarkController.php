@@ -9,6 +9,7 @@ use App\Models\BookMarkType;
 use App\Models\User;
 use Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\Request;
 
 class BookMarkController extends Controller
 {
@@ -21,7 +22,7 @@ class BookMarkController extends Controller
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
 
-        return response()->json(['success' =>  $user->bookmarkedBooks()->with(['author','category'])->get()], 201);
+        return response()->json(['success' => $user->bookmarks()->with(['book','bookmark_types'])->groupBy('bookmark_types.name')], 201);
     }
 
     public function favoriteBooks()
@@ -58,57 +59,22 @@ class BookMarkController extends Controller
         return response()->json(['success' => $bookmarks], 201);
     }
 
-    public function updateBookFavorite(Book $book)
+
+    public function store(Request $request)
     {
         $user = Auth::user();
 
-        if ($user->favoriteBooks()->where('book_id', $book->id)->exists()) {
-            $user->favoriteBooks()->where('book_id', $book->id)->delete();
-            $response_message = 'تم الحذف من المفضلة';
+        $bookmark = $user->bookmarks()->where('bookmark_type_id', $request->get('bookmark_type_id')->where('book_id',$request->get('book_id')));
+        if ($bookmark->existis()) {
+            $bookmark->first()->delete();
         } else {
             $user->bookmarks()->create([
-                'book_id' => $book->id,
-                'bookmark_type_id' => BookMarkType::TYPES['favorite'],
+                'book_id' => $request->get('book_id'),
+                'bookmark_type_id' => $request->get('bookmark_type_id')
             ]);
-            $response_message = 'تم الإضافة الى المفضلة بنجاح';
         }
 
-        return response()->json(['success' => $response_message]);
-    }
-
-    public function updateReadLater(Book $book)
-    {
-        $user = Auth::user();
-
-        if ($user->toReadLater()->where('book_id', $book->id)->exists()) {
-            $user->toReadLater()->where('book_id', $book->id)->delete();
-            $response_message = 'تم الحذف من قراءته لاحقا';
-        } else {
-            $user->bookmarks()->create([
-                'book_id' => $book->id,
-                'bookmark_type_id' => BookMarkType::TYPES['to_read_later'],
-            ]);
-            $response_message = 'تم الإضافة لقراءته لاحقا';
-        }
-
-        return response()->json(['success' => $response_message]);
-    }
-
-    public function updateDoneReading(Book $book)
-    {
-        $user = Auth::user();
-
-        if ($user->doneReading()->where('book_id', $book->id)->exists()) {
-            $user->doneReading()->where('book_id', $book->id)->delete();
-            $response_message = 'تم الحذف من تمت قراءته';
-        } else {
-            $user->bookmarks()->create([
-                'book_id' => $book->id,
-                'bookmark_type_id' => BookMarkType::TYPES['done_reading'],
-            ]);
-            $response_message = 'تم الإضافة الى تمت قراءته';
-        }
-        return response()->json(['success' => $response_message]);
+        return response()->json(['success' => 'تم الاضافة']);
     }
 
     public function checkBookmarkStatus(Book $book)

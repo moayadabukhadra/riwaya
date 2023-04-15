@@ -103,8 +103,6 @@ Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
         Route::get('done-reading', [BookMarkController::class, 'doneReadingBooks'])->name('done-reading');
         Route::get('status/{book}',[BookMarkController::class,'checkBookmarkStatus'])->name('status');
 
-        Route::post('favorite/{book}', [BookMarkController::class, 'updateBookFavorite'])->name('update-favorite');
-        Route::post('to-read-later/{book}', [BookMarkController::class, 'updateReadLater'])->name('update-read-later');
-        Route::post('done-reading/{book}', [BookMarkController::class, 'updateDoneReading'])->name('update-done-reading');
+        Route::post('store', [BookMarkController::class, 'store'])->name('store');
     });
 });
