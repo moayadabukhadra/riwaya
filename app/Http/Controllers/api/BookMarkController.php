@@ -8,6 +8,7 @@ use App\Models\BookMark;
 use App\Models\BookMarkType;
 use App\Models\User;
 use Auth;
+use DB;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class BookMarkController extends Controller
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
         /* JOIN authors  and a categories and images tables on books table */
-        $books = \DB::table('books')
+        $books = DB::table('books')
             ->join('authors', 'books.author_id', '=', 'authors.id')
             ->join('categories', 'books.category_id', '=', 'categories.id')
             ->join('images', 'images.imageable_id', '=', 'books.id')
@@ -33,7 +34,7 @@ class BookMarkController extends Controller
                     ->from('book_marks')
                     ->where('user_id', '=', $user->id);
             })
-            ->groupBy('bookmark_type')
+            ->groupBy('bookmark_type', 'books.title', 'authors.name', 'categories.name', 'images.path')
             ->get();
 
 
