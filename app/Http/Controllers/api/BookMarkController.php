@@ -33,7 +33,8 @@ class BookMarkController extends Controller
                 JOIN categories ON books.category_id = categories.id
                 JOIN images ON images.imageable_id = books.id
                 JOIN book_marks ON book_marks.book_id = books.id
-                WHERE books.id IN (SELECT book_id FROM book_marks WHERE user_id = $user->id)";
+                WHERE books.id IN (SELECT book_id FROM book_marks WHERE user_id = $user->id)
+                GROUP BY book_marks.bookmark_type_id";
 
 
         $bookmarks = \DB::select($sql);
