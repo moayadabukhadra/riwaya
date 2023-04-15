@@ -23,25 +23,18 @@ class BookMarkController extends Controller
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
         /* JOIN authors  and a categories and images tables on books table */
-        $books = DB::table('books')
-            ->join('authors', 'books.author_id', '=', 'authors.id')
-            ->join('categories', 'books.category_id', '=', 'categories.id')
-            ->join('images', 'images.imageable_id', '=', 'books.id')
-            ->join('book_marks', 'book_marks.book_id', '=', 'books.id')
-            ->select('books.title', 'authors.name as author_name', 'categories.name as category_name', 'images.path as image_path', 'book_marks.bookmark_type_id as bookmark_type')
-            ->where('books.id', 'IN', function($query) use ($user) {
-               $query->select('book_id', 'user_id')
-                        ->from('book_marks')
-                        ->where('user_id', $user->id);
-            })
+        $bookmarks = $user->bookmarkedBooks()
+            ->with(['author', 'category', 'images'])
+            ->select('books.*', 'book_marks.bookmark_type_id')
+            ->groupBy('book_marks.bookmark_type_id')
             ->get();
 
-        $groupedBooks = $books->groupBy('bookmark_type');
+        $groupedBookmarks = $bookmarks->groupBy('pivot.bookmark_type_id');
 
 
 
 
-        return response()->json(['success' => $books], 201);
+        return response()->json(['success' => $groupedBookmarks], 201);
     }
 
     public function favoriteBooks()
