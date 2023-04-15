@@ -13,7 +13,7 @@ class BookMark extends Model
 
     public function books(): HasMany
     {
-        return $this->hasMany(Book::class, 'book_id', 'id');
+        return $this->hasMany(Book::class, 'id', 'book_id');
     }
 
     public function users(): HasMany
