@@ -60,19 +60,16 @@ class BookMarkController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Book $book , $bookmark_type)
     {
         $user = Auth::user();
-        dd($request->all());
-        return response()->json(['success' => $request->all()], 201);
-        $bookmark_type_id = BookMarkType::TYPES[$request->get('bookmark_type')];
-        $book_id = $request->get('book_id');
-        $bookmark = $user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book_id);
+        $bookmark_type_id = BookMarkType::TYPES[$bookmark_type];
+        $bookmark = $user->bookmarks()->where('bookmark_type_id', $bookmark_type_id)->where('book_id', $book->id);
         if ($bookmark->existis()) {
             $bookmark->first()->delete();
         } else {
             $user->bookmarks()->create([
-                'book_id' => $book_id,
+                'book_id' => $book->id,
                 'bookmark_type_id' => $bookmark_type_id
             ]);
         }
