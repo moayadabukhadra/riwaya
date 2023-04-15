@@ -22,24 +22,23 @@ class BookMarkController extends Controller
             return response()->json(['error' => 'يجب تسجيل الدخول اولا'], 401);
         }
         /* JOIN authors  and a categories and images tables on books table */
-         $sql = "SELECT
-                books.title,
-                authors.name as author_name,
-                categories.name as category_name,
-                images.path as image_path ,
-                book_marks.bookmark_type_id as bookmark_type
-                FROM books
-                JOIN authors ON books.author_id = authors.id
-                JOIN categories ON books.category_id = categories.id
-                JOIN images ON images.imageable_id = books.id
-                JOIN book_marks ON book_marks.book_id = books.id
-                WHERE books.id IN (SELECT book_id FROM book_marks WHERE user_id = $user->id)
-                GROUP BY books.title, authors.name, categories.name, images.path, book_marks.bookmark_type_id";
+        $books = DB::table('books')
+            ->join('authors', 'books.author_id', '=', 'authors.id')
+            ->join('categories', 'books.category_id', '=', 'categories.id')
+            ->join('images', 'images.imageable_id', '=', 'books.id')
+            ->join('book_marks', 'book_marks.book_id', '=', 'books.id')
+            ->select('books.title', 'authors.name as author_name', 'categories.name as category_name', 'images.path as image_path', 'book_marks.bookmark_type_id as bookmark_type')
+            ->where('books.id', 'IN', function($query) use ($user) {
+                $query->select('book_id')
+                    ->from('book_marks')
+                    ->where('user_id', '=', $user->id);
+            })
+            ->groupBy('bookmark_type')
+            ->get();
 
 
-        $bookmarks = \DB::select($sql);
 
-        return response()->json(['success' => $bookmarks], 201);
+        return response()->json(['success' => $books], 201);
     }
 
     public function favoriteBooks()
