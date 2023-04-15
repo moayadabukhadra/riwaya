@@ -13,7 +13,6 @@ use Laravel\Scout\Searchable;
 
 class Book extends Model
 {
-    use HasFactory;
     use HasImage;
 
 //    use Searchable;
