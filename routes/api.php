@@ -5,6 +5,7 @@ use App\Http\Controllers\api\BookController;
 use App\Http\Controllers\api\BookMarkController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\CommentController;
+use App\Http\Controllers\api\HomeController;
 use App\Http\Controllers\api\QuoteController;
 use App\Http\Controllers\api\SocialController;
 use App\Http\Controllers\api\UserController;
@@ -94,7 +95,6 @@ Route::group(['name' => 'quote'], function () {
 });
 
 /*Bookmarks*/
-
 Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
     Route::get('bookmarks', [BookMarkController::class, 'index'])->name('index');
     Route::prefix('bookmark')->group(function () {
@@ -106,3 +106,7 @@ Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
         Route::post('store/{book}/{bookmark_type}', [BookMarkController::class, 'store'])->name('store');
     });
 });
+
+
+/* Search */
+Route::get('search/{query}', [HomeController::class, 'search'])->name('search');
