@@ -96,6 +96,11 @@ class AuthController extends Controller
             'token' => 'required',
             'email' => 'required',
             'password' => 'required|confirmed',
+        ],[
+            'token.required' => 'حدث خطأ ما',
+            'email.required' => 'حدث خطأ ما',
+            'password.required' => 'كلمة المرور مطلوبة',
+            'password.confirmed' => 'كلمة المرور غير متطابقة',
         ]);
 
         $passwordReset = app('auth.password.broker')->reset(
