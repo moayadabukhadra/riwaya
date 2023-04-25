@@ -118,8 +118,9 @@ class AuthController extends Controller
             ], 400, [], JSON_PRETTY_PRINT);
         }
 
+
         return response()->json([
-            'message' => 'تم تغيير كلمة المرور بنجاح'
+            'message' => $passwordReset
         ], 200, [], JSON_PRETTY_PRINT);
     }
 
