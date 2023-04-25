@@ -10,6 +10,7 @@ use App\Http\Controllers\api\MessageController;
 use App\Http\Controllers\api\QuoteController;
 use App\Http\Controllers\api\SocialController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -116,3 +117,4 @@ Route::group(['name' => 'message'], function () {
     Route::post('message/send', [MessageController::class, 'store'])->name('send');
 });
 
+Route::post('auth/forgot-password',[AuthController::class,'forgotPassword'])->name('forgot-password');

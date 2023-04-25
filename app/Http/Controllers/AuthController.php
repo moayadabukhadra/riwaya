@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\ResetPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -43,7 +44,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
-        ],[
+        ], [
             'name.required' => 'الاسم مطلوب',
             'email.required' => 'البريد الالكتروني مطلوب',
             'email.email' => 'البريد الالكتروني غير صحيح',
@@ -67,6 +68,18 @@ class AuthController extends Controller
     {
         auth()->logout();
         return redirect()->route('auth.show-login');
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $email = $request->email;
+
+        $user = User::where('email', $email)->first();
+
+        if ($user) {
+            \Password::sendResetLink(['email' => $email]);
+        }
+
     }
 
 
