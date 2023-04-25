@@ -6,6 +6,7 @@ use App\Http\Controllers\api\BookMarkController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\CommentController;
 use App\Http\Controllers\api\HomeController;
+use App\Http\Controllers\api\MessageController;
 use App\Http\Controllers\api\QuoteController;
 use App\Http\Controllers\api\SocialController;
 use App\Http\Controllers\api\UserController;
@@ -110,4 +111,8 @@ Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
     });
 });
 
+/* messages */
+Route::group(['name' => 'message'], function () {
+    Route::post('send-message', [MessageController::class, 'store'])->name('send');
+});
 

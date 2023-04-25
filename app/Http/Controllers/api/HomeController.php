@@ -20,4 +20,5 @@ class HomeController extends Controller
             'authors' => $authors
         ], 200, [], JSON_PRETTY_PRINT);
     }
+
 }
