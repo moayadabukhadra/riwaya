@@ -96,14 +96,15 @@ class AuthController extends Controller
     {
         $request->validate([
             'token' => 'required',
+            'email' => 'required',
             'password' => 'required|confirmed',
         ]);
 
         $passwordReset = app('auth.password.broker')->reset(
-            $request->only('password', 'password_confirmation', 'token'),
-            function ($user, $password) use ($request){
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
                 $user->forceFill([
-                    'password' => Hash::make($request->get('password')),
+                    'password' => Hash::make($password)
                 ])->save();
 
                 $user->setRememberToken(Str::random(60));
@@ -118,9 +119,8 @@ class AuthController extends Controller
             ], 400, [], JSON_PRETTY_PRINT);
         }
 
-
         return response()->json([
-            'message' => $passwordReset
+            'message' => 'تم تغيير كلمة المرور بنجاح'
         ], 200, [], JSON_PRETTY_PRINT);
     }
 
