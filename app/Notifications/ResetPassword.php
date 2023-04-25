@@ -11,12 +11,13 @@ class ResetPassword extends Notification
 {
     use Queueable;
 
+    public string $token;
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(string $token)
     {
-        //
+        $this->token = $token;
     }
 
     /**
@@ -48,7 +49,7 @@ class ResetPassword extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+//
         ];
     }
 }

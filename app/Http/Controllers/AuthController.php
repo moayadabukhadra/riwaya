@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Notifications\ResetPassword;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -77,8 +78,8 @@ class AuthController extends Controller
         $user = User::where('email', $email)->first();
 
         if ($user) {
-            /* laravel passport */
-            $token =  $user->createToken('authToken')->accessToken;
+
+            $token =  PasswordReset::create($user);
             $user->notify(new ResetPassword($token));
 
         }
