@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function search($query)
+    public function search(Request $request)
     {
+        $query = $request->get('query');
         $books = Book::where('title', 'like', "%{$query}%")->get();
         $authors = Author::where('name', 'like', "%{$query}%")->get();
 
