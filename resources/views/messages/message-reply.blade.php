@@ -59,7 +59,7 @@
 <div class="container">
     <div class="header">
         <h1>
-            <img src="assets/images/riwaya-logo.jpg" width="100" height="100" alt="logo"/>
+            <img src="assets/images/riwaya-logo.png" width="100" height="100" alt="logo"/>
             شكرا لتواصلك معنا
         </h1>
     </div>
