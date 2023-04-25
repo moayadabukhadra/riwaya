@@ -12,8 +12,8 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $query = $request->get('search');
-        $books = Book::where('title', 'like', "%{$query}%")->take(10)->get();
-        $authors = Author::where('name', 'like', "%{$query}%")->take(10)->get();
+        $books = Book::with(['author','category','image'])->where('title', 'like', "%{$query}%")->take(10)->get();
+        $authors = Author::with('image')->where('name', 'like', "%{$query}%")->take(10)->get();
 
         return response()->json([
             'books' => $books,
