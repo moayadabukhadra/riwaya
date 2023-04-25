@@ -77,8 +77,13 @@ class AuthController extends Controller
         $user = User::where('email', $email)->first();
 
         if ($user) {
-            \Password::sendResetLink(['email' => $email]);
+            $token = $user->createToken('auth_token')->plainTextToken;
+            $user->notify(new ResetPassword($token));
         }
+
+        return response()->json([
+            'message' => 'Reset password link sent on your email.'
+        ], 200, [], JSON_PRETTY_PRINT);
 
     }
 
