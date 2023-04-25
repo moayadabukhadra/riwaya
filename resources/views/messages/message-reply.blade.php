@@ -58,16 +58,20 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>Email Template</h1>
+        <h1>
+            <img src="assets/images/riwaya-logo.jpg" width="100" height="100" alt="logo"/>
+            شكرا لتواصلك معنا
+        </h1>
     </div>
     <div class="content">
-        <p>Hello,</p>
-        <p>This is an example of an email template using Bootstrap 5 and CSS.</p>
-        <p>You can customize the template with your own styles to fit your needs.</p>
-        <a href="#" class="button">Button</a>
+        <p>
+            سيتم الرد على رسالتكم في أقرب وقت ممكن
+        </p>
     </div>
     <div class="footer">
-        <p>Copyright © 2023. All rights reserved.
+        <p>
+            جميع الحقوق محفوظة &copy; 2021
+        </p>
     </div>
 </div>
 </body>
