@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\MessageReply;
 use App\Models\Message;
-use App\Notifications\MessageReply;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -13,6 +13,7 @@ class MessageController extends Controller
     {
         Message::create($request->all('name', 'email', 'message'));
 
+        \Mail::to($request->email)->send(new MessageReply($request->name, $request->email, $request->message));
 
         return response()->json([
             'message' => 'Message sent successfully'
