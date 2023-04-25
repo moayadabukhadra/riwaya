@@ -109,4 +109,4 @@ Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
 
 
 /* Search */
-Route::get('search', [HomeController::class, 'search'])->name('search');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
