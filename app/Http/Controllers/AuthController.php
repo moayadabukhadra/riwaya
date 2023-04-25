@@ -96,12 +96,11 @@ class AuthController extends Controller
     {
         $request->validate([
             'token' => 'required',
-            'email' => 'required',
             'password' => 'required|confirmed',
         ]);
 
         $passwordReset = app('auth.password.broker')->reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
+            $request->only('password', 'password_confirmation', 'token'),
             function ($user, $password) {
                 $user->forceFill([
                     'password' => Hash::make($password)
