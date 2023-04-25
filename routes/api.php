@@ -118,3 +118,4 @@ Route::group(['name' => 'message'], function () {
 });
 
 Route::post('auth/forgot-password',[AuthController::class,'forgotPassword'])->name('forgot-password');
+Route::post('auth/reset-password',[AuthController::class,'resetPassword'])->name('reset-password');

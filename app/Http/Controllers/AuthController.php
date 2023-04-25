@@ -7,6 +7,8 @@ use App\Notifications\ResetPassword;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -88,6 +90,38 @@ class AuthController extends Controller
             'message' => 'Reset password link sent on your email.'
         ], 200, [], JSON_PRETTY_PRINT);
 
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required',
+            'password' => 'required|confirmed',
+        ]);
+
+        $passwordReset = app('auth.password.broker')->reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->save();
+
+                $user->setRememberToken(Str::random(60));
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        if ($passwordReset == Password::INVALID_TOKEN) {
+            return response()->json([
+                'message' => 'حدث خطأ ما'
+            ], 400, [], JSON_PRETTY_PRINT);
+        }
+
+        return response()->json([
+            'message' => 'تم تغيير كلمة المرور بنجاح'
+        ], 200, [], JSON_PRETTY_PRINT);
     }
 
 
