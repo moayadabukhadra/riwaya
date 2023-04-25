@@ -77,8 +77,10 @@ class AuthController extends Controller
         $user = User::where('email', $email)->first();
 
         if ($user) {
-            $token = $user->createToken('auth_token')->plainTextToken;
+            /* laravel passport */
+            $token =  $user->createToken('authToken')->accessToken;
             $user->notify(new ResetPassword($token));
+
         }
 
         return response()->json([
