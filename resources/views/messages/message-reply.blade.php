@@ -14,29 +14,35 @@
             line-height: 1.5;
             color: #444444;
         }
+
         .container {
             max-width: 600px;
             margin: 0 auto;
         }
+
         .header {
             background-color: #f9fafb;
             padding: 20px;
             text-align: center;
         }
+
         .header h1 {
             margin: 0;
             font-size: 28px;
             line-height: 1.2;
             color: #333333;
         }
+
         .content {
             background-color: #ffffff;
             padding: 20px;
             text-align: left;
         }
+
         .content p {
             margin: 0 0 20px;
         }
+
         .button {
             display: inline-block;
             background-color: #007bff;
@@ -47,6 +53,7 @@
             border-radius: 5px;
             margin-top: 20px;
         }
+
         .footer {
             background-color: #f9fafb;
             padding: 20px;
@@ -59,19 +66,20 @@
 <div class="container">
     <div class="header">
         <h1>
-          شكرا لتواصلك معنا
+            شكرا لتواصلك معنا
         </h1>
     </div>
     <div class="content">
         <p>
             مرحبا،
-
+            <br/>
             نشكركم على تواصلكم معنا في موقع رواية. نحن نهتم بكل رسالة تصلنا ونسعد بتواصلكم معنا.
-
-            سنعمل جاهدين على الرد على استفساركم في أقرب وقت ممكن. وإذا كانت لديكم أي أسئلة أخرى، يرجى عدم التردد في الاتصال بنا على الرقم 0786317708.
-
+            <br/>
+            سنعمل جاهدين على الرد على استفساركم في أقرب وقت ممكن. وإذا كانت لديكم أي أسئلة أخرى، يرجى عدم التردد في
+            الاتصال بنا على الرقم 0786317708.
+            <br/>
             شكرا لكم على دعمكم وثقتكم بموقع رواية.
-
+            <br/>
             مع تحيات فريق العمل في رواية.
         </p>
     </div>
