@@ -94,6 +94,9 @@ Route::group(['name' => 'quote'], function () {
     });
 });
 
+/* Search */
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+
 /*Bookmarks*/
 Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
     Route::get('bookmarks', [BookMarkController::class, 'index'])->name('index');
@@ -108,5 +111,3 @@ Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
 });
 
 
-/* Search */
-Route::get('/search', [HomeController::class, 'search'])->name('search');
