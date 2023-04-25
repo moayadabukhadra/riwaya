@@ -36,22 +36,11 @@
         .content {
             background-color: #ffffff;
             padding: 20px;
-            text-align: left;
+            text-align: right;
         }
 
         .content p {
             margin: 0 0 20px;
-        }
-
-        .button {
-            display: inline-block;
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
         }
 
         .footer {
