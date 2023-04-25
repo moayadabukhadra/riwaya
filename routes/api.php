@@ -113,6 +113,6 @@ Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
 
 /* messages */
 Route::group(['name' => 'message'], function () {
-    Route::post('send-message', [MessageController::class, 'store'])->name('send');
+    Route::post('message/send', [MessageController::class, 'store'])->name('send');
 });
 
