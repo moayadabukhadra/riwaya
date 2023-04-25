@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Template</title>
+    <title></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
     <style>
         /* Customize the template with your own styles */
@@ -59,13 +59,20 @@
 <div class="container">
     <div class="header">
         <h1>
-            <img src="assets/images/riwaya-logo.png" width="100" height="100" alt="logo"/>
-            شكرا لتواصلك معنا
+          شكرا لتواصلك معنا
         </h1>
     </div>
     <div class="content">
         <p>
-            سيتم الرد على رسالتكم في أقرب وقت ممكن
+            مرحبا،
+
+            نشكركم على تواصلكم معنا في موقع رواية. نحن نهتم بكل رسالة تصلنا ونسعد بتواصلكم معنا.
+
+            سنعمل جاهدين على الرد على استفساركم في أقرب وقت ممكن. وإذا كانت لديكم أي أسئلة أخرى، يرجى عدم التردد في الاتصال بنا على الرقم 0786317708.
+
+            شكرا لكم على دعمكم وثقتكم بموقع رواية.
+
+            مع تحيات فريق العمل في رواية.
         </p>
     </div>
     <div class="footer">
