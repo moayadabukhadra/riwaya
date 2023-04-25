@@ -101,9 +101,12 @@ class AuthController extends Controller
 
         $passwordReset = app('auth.password.broker')->reset(
             $request->only('password', 'password_confirmation', 'token'),
-            function ($user, $password) {
+            function ($user, $password) use ($request){
+                return response()->json([
+                    'message' =>$password
+                ], 400, [], JSON_PRETTY_PRINT);
                 $user->forceFill([
-                    'password' => Hash::make($password)
+                    'password' => Hash::make($request->get('password')),
                 ])->save();
 
                 $user->setRememberToken(Str::random(60));
