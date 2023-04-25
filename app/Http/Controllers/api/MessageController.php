@@ -13,7 +13,6 @@ class MessageController extends Controller
     {
         Message::create($request->all('name', 'email', 'message'));
 
-        \Mail::to($request->email)->send(new MessageReply($request->name, $request->email, $request->message));
 
         return response()->json([
             'message' => 'Message sent successfully'
