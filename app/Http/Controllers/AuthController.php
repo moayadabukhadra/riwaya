@@ -79,7 +79,7 @@ class AuthController extends Controller
 
         if ($user) {
 
-            $token =  PasswordReset::create($user);
+            $token = app('auth.password.broker')->createToken($user);
             $user->notify(new ResetPassword($token));
 
         }
