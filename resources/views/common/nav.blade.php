@@ -192,11 +192,11 @@
                             <div class="separator my-2"></div>
                             <form method="POST" action="{{ route('auth.logout') }}"  class="menu-item px-5">
                                 @csrf
-                                <a onclick="$(this).closest('form').submit()"
+                                <button type="submit"
                                    class="menu-link px-5 text-danger">
                                     <i class="menu-icon fas fa-sign-out-alt me-1 text-danger"></i>
                                     تسجيل الخروج
-                                </a>
+                                </button>
                             </form>
                         </div>
                     </div>
