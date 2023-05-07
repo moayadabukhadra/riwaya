@@ -7,6 +7,7 @@ use App\Models\User;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
@@ -21,10 +22,26 @@ class SocialController extends Controller
 
     public function loginWithFacebook()
     {
-        header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        try {
+            $user = Socialite::driver('facebook')->stateless()->user();
+        } catch (ClientException $e) {
+            return response()->json([
+                'message' => 'الرجاء المحاولة مرة اخرى',
+            ], 500);
+        }
 
-        return Socialite::driver('facebook')->stateless()->user();
+        $user = User::firstOrCreate([
+            'email' => $user->getEmail(),
+        ], [
+            'name' => $user->getName(),
+            'password' => bcrypt(Str::random(16)),
+        ]);
+
+        $token = $user->createToken('facebook')->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+        ]);
     }
 
 }
