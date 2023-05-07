@@ -11,12 +11,24 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
 {
-    public function facebookRedirect()
+    public function facebookRedirect(\Request $request)
     {
-        header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        $provider = "facebook";
+        $token = $request->input('access_token');
+        $providerUser = Socialite::driver($provider)->userFromToken($token);
+        $user = User::where('fb_id', $providerUser->id)->first();
+        if($user == null){
+            $user = User::create([
+                'provider_name' => $provider,
+                'provider_id' => $providerUser->id,
+            ]);
+        }
 
-        return Socialite::driver('facebook')->stateless()->redirect()->getTargetUrl();
+        $token = $user->createToken('Riwaya')->accessToken;
+        return response()->json([
+            'success' => true,
+            'token' => $token
+        ]);
     }
 
     public function loginWithFacebook()
