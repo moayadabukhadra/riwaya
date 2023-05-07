@@ -4,14 +4,12 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Exception;
-use GuzzleHttp\Exception\ClientException;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
 {
-    public function facebookRedirect(\Request $request)
+    public function facebookRedirect(Request $request)
     {
         $provider = "facebook";
         $token = $request->input('access_token');
