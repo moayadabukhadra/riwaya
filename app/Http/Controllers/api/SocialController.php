@@ -13,12 +13,17 @@ class SocialController extends Controller
 {
     public function facebookRedirect()
     {
+        header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 
         return Socialite::driver('facebook')->redirect();
     }
 
     public function loginWithFacebook()
     {
+        header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+
         return Socialite::driver('facebook')->redirect();    }
 
 }
