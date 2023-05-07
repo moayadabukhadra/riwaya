@@ -37,8 +37,7 @@ class SocialController extends Controller
             'password' => bcrypt(Str::random(16)),
         ]);
 
-        $token = $user->createToken('facebook')->plainTextToken;
-
+        $token = $user->createToken('facebook')->accessToken;
         return response()->json([
             'token' => $token,
         ]);
