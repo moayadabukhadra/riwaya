@@ -17,7 +17,10 @@ class SocialController extends Controller
         header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 
-        return Socialite::driver('facebook')->stateless()->redirect()->getTargetUrl();
+        return Socialite::driver('facebook')->stateless()->redirect()->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization')
+            ->getTargetUrl();
     }
 
     public function loginWithFacebook()
