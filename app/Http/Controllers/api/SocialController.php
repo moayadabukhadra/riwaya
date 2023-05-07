@@ -22,6 +22,8 @@ class SocialController extends Controller
 
     public function loginWithFacebook()
     {
+        header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
         try {
             $user = Socialite::driver('facebook')->stateless()->user();
         } catch (ClientException $e) {
@@ -39,6 +41,7 @@ class SocialController extends Controller
 
         $token = $user->createToken('facebook')->accessToken;
         return response()->json([
+            'user' => $user,
             'token' => $token,
         ]);
     }
