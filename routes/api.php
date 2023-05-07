@@ -81,10 +81,9 @@ Route::group(['name' => 'comment'], function () {
 });
 
 /* socialite */
-Route::middleware('api')->group(function () {
-    Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
-    Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
-});
+Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
+Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
+
 
 /* QUOTES */
 Route::group(['name' => 'quote'], function () {
@@ -100,13 +99,13 @@ Route::group(['name' => 'quote'], function () {
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 /*Bookmarks*/
-Route::group(['name' => 'bookmark','middleware' => 'auth:api'], function () {
+Route::group(['name' => 'bookmark', 'middleware' => 'auth:api'], function () {
     Route::get('bookmarks', [BookMarkController::class, 'index'])->name('index');
     Route::prefix('bookmark')->group(function () {
         Route::get('favorite', [BookMarkController::class, 'favoriteBooks'])->name('favorite');
         Route::get('to-read-later', [BookMarkController::class, 'toReadLaterBooks'])->name('to-read-later');
         Route::get('done-reading', [BookMarkController::class, 'doneReadingBooks'])->name('done-reading');
-        Route::get('status/{book}',[BookMarkController::class,'checkBookmarkStatus'])->name('status');
+        Route::get('status/{book}', [BookMarkController::class, 'checkBookmarkStatus'])->name('status');
 
         Route::post('store/{book}/{bookmark_type}', [BookMarkController::class, 'store'])->name('store');
     });
@@ -117,5 +116,5 @@ Route::group(['name' => 'message'], function () {
     Route::post('message/send', [MessageController::class, 'store'])->name('send');
 });
 
-Route::post('auth/forgot-password',[AuthController::class,'forgotPassword'])->name('forgot-password');
-Route::post('auth/reset-password',[AuthController::class,'resetPassword'])->name('reset-password');
+Route::post('auth/forgot-password', [AuthController::class, 'forgotPassword'])->name('forgot-password');
+Route::post('auth/reset-password', [AuthController::class, 'resetPassword'])->name('reset-password');
