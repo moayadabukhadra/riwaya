@@ -4,29 +4,19 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Exception;
+use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
 {
-    public function facebookRedirect(Request $request)
+    public function facebookRedirect()
     {
-        $provider = "facebook";
-        $token = $request->input('access_token');
-        $providerUser = Socialite::driver($provider)->userFromToken($token);
-        $user = User::where('fb_id', $providerUser->id)->first();
-        if($user == null){
-            $user = User::create([
-                'provider_name' => $provider,
-                'provider_id' => $providerUser->id,
-            ]);
-        }
+        header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 
-        $token = $user->createToken('Riwaya')->accessToken;
-        return response()->json([
-            'success' => true,
-            'token' => $token
-        ]);
+        return Socialite::driver('facebook')->stateless()->redirect()->getTargetUrl();
     }
 
     public function loginWithFacebook()
