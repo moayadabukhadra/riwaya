@@ -33,6 +33,6 @@ return [
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'https://riwaya.rf.gd/auth/facebook/callback',
+        'redirect' => 'https://riwaya.rf.gd/api/auth/facebook/callback',
     ],
 ];
