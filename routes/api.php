@@ -81,10 +81,8 @@ Route::group(['name' => 'comment'], function () {
 });
 
 /* socialite */
-Route::middleware(['cors'])->group(function (){
-    Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
-    Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
-});
+Route::get('auth/facebook', [SocialController::class, 'facebookRedirect']);
+Route::get('auth/facebook/callback', [SocialController::class, 'loginWithFacebook']);
 
 
 /* QUOTES */
