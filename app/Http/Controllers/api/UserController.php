@@ -113,7 +113,10 @@ class UserController extends Controller
         $user->image()->delete();
         $user->saveImage($request->file('image'));
 
-        return response()->json(['success' => 'تم تعديل الصورة الشخصية'], $this->successStatus);
+        return response()->json([
+            'success' => 'تم تعديل الصورة الشخصية',
+            'imagePath'=>$user->image()->path
+        ], $this->successStatus);
 
     }
 
