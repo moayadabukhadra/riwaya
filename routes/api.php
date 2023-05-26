@@ -73,6 +73,8 @@ Route::group(['middleware' => 'auth:api', 'name' => 'user.'], function () {
     Route::post('add-book-favorite', [UserController::class, 'addToFavoriteBooks'])->name('add-book-favorite');
     Route::get('/favorite-books', [UserController::class, 'favoriteBooks'])->name('favorite-books');
     Route::post('/edit-profile', [UserController::class, 'editProfile'])->name('edit-profile');
+    Route::post('/edit-profile-image', [UserController::class, 'editProfileImage'])->name('edit-profile-image');
+
 });
 
 /* comments */

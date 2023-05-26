@@ -99,6 +99,24 @@ class UserController extends Controller
         return response()->json(['success' => 'تم الاضافة الى المفضلة'], $this->successStatus);
     }
 
+    public function editProfileImage(Request $request){
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorised'], 401);
+        }
+
+        $request->validate([
+              'image'=>'mimes:jpeg,png,jpg,gif,svg'
+          ]);
+
+        $user->image()->delete();
+        $user->saveImage($request->file('image'));
+
+        return response()->json(['success' => 'تم تعديل الصورة الشخصية'], $this->successStatus);
+
+    }
+
 
     public function editProfile(Request $request)
     {
