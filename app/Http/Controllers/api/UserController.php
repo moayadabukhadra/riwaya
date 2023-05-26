@@ -111,13 +111,17 @@ class UserController extends Controller
           ]);
 
         $user->image()->delete();
-        $user->saveImage($request->file('image'));
+        $success['token'] = $user->createToken('Riwaya')->accessToken;
+        $success['user'] = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'image' => $user->image,
+            'role' => $user->roles()->first()?->name,
+        ];
 
-        return response()->json([
-            'success' => 'تم تعديل الصورة الشخصية',
-            'imagePath'=>$user->image()->path
-        ], $this->successStatus);
 
+        return response()->json(['success' => $success], $this->successStatus);
     }
 
 
