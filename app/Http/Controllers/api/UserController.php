@@ -111,7 +111,9 @@ class UserController extends Controller
           ]);
 
         $user->image()->delete();
+        $user->saveImage($request->file('image'));
         $success['token'] = $user->createToken('Riwaya')->accessToken;
+
         $success['user'] = [
             'id' => $user->id,
             'name' => $user->name,
@@ -157,6 +159,7 @@ class UserController extends Controller
         }
 
         $success['token'] = $user->createToken('Riwaya')->accessToken;
+
         $success['user'] = [
             'id' => $user->id,
             'name' => $user->name,

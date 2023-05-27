@@ -4,11 +4,12 @@ namespace App\Traits;
 
 use App\Models\Image;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Str;
 
 trait HasImage
 {
-    public function image()
+    public function image(): MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
     }
