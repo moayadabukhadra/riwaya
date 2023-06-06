@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -21,30 +22,31 @@ class SocialController extends Controller
 
     }
 
-    public function loginWithFacebook()
+    public function loginWithFacebook(Request $request)
     {
-        header('Access-Control-Allow-Headers: Origin, Content-Type, Authorization');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        $accessToken = $request->input('accessToken');
+
         try {
-            $user = Socialite::driver('facebook')->stateless()->user();
-        } catch (ClientException $e) {
+            $user = Socialite::driver('facebook')->stateless()->userFromToken($accessToken);
+
+            $user = User::firstOrCreate([
+                'email' => $user->email,
+            ], [
+                'name' => $user->name,
+                'password' => bcrypt(Str::random(16)),
+            ]);
+
+            
             return response()->json([
-                'message' => 'الرجاء المحاولة مرة اخرى',
-            ], 500);
+                'user' => $user->load('image'),
+                'token' => $user->createToken('Riwaya')->accessToken,
+            ]);
+
+
+        } catch (ClientException $e) {
+            return response()->json(['error' => 'Unauthorised'], 401);
         }
 
-        $user = User::firstOrCreate([
-            'email' => $user->getEmail(),
-        ], [
-            'name' => $user->getName(),
-            'password' => bcrypt(Str::random(16)),
-        ]);
-
-        $token = $user->createToken('facebook')->accessToken;
-        return response()->json([
-            'user' => $user,
-            'token' => $token,
-        ]);
     }
 
 }
