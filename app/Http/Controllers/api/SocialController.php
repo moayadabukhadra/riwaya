@@ -26,26 +26,22 @@ class SocialController extends Controller
     {
         $accessToken = $request->get('accessToken');
 
-        try {
-            $user = Socialite::driver('facebook')->stateless()->userFromToken($accessToken);
 
-            $user = User::firstOrCreate([
-                'email' => $user->email,
-            ], [
-                'name' => $user->name,
-                'password' => bcrypt(Str::random(16)),
-            ]);
+        $user = Socialite::driver('facebook')->stateless()->userFromToken($accessToken);
 
-
-            return response()->json([
-                'user' => $user->load('image'),
-                'token' => $user->createToken('Riwaya')->accessToken,
-            ]);
+        $user = User::firstOrCreate([
+            'email' => $user->email,
+        ], [
+            'name' => $user->name,
+            'password' => bcrypt(Str::random(16)),
+        ]);
 
 
-        } catch (ClientException $e) {
-            return response()->json(['error' => 'Unauthorised'], 401);
-        }
+        return response()->json([
+            'user' => $user->load('image'),
+            'token' => $user->createToken('Riwaya')->accessToken,
+        ]);
+            
 
     }
 
