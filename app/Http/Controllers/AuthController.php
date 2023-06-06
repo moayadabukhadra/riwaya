@@ -28,7 +28,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (auth()->attempt($credentials)) {
-            
+
             return redirect()->route('book.index');
         }
 
@@ -78,16 +78,17 @@ class AuthController extends Controller
     {
         $email = $request->email;
 
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', $email)->firstOrFail();
 
         if ($user) {
             $token = app('auth.password.broker')->createToken($user);
             $user->notify(new ResetPassword($token, $email));
+            return response()->json([
+                'message' => 'Reset password link sent on your email.'
+            ], 200, [], JSON_PRETTY_PRINT);
+        } else {
+            return response()->json(['message' => 'failed'], 401, [], JSON_PRETTY_PRINT);
         }
-
-        return response()->json([
-            'message' => 'Reset password link sent on your email.'
-        ], 200, [], JSON_PRETTY_PRINT);
 
     }
 
@@ -97,7 +98,7 @@ class AuthController extends Controller
             'token' => 'required',
             'email' => 'required',
             'password' => 'required|confirmed',
-        ],[
+        ], [
             'token.required' => 'حدث خطأ ما',
             'email.required' => 'حدث خطأ ما',
             'password.required' => 'كلمة المرور مطلوبة',

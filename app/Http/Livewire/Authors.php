@@ -22,12 +22,12 @@ class Authors extends Component
         return view('livewire.authors', compact('authors'));
     }
 
-    public function updatedQuery()
+    public function updatedQuery(): void
     {
         $this->resetPage();
     }
 
-    public function deleteAuthor(Author $author)
+    public function deleteAuthor(Author $author): void
     {
         $author->delete();
     }
