@@ -24,7 +24,7 @@ class SocialController extends Controller
 
     public function loginWithFacebook(Request $request)
     {
-        $accessToken = $request->input('accessToken');
+        $accessToken = $request->get('accessToken');
 
         try {
             $user = Socialite::driver('facebook')->stateless()->userFromToken($accessToken);
@@ -36,7 +36,7 @@ class SocialController extends Controller
                 'password' => bcrypt(Str::random(16)),
             ]);
 
-            
+
             return response()->json([
                 'user' => $user->load('image'),
                 'token' => $user->createToken('Riwaya')->accessToken,
