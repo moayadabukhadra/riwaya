@@ -22,8 +22,7 @@ class SocialController extends Controller
         try {
             $user = Socialite::driver('facebook')->userFromToken($accessToken);
 
-            return response()->json(['user' => $user], 200);
-            
+
             $image = Image::make($user->avatar_original);
 
             $extension = explode('/', $image->mime())[1];
@@ -78,51 +77,46 @@ class SocialController extends Controller
 
     public function loginWithGoogle(Request $request)
     {
-        try {
-            $userData = $request->all();
 
-            $user = User::firstOrCreate([
-                'email' => $userData['email'],
-            ], [
+        $userData = $request->all();
+
+        $user = User::firstOrCreate([
+            'email' => $userData['email'],
+        ], [
+            'name' => $userData['name'],
+            'password' => bcrypt(Str::random(16)),
+            'provider_id' => $userData['sub'],
+        ]);
+
+        $image = Image::make($userData['picture']);
+
+        $extension = explode('/', $image->mime())[1];
+
+        $img_name = Str::random(10) . '.' . $extension;
+
+        $image->save(public_path('images/users/' . $img_name));
+
+        $image->insert(public_path('/assets/images/water-mark.png'), 'bottom-right', 10, 10)
+            ->save(storage_path('app/public/images/' . $img_name));
+
+        $user->image()->create(
+            [
                 'name' => $userData['name'],
-                'password' => bcrypt(Str::random(16)),
-                'provider_id' => $userData['sub'],
-            ]);
-
-            $image = Image::make($userData['picture']);
-
-            $extension = explode('/', $image->mime())[1];
-
-            $img_name = Str::random(10) . '.' . $extension;
-
-            $image->save(public_path('images/users/' . $img_name));
-
-            $image->insert(public_path('/assets/images/water-mark.png'), 'bottom-right', 10, 10)
-                ->save(storage_path('app/public/images/' . $img_name));
-
-            $user->image()->create(
-                [
-                    'name' => $userData['name'],
-                    'path' => $img_name,
-                ]
-            );
+                'path' => $img_name,
+            ]
+        );
 
 
-            $success['token'] = $user->createToken('Riwaya')->accessToken;
+        $success['token'] = $user->createToken('Riwaya')->accessToken;
 
-            $success['user'] = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'image' => $user->image,
-            ];
+        $success['user'] = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'image' => $user->image,
+        ];
 
-            return response()->json(['success' => $success], 201, [], JSON_PRETTY_PRINT);
-        } catch (Exception $exception) {
-            return response()->json([
-                'error' => 'Something went wrong',
-            ], 500);
-        }
+        return response()->json(['success' => $success], 201, [], JSON_PRETTY_PRINT);
 
 
     }
