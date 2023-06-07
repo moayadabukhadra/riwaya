@@ -19,66 +19,55 @@ class SocialController extends Controller
     {
         $accessToken = $request->get('accessToken');
 
-        try {
-            $user = Socialite::driver('facebook')->userFromToken($accessToken);
+        
+        $user = Socialite::driver('facebook')->userFromToken($accessToken);
 
-            $image = Image::make($user->avatar_original);
+        $image = Image::make($user->avatar_original);
 
-            $extension = explode('/', $image->mime())[1];
+        $extension = explode('/', $image->mime())[1];
 
-            $img_name = Str::random(10) . '.' . $extension;
+        $img_name = Str::random(10) . '.' . $extension;
 
-            $image->save(public_path('images/users/' . $img_name));
+        $image->save(public_path('images/users/' . $img_name));
 
-            $image->insert(public_path('/assets/images/water-mark.png'), 'bottom-right', 10, 10)
-                ->save(storage_path('app/public/images/' . $img_name));
+        $image->insert(public_path('/assets/images/water-mark.png'), 'bottom-right', 10, 10)
+            ->save(storage_path('app/public/images/' . $img_name));
 
-            $user = User::firstOrCreate([
-                'email' => $user->email,
-            ], [
+        $user = User::firstOrCreate([
+            'email' => $user->email,
+        ], [
+            'name' => $user->name,
+            'password' => bcrypt(Str::random(16)),
+            'provider_id' => $user->id,
+        ]);
+
+
+        $user->image()->create(
+            [
                 'name' => $user->name,
-                'password' => bcrypt(Str::random(16)),
-                'provider_id' => $user->id,
-            ]);
+                'path' => $img_name,
+            ]
+        );
 
 
+        $success['token'] = $user->createToken('Riwaya')->accessToken;
 
-            $user->image()->create(
-                [
-                    'name' => $user->name,
-                    'path' => $img_name,
-                ]
-            );
-
-
-            $success['token'] = $user->createToken('Riwaya')->accessToken;
-
-            $success['user'] = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'image' => $user->image,
-            ];
+        $success['user'] = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'image' => $user->image,
+        ];
 
 
-            return response()->json(['success' => $success], 201, [], JSON_PRETTY_PRINT);
+        return response()->json(['success' => $success], 201, [], JSON_PRETTY_PRINT);
 
-
-        } catch (ClientException $exception) {
-            return response()->json([
-                'error' => 'Invalid access token',
-            ], 401);
-        } catch (Exception $exception) {
-            return response()->json([
-                'error' => 'Something went wrong',
-            ], 500);
-        }
 
     }
 
     public function loginWithGoogle(Request $request)
     {
-        
+
         $userData = $request->all();
 
         $user = User::firstOrCreate([
