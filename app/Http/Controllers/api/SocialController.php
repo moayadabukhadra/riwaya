@@ -34,6 +34,7 @@ class SocialController extends Controller
         ], [
             'name' => $user->name,
             'password' => bcrypt(Str::random(16)),
+            'provider_id' => $user->id,
         ]);
 
 
