@@ -25,7 +25,7 @@ class SocialController extends Controller
     public function loginWithFacebook(Request $request)
     {
         $accessToken = $request->get('accessToken');
-        
+
 
         $user = Socialite::driver('facebook')->userFromToken($accessToken);
 
