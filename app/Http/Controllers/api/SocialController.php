@@ -57,13 +57,14 @@ class SocialController extends Controller
 
     public function loginWithGoogle(Request $request)
     {
-        $userData = $request->all();
-
+        return response()->json([
+            'error' => $request->all(),
+        ], 201);
 
         $user = User::firstOrCreate([
             'email' => $userData['email'],
         ], [
-            'name' => $userData['first_name'] . ' ' . $userData['family_name'],
+            'name' => $userData['name'],
             'password' => bcrypt(Str::random(16)),
             'provider_id' => $userData['sub'],
         ]);
