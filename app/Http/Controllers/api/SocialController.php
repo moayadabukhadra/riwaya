@@ -59,7 +59,7 @@ class SocialController extends Controller
     {
         return response()->json([
             'error' => $request->all(),
-        ], 201);
+        ], 201, [], JSON_PRETTY_PRINT);
 
         $user = User::firstOrCreate([
             'email' => $userData['email'],
