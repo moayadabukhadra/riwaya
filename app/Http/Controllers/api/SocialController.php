@@ -58,11 +58,7 @@ class SocialController extends Controller
     public function loginWithGoogle(Request $request)
     {
         $accessToken = $request->get('accessToken');
-
-        return response()->json([
-            'accessToken' => $accessToken,
-        ], 200, [], JSON_PRETTY_PRINT);
-
+        
         $user = Socialite::driver('google')->userFromToken($accessToken);
 
         $user = User::firstOrCreate([
