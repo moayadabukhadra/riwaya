@@ -84,6 +84,7 @@ Route::group(['name' => 'comment'], function () {
 
 /* socialite */
 Route::post('auth/facebook', [SocialController::class, 'loginWithFacebook']);
+Route::post('auth/google', [SocialController::class, 'loginWithGoogle']);
 
 
 /* QUOTES */
