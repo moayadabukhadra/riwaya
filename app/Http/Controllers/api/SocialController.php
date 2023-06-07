@@ -59,38 +59,30 @@ class SocialController extends Controller
     {
         $accessToken = $request->get('accessToken');
 
-        try {
-            $user = Socialite::driver('google')->userFromToken($accessToken);
 
-            $user = User::firstOrCreate([
-                'email' => $user->email,
-            ], [
-                'name' => $user->name,
-                'password' => bcrypt(Str::random(16)),
-                'provider_id' => $user->id,
-            ]);
+        $user = Socialite::driver('google')->userFromToken($accessToken);
 
-            $success['token'] = $user->createToken('Riwaya')->accessToken;
+        $user = User::firstOrCreate([
+            'email' => $user->email,
+        ], [
+            'name' => $user->name,
+            'password' => bcrypt(Str::random(16)),
+            'provider_id' => $user->id,
+        ]);
 
-            $success['user'] = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'image' => $user->image,
-            ];
+        $success['token'] = $user->createToken('Riwaya')->accessToken;
 
-            return response()->json(['success' => $success], 201, [], JSON_PRETTY_PRINT);
+        $success['user'] = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'image' => $user->image,
+        ];
 
-        } catch (ClientException $exception) {
-            return response()->json([
-                'error' => 'Invalid access token',
-            ], 401);
-        } catch (Exception $exception) {
-            return response()->json([
-                'error' => 'Something went wrong',
-            ], 500);
+        return response()->json(['success' => $success], 201, [], JSON_PRETTY_PRINT);
 
-        }
 
     }
+
+
 }
