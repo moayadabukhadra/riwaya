@@ -26,22 +26,32 @@ class SocialController extends Controller
     {
         $accessToken = $request->get('accessToken');
 
+        try {
+            $user = Socialite::driver('facebook')->userFromToken($accessToken);
 
-        $user = Socialite::driver('facebook')->userFromToken($accessToken);
+            $success['token'] = $user->createToken('Riwaya')->accessToken;
 
-        $user = User::firstOrCreate([
-            'email' => $user->email,
-        ], [
-            'name' => $user->name,
-            'password' => bcrypt(Str::random(16)),
-            'provider_id' => $user->id,
-        ]);
+            $success['user'] = User::firstOrCreate([
+                'email' => $user->email,
+            ], [
+                'name' => $user->name,
+                'password' => bcrypt(Str::random(16)),
+                'provider_id' => $user->id,
+            ]);
 
 
-        return response()->json([
-            'user' => $user->load('image'),
-            'token' => $user->createToken('Riwaya')->accessToken,
-        ]);
+            return response()->json(['success' => $success], 20, [], JSON_PRETTY_PRINT);
+
+
+        } catch (ClientException $exception) {
+            return response()->json([
+                'error' => 'Invalid access token',
+            ], 401);
+        } catch (Exception $exception) {
+            return response()->json([
+                'error' => 'Something went wrong',
+            ], 500);
+        }
 
 
     }
