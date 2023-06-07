@@ -94,7 +94,6 @@ class SocialController extends Controller
 
         $img_name = Str::random(10) . '.' . $extension;
 
-        $image->save(public_path('images/users/' . $img_name));
 
         $image->insert(public_path('/assets/images/water-mark.png'), 'bottom-right', 10, 10)
             ->save(storage_path('app/public/images/' . $img_name));
