@@ -35,6 +35,7 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => 'https://riwaya.rf.gd/api/auth/facebook/callback',
     ],
+
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
