@@ -83,7 +83,7 @@ Route::group(['name' => 'comment'], function () {
 });
 
 /* socialite */
-Route::get('auth/facebook', [SocialController::class, 'loginWithFacebook']);
+Route::post('auth/facebook', [SocialController::class, 'loginWithFacebook']);
 
 
 /* QUOTES */
