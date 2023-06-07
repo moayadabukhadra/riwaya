@@ -59,6 +59,9 @@ class SocialController extends Controller
     {
         $accessToken = $request->get('accessToken');
 
+        return response()->json([
+            'accessToken' => $accessToken,
+        ], 200, [], JSON_PRETTY_PRINT);
 
         $user = Socialite::driver('google')->userFromToken($accessToken);
 
