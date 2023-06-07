@@ -27,7 +27,7 @@ class SocialController extends Controller
         $accessToken = $request->get('accessToken');
 
 
-        $user = Socialite::driver('facebook')->stateless()->userFromToken($accessToken);
+        $user = Socialite::driver('facebook')->userFromToken($accessToken);
 
         $user = User::firstOrCreate([
             'email' => $user->email,
@@ -41,7 +41,7 @@ class SocialController extends Controller
             'user' => $user->load('image'),
             'token' => $user->createToken('Riwaya')->accessToken,
         ]);
-            
+
 
     }
 
