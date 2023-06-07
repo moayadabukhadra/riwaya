@@ -29,15 +29,24 @@ class SocialController extends Controller
         try {
             $user = Socialite::driver('facebook')->userFromToken($accessToken);
 
-            $success['token'] = $user->createToken('Riwaya')->accessToken;
 
-            $success['user'] = User::firstOrCreate([
+
+            $user = User::firstOrCreate([
                 'email' => $user->email,
             ], [
                 'name' => $user->name,
                 'password' => bcrypt(Str::random(16)),
                 'provider_id' => $user->id,
             ]);
+
+            $success['token'] = $user->createToken('Riwaya')->accessToken;
+
+            $success['user'] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'image' => $user->image,
+            ];
 
 
             return response()->json(['success' => $success], 20, [], JSON_PRETTY_PRINT);
