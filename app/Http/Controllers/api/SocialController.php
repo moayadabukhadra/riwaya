@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
@@ -21,6 +22,16 @@ class SocialController extends Controller
         try {
             $user = Socialite::driver('facebook')->userFromToken($accessToken);
 
+            $image = Image::make($user->avatar_original);
+
+            $extension = explode('/', $image->mime())[1];
+
+            $img_name = Str::random(10) . '.' . $extension;
+
+            $image->save(public_path('images/users/' . $img_name));
+
+            $image->insert(public_path('/assets/images/water-mark.png'), 'bottom-right', 10, 10)
+                ->save(storage_path('app/public/images/' . $img_name));
 
             $user = User::firstOrCreate([
                 'email' => $user->email,
@@ -29,6 +40,16 @@ class SocialController extends Controller
                 'password' => bcrypt(Str::random(16)),
                 'provider_id' => $user->id,
             ]);
+
+
+
+            $user->image()->create(
+                [
+                    'name' => $user->name,
+                    'path' => $img_name,
+                ]
+            );
+
 
             $success['token'] = $user->createToken('Riwaya')->accessToken;
 
@@ -57,6 +78,7 @@ class SocialController extends Controller
 
     public function loginWithGoogle(Request $request)
     {
+        
         $userData = $request->all();
 
         $user = User::firstOrCreate([
@@ -66,6 +88,25 @@ class SocialController extends Controller
             'password' => bcrypt(Str::random(16)),
             'provider_id' => $userData['sub'],
         ]);
+
+        $image = Image::make($userData['picture']);
+
+        $extension = explode('/', $image->mime())[1];
+
+        $img_name = Str::random(10) . '.' . $extension;
+
+        $image->save(public_path('images/users/' . $img_name));
+
+        $image->insert(public_path('/assets/images/water-mark.png'), 'bottom-right', 10, 10)
+            ->save(storage_path('app/public/images/' . $img_name));
+
+        $user->image()->create(
+            [
+                'name' => $userData['name'],
+                'path' => $img_name,
+            ]
+        );
+
 
         $success['token'] = $user->createToken('Riwaya')->accessToken;
 
