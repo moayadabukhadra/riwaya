@@ -22,6 +22,8 @@ class SocialController extends Controller
         try {
             $user = Socialite::driver('facebook')->userFromToken($accessToken);
 
+            return response()->json(['user' => $user], 200);
+            
             $image = Image::make($user->avatar_original);
 
             $extension = explode('/', $image->mime())[1];
