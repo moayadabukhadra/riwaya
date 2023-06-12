@@ -158,7 +158,7 @@ class UserController extends Controller
     public function userBooks()
     {
         $user = Auth::user();
-        $books = $user->books()->with(['author', 'category', 'image'])->get();
+        $books = $user->books()->with(['author', 'category', 'image'])->paginate(3);
         return response()->json(['success' => $books], $this->successStatus);
     }
 
