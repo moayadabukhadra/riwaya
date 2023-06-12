@@ -178,10 +178,18 @@ class UserController extends Controller
 
         if ($user->books()->where('book_id', $book_id)->exists()) {
             $user->books()->detach($book_id);
-            return response()->json(['success' => 'تم الحذف من المكتبة'], $this->successStatus);
+            return response()->json(
+                [
+                    'in_library' => false,
+                    'message' => 'تمت ازالة الكتاب من المكتبة بنجاح'
+                ]
+                , $this->successStatus);
         } else {
             $user->books()->attach($book_id);
-            return response()->json(['success' => 'تم الاضافة الي المكتبة'], $this->successStatus);
+            return response()->json([
+                'in_library' => true,
+                'message' => 'تمت اضافة الكتاب الى المكتبة بنجاح'
+                ], $this->successStatus);
         }
     }
 }
