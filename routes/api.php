@@ -70,12 +70,11 @@ Route::post('login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);
 
 Route::group(['middleware' => 'auth:api', 'name' => 'user.'], function () {
-    Route::post('add-book-favorite', [UserController::class, 'addToFavoriteBooks'])->name('add-book-favorite');
-    Route::get('/favorite-books', [UserController::class, 'favoriteBooks'])->name('favorite-books');
     Route::post('/edit-profile', [UserController::class, 'editProfile'])->name('edit-profile');
     Route::post('/edit-profile-image', [UserController::class, 'editProfileImage'])->name('edit-profile-image');
     Route::get('/my-library', [UserController::class, 'userBooks'])->name('my-library');
-    Route::get('check-book/{book}', [UserController::class, 'checkBook'])->name('check-book');
+    Route::get('check-library-for-book/{book}', [UserController::class, 'checkBook'])->name('check-book');
+    Route::post('update-library/{book}', [UserController::class, 'updateLibrary'])->name('update-library');
 });
 
 /* comments */

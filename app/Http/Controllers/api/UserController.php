@@ -166,12 +166,22 @@ class UserController extends Controller
     {
         $user = Auth::user();
 
-
         return response()->json(
             ['success' => $user->books()->where('book_id', $book_id)->exists()],
             $this->successStatus
         );
+    }
 
+    public function updateLibrary($book_id)
+    {
+        $user = Auth::user();
 
+        if ($user->books()->where('book_id', $book_id)->exists()) {
+            $user->books()->detach($book_id);
+            return response()->json(['success' => 'تم الحذف من المكتبة'], $this->successStatus);
+        } else {
+            $user->books()->attach($book_id);
+            return response()->json(['success' => 'تم الاضافة الي المكتبة'], $this->successStatus);
+        }
     }
 }
