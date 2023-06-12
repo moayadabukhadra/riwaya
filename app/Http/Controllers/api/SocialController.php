@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\ResetPassword;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
@@ -105,8 +106,13 @@ class SocialController extends Controller
             ]
         );
 
-
         $success['token'] = $user->createToken('Riwaya')->accessToken;
+
+        if ($user->wasRecentlyCreated) {
+
+            $user->notify(New ResetPassword($success['token'], $user->email));
+        }
+
 
         $success['user'] = [
             'id' => $user->id,

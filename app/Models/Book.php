@@ -71,18 +71,14 @@ class Book extends Model
         return $this->belongsTo(Author::class, 'author_id', 'id');
     }
 
-    public function UsersFavorite(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'user_book_favorite');
-    }
-
     public function quotes(): HasMany
     {
         return $this->hasMany(Quote::class, 'book_id', 'id');
     }
 
-    public function bookmark(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(BookMark::class, 'book_marks', 'id', 'book_id');
+        return $this->belongsToMany(User::class, 'book_user', 'book_id', 'user_id');
     }
+
 }

@@ -11,6 +11,16 @@ class Image extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    static function boot(): void
+    {
+        parent::boot();
+
+        static::deleting(function ($image) {
+            unlink('riwaya/storage/app/public/images/' . $image->path);
+        });
+    }
+
     public function imageable(): MorphTo
     {
         return $this->morphTo();

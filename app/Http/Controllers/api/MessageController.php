@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\MessageReply;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Mail;
 
 class MessageController extends Controller
 {
@@ -13,7 +14,7 @@ class MessageController extends Controller
     {
         Message::create($request->all('name', 'email', 'message'));
 
-        \Mail::to($request->email)->send(new MessageReply($request->name, $request->email, $request->message));
+        Mail::to($request->email)->send(new MessageReply($request->name, $request->email));
 
         return response()->json([
             'message' => 'Message sent successfully'

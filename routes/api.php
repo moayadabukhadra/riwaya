@@ -74,7 +74,8 @@ Route::group(['middleware' => 'auth:api', 'name' => 'user.'], function () {
     Route::get('/favorite-books', [UserController::class, 'favoriteBooks'])->name('favorite-books');
     Route::post('/edit-profile', [UserController::class, 'editProfile'])->name('edit-profile');
     Route::post('/edit-profile-image', [UserController::class, 'editProfileImage'])->name('edit-profile-image');
-
+    Route::get('/my-library', [UserController::class, 'userBooks'])->name('my-library');
+    Route::get('check-book/{book}', [UserController::class, 'checkBook'])->name('check-book');
 });
 
 /* comments */

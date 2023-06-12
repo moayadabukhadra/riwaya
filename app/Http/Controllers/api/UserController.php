@@ -83,23 +83,8 @@ class UserController extends Controller
 
     }
 
-    function favoriteBooks(Request $request)
+    public function editProfileImage(Request $request)
     {
-        $user = \auth('api')->user();
-        $paginate = $request->get('paginate') ?? 8;
-        $favoriteBooks = $user->favoriteBooks()->with(['image', 'author', 'category'])->paginate($paginate);
-
-        return response()->json(['success' => $favoriteBooks], $this->successStatus);
-    }
-
-    function addToFavoriteBooks(Request $request)
-    {
-        $user = \auth('api')->user();
-        $user->favoriteBooks()->attach($request->get('book'));
-        return response()->json(['success' => 'تم الاضافة الى المفضلة'], $this->successStatus);
-    }
-
-    public function editProfileImage(Request $request){
         $user = Auth::user();
 
         if (!$user) {
@@ -107,8 +92,8 @@ class UserController extends Controller
         }
 
         $request->validate([
-              'image'=>'mimes:jpeg,png,jpg,gif,svg'
-          ]);
+            'image' => 'mimes:jpeg,png,jpg,gif,svg'
+        ]);
 
         $user->image()->delete();
         $user->saveImage($request->file('image'));
@@ -167,9 +152,26 @@ class UserController extends Controller
             'image' => $user->image,
             'role' => $user->roles()->first()?->name,
         ];
-
-
         return response()->json(['success' => $success], $this->successStatus);
+    }
+
+    public function userBooks()
+    {
+        $user = Auth::user();
+        $books = $user->books()->with(['author', 'category', 'image'])->get();
+        return response()->json(['success' => $books], $this->successStatus);
+    }
+
+    public function checkBook($book_id)
+    {
+        $user = Auth::user();
+
+
+        return response()->json(
+            ['success' => $user->books()->where('book_id', $book_id)->exists()],
+            $this->successStatus
+        );
+
 
     }
 }

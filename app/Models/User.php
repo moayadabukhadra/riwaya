@@ -59,17 +59,10 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
-    public function bookmarks(): HasMany
+    public function books(): BelongsToMany
     {
-        return $this->hasMany(BookMark::class, 'user_id', 'id');
+        return $this->belongsToMany(Book::class, 'book_user', 'user_id', 'book_id');
     }
-
-    public function bookmarkedBooks(): belongsToMany
-    {
-        return $this->belongsToMany(Book::class, 'book_marks', 'user_id', 'book_id')->withPivot('bookmark_type_id');
-    }
-
-
 
 
 }
