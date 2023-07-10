@@ -40,7 +40,7 @@ class Comment extends Model
     protected static function booted()
     {
         static::addGlobalScope('user', function ($query) {
-            $query->with(['user', 'replies']);
+            $query->with(['user', 'replies','user.image']);
         });
     }
 
