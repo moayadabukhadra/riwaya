@@ -19,6 +19,7 @@ class Book extends Model
     use HasComments;
 
     protected $guarded = ['id'];
+    protected $with = ['image'];
 
 //    protected array $mapping= [
 //        'properties' => [
