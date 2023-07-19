@@ -39,7 +39,7 @@ class GetBooksData extends Command
         $number_of_pages = 2071;;
         $client = new Client();
         $book_img = [];
-        for ($i = 600; $i < $number_of_pages; $i++) {
+        for ($i = 650; $i < $number_of_pages; $i++) {
             $link = 'https://foulabook.com/ar/books?page=' . $i;
             try {
                 $crawler = $client->request('GET', $link);
