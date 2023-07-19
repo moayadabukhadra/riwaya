@@ -25,7 +25,6 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user?->id,
-            'password' => 'required|confirmed',
             'role_id' => 'required|exists:roles,id',
         ]);
         $user = User::updateOrCreate(
@@ -33,7 +32,7 @@ class UserController extends Controller
             [
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
-                'password' => bcrypt($request->get('password')),
+                'password' => $requset->get('password') ? bcrypt($request->get('password')) || bcrypt('123'),
             ]
         );
         if($request->get('role_id')){
