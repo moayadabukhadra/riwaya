@@ -36,7 +36,6 @@
     <div class="card card-page">
         <div class="card-body">
             <div class="row gy-5 g-xl-8">
-                <div class="col-xxl-6">
                     <div class="card card-xxl-stretch">
                         <div class="card-header border-0 pt-5 pb-3">
                         </div>
@@ -90,7 +89,6 @@
                         </div>
                         {{ $users->links() }}
                     </div>
-                </div>
             </div>
         </div>
     </div>

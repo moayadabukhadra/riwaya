@@ -45,6 +45,6 @@
                 </div>
             </div>
         </div>
-        <img class="col-6 d-none d-md-block" src="assets/images/background-auth.svg" alt="background">
+        <img class="col-12 col-md-6 d-none d-md-block" src="assets/images/background-auth.svg" alt="background">
     </div>
 @endsection

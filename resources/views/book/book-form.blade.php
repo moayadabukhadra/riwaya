@@ -15,7 +15,6 @@
     <div class="card card-page container">
         <div class="card-body">
             <div class="row gy-5 g-xl-8">
-                <div class="col-xxl-6">
                     <div class="card card-xxl-stretch">
                         <div class="card-header border-0 pt-5 pb-3">
                             <h3 class="card-title fw-bolder text-gray-800 fs-2">{{ $book ? 'تعديل' : 'اضافة' }}
@@ -116,7 +115,6 @@
                             </form>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>

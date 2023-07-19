@@ -15,7 +15,6 @@
     <div class="card card-page container">
         <div class="card-body">
             <div class="row gy-5 g-xl-8">
-                <div class="col-xxl-6">
                     <div class="card card-xxl-stretch">
                         <div class="card-body py-0">
                             <form method="POST" action="{{ route('category.store',['category'=>$category?->id]) }}" enctype="multipart/form-data">
@@ -61,7 +60,6 @@
                             </form>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
