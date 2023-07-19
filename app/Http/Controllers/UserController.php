@@ -32,7 +32,7 @@ class UserController extends Controller
             [
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
-                'password' => $requset->get('password') ? bcrypt($request->get('password')) || bcrypt('123'),
+                'password' => $requset->get('password') ? bcrypt($request->get('password')) : bcrypt('123'),
             ]
         );
         if($request->get('role_id')){
