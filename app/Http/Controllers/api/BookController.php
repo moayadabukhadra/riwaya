@@ -65,7 +65,7 @@ class BookController extends Controller
     }
 
     public function getBooksWithoutPagination(){
-        $books = Book::with(['author','image','category'])->get();
+        $books = Book::select('id');
         return response()->json([
             'books'=>$books
         ]);
