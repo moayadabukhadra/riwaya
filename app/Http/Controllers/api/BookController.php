@@ -65,7 +65,7 @@ class BookController extends Controller
     }
 
     public function getBooksWithoutPagination(){
-        $books = Book::select('id');
+        $books = Book::all()->pluck('id');
         return response()->json([
             'books'=>$books
         ]);
