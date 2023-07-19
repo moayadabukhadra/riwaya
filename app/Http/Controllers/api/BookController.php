@@ -63,4 +63,11 @@ class BookController extends Controller
     {
         return response()->download("riwaya/storage/app/public/books/{$book->file}");
     }
+
+    public function getBooksWithoutPagination(){
+        $books = Book::with(['author','image','category'])->get();
+        return response()->json([
+            'books'=>$books
+        ]);
+    }
 }

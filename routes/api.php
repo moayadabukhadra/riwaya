@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 /* Books*/
 Route::group(['name' => 'book'], function () {
     Route::get('books', [BookController::class, 'index'])->name('index');
+    Route::get('books/all',[BookController::class,'getBooksWithoutPagination'])->name('all-books');
     Route::prefix('book')->group(function () {
         Route::get('/latest', [BookController::class, 'latest'])->name('latest');
         Route::get('/most-read', [BookController::class, 'mostRead'])->name('most-read');
