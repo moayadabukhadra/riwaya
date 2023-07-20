@@ -183,7 +183,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        \Matchish\ScoutElasticSearch\ElasticSearchServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
